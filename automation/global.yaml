@@ -34,9 +34,6 @@
         - light.hall_5
         - light.skogang_1
         - light.skogang_2
-        - media_player.nvidia_shield
-        - media_player.q9fn
-        - media_player.str_dn1080_receiever
     - service: light.turn_on
       data:
         brightness_pct: 1
