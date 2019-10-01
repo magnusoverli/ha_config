@@ -1,0 +1,3 @@
+- platform: mill
+  username: !secret mill_username
+  password: !secret mill_password

@@ -1,0 +1,39 @@
+film_mode:
+  alias: Filmmodus
+  sequence:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: media_player.nvidia_shield
+    - service: homeassistant.turn_on
+      data:
+        entity_id: media_player.q9fn
+    - service: homeassistant.turn_on
+      data:
+        entity_id: media_player.str_dn1080_receiever
+    - service: light.turn_on
+      data:
+        entity_id: 
+          - light.stuelys
+          - light.hall_1
+          - light.hall_3
+          - light.hall_4
+          - light.hall_5
+        brightness_pct: 5
+        transition: 1
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.str_dn1080_receiever
+        source: "BD/DVD"
+    - service: light.turn_off
+      data:
+        entity_id: 
+          - light.hall_2
+          - light.stue_1
+          - light.stue_2
+    - delay:
+        seconds: 2
+    - service: androidtv.adb_command
+      data:
+        entity_id: media_player.nvidia_shield
+        command: "monkey -p com.plexapp.android -c android.intent.category.LAUNCHER 1"
+#        command: "am start -a android.intent.action.VIEW -d -n com.plexapp.android/com.plexapp.plex.activities.SplashActivity"

@@ -1,0 +1,46 @@
+- alias: 'Gå for dagen'
+  trigger:
+  - event_data:
+      scene_id: 2
+      node_id: 8
+    event_type: zwave.scene_activated
+    platform: event
+  action:
+    service: light.turn_off
+    entity_id:
+      - light.stuelys
+      - light.badelys
+      - light.entrelys
+      - light.bodlys
+      - light.kjokkenlys
+      - light.hallys
+- alias: 'God natt'
+  trigger:
+  - event_data:
+      scene_id: 1
+      node_id: 8
+    event_type: zwave.scene_activated
+    platform: event
+  action:
+    - service: homeassistant.turn_off
+      entity_id:
+        - light.stuelys
+        - light.kjokkenlys
+        - light.badelys
+        - light.bodlys
+        - light.hall_2
+        - light.hall_3
+        - light.hall_4
+        - light.hall_5
+        - light.skogang_1
+        - light.skogang_2
+        - media_player.nvidia_shield
+        - media_player.q9fn
+        - media_player.str_dn1080_receiever
+    - service: light.turn_on
+      data:
+        brightness_pct: 1
+        entity_id:
+          - light.hall_1
+          - light.skogang_3
+          - light.entre

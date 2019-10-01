@@ -1,0 +1,123 @@
+## KJØKKENLYS ##
+- alias: 'Kjøkkenlys PÅ'
+  trigger:
+    - platform: state
+      entity_id: light.kjokken_1
+      to: 'on'
+  action:
+    service: light.turn_on
+    entity_id:
+      - light.benkelys
+      - light.kjokkenspot
+- alias: 'Kjøkkenlys AV'
+  trigger:
+    - platform: state
+      entity_id: light.kjokken_1
+      to: 'off'
+  action:
+    service: light.turn_off
+    entity_id:
+      - light.benkelys
+      - light.kjokkenspot
+
+- alias: 'Kjøkkenlys PÅ - bevegelse'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.pir_kjokken_bevegelse
+      to: 'on'
+  action:
+    service: light.turn_on
+    entity_id:
+      - light.kjokkenlys
+- alias: 'Kjøkkenlys AV'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.pir_kjokken_bevegelse
+      to: 'off'
+      for:
+        minutes: 20
+  action:
+    service: light.turn_off
+    entity_id:
+      - light.kjokkenlys
+
+## UTELYS ##
+- alias: 'Utelys PÅ'
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: '-00:50:00'
+  action:
+    service: light.turn_on
+    entity_id:
+      - light.utelys
+- alias: 'Utelys AV'
+  trigger:
+    - platform: sun
+      event: sunrise
+      offset: '00:50:00'
+  action:
+    - service: light.turn_off
+      entity_id: light.utelys
+    - delay: 00:02
+    - service: light.turn_off
+      entity_id: light.utelys
+
+## STUELYS ##
+- alias: 'Stuelys PÅ'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.pir_stue_bevegelse
+      to: 'on'
+  condition:
+  - condition: state
+    entity_id: media_player.q9fn
+    state: 'off'
+  action:
+    service: light.turn_on
+    entity_id:
+      - light.stue_1
+      - light.stue_2
+      - light.stue_3
+      - light.stue_4
+      - light.stue_5
+
+- alias: 'Stuelys AV'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.pir_stue_bevegelse
+      to: 'off'
+      for:
+        minutes: 25
+  condition:
+  - condition: state
+    entity_id: media_player.q9fn
+    state: 'off'
+  action:
+    service: light.turn_off
+    entity_id:
+      - light.stue_1
+      - light.stue_2
+      - light.stue_3
+      - light.stue_4
+      - light.stue_5
+
+
+- alias: Gangspot PÅ
+  trigger:
+    - platform: state
+      entity_id: light.hall_3
+      to: 'on'
+  action:
+    service: light.turn_on
+    entity_id:
+      - light.gangspot
+- alias: Gangspot AV
+  trigger:
+    - platform: state
+      entity_id: light.hall_3
+      to: 'off'
+  action:
+    service: light.turn_off
+    entity_id:
+      - light.gangspot

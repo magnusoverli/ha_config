@@ -1,0 +1,24 @@
+- id: '1566082347935'
+  alias: Gangspot PÅ
+  trigger:
+  - entity_id: light.bod_1
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.gangspot
+    service: homeassistant.turn_on
+- id: '1566082424988'
+  alias: Gangspot PÅ
+  trigger:
+  - entity_id: light.bod_1
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.gangspot
+    service: light.turn_on

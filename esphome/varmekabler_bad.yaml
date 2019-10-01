@@ -1,0 +1,76 @@
+substitutions:
+  devicename: varmekabler_bad
+  upper_devicename: Varmekabler Bad
+
+esphome:
+  name: "$devicename"
+  platform: ESP8266
+  board: esp01_1m
+  board_flash_mode: dout
+
+wifi:
+  reboot_timeout: 10min
+  networks:
+  - ssid: 'IoT2'
+    password: !secret wifi_password
+
+logger:
+  baud_rate: 0
+
+uart:
+  rx_pin: RX
+  baud_rate: 4800
+
+api:
+  password: !secret api_password
+  reboot_timeout: 0s
+
+ota:
+  password: !secret ota_password
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+
+######################################################################
+
+sensor:
+  - platform: wifi_signal
+    name: "$upper_devicename WiFi Signal"
+    update_interval: 10s
+
+  - platform: uptime
+    name: "$upper_devicename Uptime"
+
+  - platform: cse7766
+    current:
+      name: "$upper_devicename Strom"
+    voltage:
+      name: "$upper_devicename Spenning"
+    power:
+      name: "$upper_devicename Effekt"
+      unit_of_measurement: W
+      id: ${devicename}_power
+      filters:
+        - lambda: if (x < 1.5 ) return 0; else return (x - 1);
+    update_interval: 10s
+
+  - platform: total_daily_energy
+    name: "$upper_devicename Dagsforbruk"
+    power_id: ${devicename}_power
+    filters:
+      - multiply: 0.001
+    unit_of_measurement: kWh
+
+text_sensor:
+  - platform: version
+    name: "$upper_devicename version"
+
+switch:
+  - platform: restart
+    name: "$upper_devicename Restart"
+  - platform: gpio
+    name: ${upper_devicename}
+    id: ${devicename}_Relay
+    pin: GPIO12
+    restore_mode: ALWAYS_ON

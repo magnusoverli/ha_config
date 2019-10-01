@@ -1,0 +1,8 @@
+- alias: filmmodus
+  trigger:
+    platform: state
+    entity_id: binary_sensor.movie_button_2
+    to: 'on'
+  action:
+    service: script.turn_on
+    entity_id: script.film_mode

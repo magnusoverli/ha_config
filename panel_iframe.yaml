@@ -1,0 +1,20 @@
+forbruk:
+  title: 'Forbruk'
+  url: 'https://grafana.magnusoverli.duckdns.org/d/oaeDViIWz/forbruk?orgId=1&theme=light&kiosk&refresh=3s'
+  icon: mdi:finance
+sonarr:
+  title: TV-Shows
+  url: 'https://sonarr.magnusoverli.duckdns.org'
+  icon: mdi:youtube-tv
+transmission:
+  title: Transmission
+  url: 'https://transmission.magnusoverli.duckdns.org'
+  icon: mdi:transfer-down
+synne:
+  title: Synne
+  url: 'https://synne.magnusoverli.duckdns.org'
+  icon: mdi:nas
+radarr:
+  title: Movies
+  url: 'https://radarr.magnusoverli.duckdns.org'
+  icon: mdi:filmstrip

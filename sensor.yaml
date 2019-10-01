@@ -1,0 +1,114 @@
+- platform: template
+  sensors:
+
+
+## TIBBER ##
+    electricity_price_furulien_18_percent:
+      friendly_name: "Strømpris %"
+      unit_of_measurement: '%'
+      value_template: >-
+        {% set max = states.sensor.electricity_price_furulien_18.attributes.max_price | float %}
+        {% set cur = states.sensor.electricity_price_furulien_18.state | float %}
+        {% set min = states.sensor.electricity_price_furulien_18.attributes.min_price | float %}
+          {{ ((cur - min) / ((max - min) / 100)) | round(0)}}
+    electricity_price_furulien_18_daily_usage:
+      friendly_name: Dagforbruk
+      unit_of_measurement: kWh
+      value_template: "{{ state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') }}"
+
+## PANELOVN ##
+    panelovn_gjesterom_kwh:
+      friendly_name: 'Panelovn Gjesterom Forbruk kWh'
+      unit_of_measurement: 'kWh'
+      value_template: "{{ (states.sensor.panelovn_gjesterom.state) | float * 0.001}}"
+
+## ANDEL ##
+    av_andel:
+      friendly_name: "AV Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.av_daily_energy') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
+    it_andel:
+      friendly_name: "IT Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.it_daily_energy') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
+    varmtvannsbereder_andel:
+      friendly_name: "Varmtvannsbereder Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.varmtvannsbereder_dagsforbruk') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
+    torketrommel_andel:
+      friendly_name: "Varmtvannsbereder Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.torketrommel_dagsforbruk') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
+    vaskemaskin_andel:
+      friendly_name: "Varmtvannsbereder Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.vaskemaskin_dagsforbruk') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
+    komfyr_andel:
+      friendly_name: "Komfyr Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.komfyr_dagsforbruk') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
+    oppvaskmaskin_andel:
+      friendly_name: "Oppvaskmaskin Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.oppvaskmaskin_dagsforbruk') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
+    panelovn_stue_andel:
+      friendly_name: "Panelovn Stue Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.panelovn_stue_meter') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
+    panelovn_gjesterom_andel:
+      friendly_name: "Gjesterom Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.panelovn_gjesterom_meter') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
+    fryser_andel:
+      friendly_name: "Fryser Andel"
+      unit_of_measurement: "%"
+      value_template: "{{ ((states('sensor.fryser_daily_energy') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
+    kjoleskap_andel:
+      friendly_name: "Kjøleskap Andel"
+      unit_of_measurement: "%"
+      value_template: "{{ ((states('sensor.kjoleskap_daily_energy') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
+    varmekabler_bad_andel:
+      friendly_name: "Varmekabler Bad Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.varmekabler_bad_dagsforbruk') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
+    restforbruk:
+      friendly_name: 'Rest'
+      unit_of_measurement: '%'
+      value_template: "{{ 100 - ( (states('sensor.it_andel') | float) + (states('sensor.av_andel') | float) + (states('sensor.varmekabler_bad_andel') | float) + (states('sensor.komfyr_andel') | float ) + (states('sensor.oppvaskmaskin_andel') | float ) + (states('sensor.panelovn_stue_andel') | float ) + (states('sensor.torketrommel_andel') | float ) + (states('sensor.varmtvannsbereder_andel') | float ) + (states('sensor.vaskemaskin_andel') | float ) + (states('sensor.panelovn_gjesterom_andel') | float ) + (states('sensor.kjoleskap_andel') | float) + (states('sensor.fryser_andel') | float) ) | round(2) }}"
+
+    panelovn_gjest_filtered:
+      friendly_name: Panelovn Gjest Filtered
+      value_template: >-
+        {% set x = states('sensor.aeon_labs_zw096_smart_switch_6_power')|float %} {{ x if x >= 1.5 else 0 }}
+
+    panelovn_stue_filtered:
+      friendly_name: Panelovn Stue Filtered
+      value_template: >-
+        {% set x = states('sensor.fibaro_system_fgwpe_f_wall_plug_gen5_power')|float %} {{ x if x >= 3 else 0 }}
+
+## REST EFFEKT##
+    rest_effekt:
+      friendly_name: Rest Effekt
+      unit_of_measurement: 'W'
+      value_template: "{{ (states.sensor.real_time_consumption_furulien_18.state | float ) - (( states.sensor.aeon_labs_zw096_smart_switch_6_power.state | float) + (states.sensor.av_power.state | float) + (states.sensor.fibaro_system_fgwpe_f_wall_plug_gen5_power.state | float) + (states.sensor.fryser_power.state | float) + (states.sensor.it_power.state | float) + (states.sensor.kjoleskap_power.state | float) + (states.sensor.komfyr_effekt.state | float) + (states.sensor.oppvaskmaskin_effekt.state | float) + (states.sensor.torketrommel_effekt.state | float) + (states.sensor.varmekabler_bad_effekt.state | float) + (states.sensor.varmtvannsbereder_effekt.state | float) + (states.sensor.vaskemaskin_effekt.state | float)) | round()}}"
+    delta_rest:
+      friendly_name: Delta Rest Effekt
+      unit_of_measurement: 'W'
+      value_template: "{{ ((states.sensor.real_time_consumption_furulien_18.state | float) - (states.sensor.rest_effekt.state | float)) }}"
+## VÆR ##
+- platform: yr
+  name: Yr
+  monitored_conditions:
+    - temperature

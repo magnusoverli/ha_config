@@ -1,0 +1,46 @@
+substitutions:
+  devicename: pir_bad
+  upper_devicename: PIR Bad
+
+esphome:
+  name: "$devicename"
+  platform: ESP8266
+  board: nodemcuv2
+
+wifi:
+  networks:
+  - ssid: 'IoT2'
+    password: !secret wifi_password
+
+logger:
+api:
+  password: !secret api_password
+ota:
+  password: !secret ota_password
+
+##############################################################
+
+binary_sensor:
+## The connected VMA314 PIR sensor ##
+  - platform: gpio
+    pin:
+      number: D1
+      mode: INPUT_PULLDOWN_16
+    name: "$upper_devicename Bevegelse"
+    device_class: motion
+
+sensor:
+## WiFi signal strenght sensor ##
+  - platform: wifi_signal
+    name: "$upper_devicename WiFi Signal"
+    update_interval: 60s
+
+## Device firmware sensor ##
+text_sensor:
+  - platform: version
+    name: "$upper_devicename Version"
+
+## Switch to restart the device ##
+switch:
+  - platform: restart
+    name: "$upper_devicename Restart"

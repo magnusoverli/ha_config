@@ -1,0 +1,122 @@
+## TEMPLATE LIGHTS ##
+- platform: template
+  lights:
+    benkelys:
+      friendly_name: "Benkelys"
+      value_template: >-
+        {% if is_state('switch.benkelys', 'on') %}
+          on
+        {% else %}
+          off
+        {% endif %}
+      turn_on:
+        service: homeassistant.turn_on
+        data:
+          entity_id: switch.benkelys
+      turn_off:
+        service: homeassistant.turn_off
+        data:
+          entity_id: switch.benkelys
+
+    kjokkenspot:
+      friendly_name: "Kjøkkenspot"
+      value_template: >-
+        {% if is_state('switch.kjokkenspot', 'on') %}
+          on
+        {% else %}
+          off
+        {% endif %}
+      turn_on:
+        service: homeassistant.turn_on
+        data:
+          entity_id: switch.kjokkenspot
+      turn_off:
+        service: homeassistant.turn_off
+        data:
+          entity_id: switch.kjokkenspot
+
+    gangspot:
+      friendly_name: "Gangspot"
+      value_template: >-
+        {% if is_state('switch.gangspot', 'on') %}
+          on
+        {% else %}
+          off
+        {% endif %}
+      turn_on:
+        service: homeassistant.turn_on
+        data:
+          entity_id: switch.gangspot
+      turn_off:
+        service: homeassistant.turn_off
+        data:
+          entity_id: switch.gangspot
+
+## LIGHT GROUPS ##
+- platform: group
+  name: Utelys
+  entities:
+    - light.trapp_1
+    - light.trapp_2
+    - light.taktaresse_1
+    - light.taktaresse_2
+    - light.domitech_smart_led_retrofit_kit_ze27eu_level
+
+- platform: group
+  name: Stuelys
+  entities:
+    - light.stue_1
+    - light.stue_2
+    - light.stue_3
+    - light.stue_4
+    - light.stue_5
+
+- platform: group
+  name: Kjokkenlys
+  entities:
+    - light.kjokken_1
+    - light.kjokken_2
+    - light.kjokken_3
+    - light.kjokken_4
+    - light.kjokken_5
+    - light.kjokkenspot
+
+- platform: group
+  name: Badelys
+  entities:
+    - light.bad_1
+    - light.bad_2
+    - light.bad_3
+    - light.bad_4
+    - light.bad_5
+    - light.bad_speil
+
+- platform: group
+  name: Bodlys
+  entities:
+    - light.bod_1
+    - light.bod_2
+
+- platform: group
+  name: Hallys
+  entities:
+    - light.hall_1
+    - light.hall_2
+    - light.hall_3
+    - light.hall_4
+    - light.hall_5
+
+- platform: group
+  name: Soveromslys
+  entities:
+    - light.soverom_1
+    - light.soverom_2
+    - light.soverom_3
+
+- platform: group
+  name: Entrelys
+  entities:
+    - light.skogang_1
+    - light.skogang_2
+    - light.skogang_3
+    - light.entre

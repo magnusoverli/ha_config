@@ -1,0 +1,80 @@
+substitutions:
+  devicename: pir_stue
+  upper_devicename: PIR Stue
+
+esphome:
+  name: "$devicename"
+  platform: ESP32
+  board: nodemcu-32s
+
+wifi:
+  networks:
+  - ssid: 'IoT2'
+    password: !secret wifi_password
+
+logger:
+api:
+  password: !secret api_password
+ota:
+  password: !secret ota_password
+
+##############################################################
+
+## Enable the BLE-chip on the device ##
+esp32_ble_tracker:
+  scan_interval: 300s
+
+binary_sensor:
+## The connected VMA314 PIR sensor ##
+  - platform: gpio
+    pin:
+      number: GPIO12
+      mode: INPUT_PULLDOWN
+    name: "$upper_devicename Bevegelse"
+    device_class: motion
+    filters:
+      - delayed_on: 1s
+      - delayed_off: 40s
+
+sensor:
+## WiFi signal strenght sensor ##
+  - platform: wifi_signal
+    name: "$upper_devicename WiFi Signal"
+    update_interval: 120s
+
+## The connected AM2302 Temperature/Humidity sensor ##
+  - platform: dht
+    pin: GPIO2
+    model: AM2302
+    temperature:
+      name: "$upper_devicename Temperatur"
+      filters:
+        - lambda: return x - 2.0;
+        - sliding_window_moving_average:
+            window_size: 3
+            send_every: 1
+    humidity:
+      name: "$upper_devicename Fuktighet"
+    update_interval: 30s
+
+## Tracking data from MiFlora BLE sensor ##
+  - platform: xiaomi_miflora
+    mac_address: "C4:7C:8D:67:41:52"
+    temperature:
+      name: "Sitrontre Temperatur"
+    moisture:
+      name: "Sitrontre Fuktighet"
+    illuminance:
+      name: "Sitrontre Lys"
+    conductivity:
+      name: "Sitrontre Næring"
+
+## Device firmware sensor ##
+text_sensor:
+  - platform: version
+    name: "$upper_devicename Version"
+
+## Switch to restart the device ##
+switch:
+  - platform: restart
+    name: "$upper_devicename Restart"
