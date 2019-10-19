@@ -43,3 +43,9 @@ god_natt:
   - service: automation.trigger
     data:
       entity_id: automation.god_natt
+
+ga_for_dagen:
+  alias: Gå for dagen
+  sequence:
+  - service: automation.trigger
+    entity_id: automation.ga_for_dagen

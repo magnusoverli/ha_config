@@ -41,3 +41,12 @@
           - light.hall_1
           - light.skogang_3
           - light.entre
+- id: '1571509382427'
+  alias: Create Snapshot
+  description: ''
+  trigger:
+  - at: 00:00:00
+    platform: time
+  condition: []
+  action:
+    service: hassio.snapshot_full

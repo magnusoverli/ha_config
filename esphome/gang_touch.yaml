@@ -1,6 +1,6 @@
 substitutions:
-  devicename: ina219
-  upper_devicename: INA219
+  devicename: gang_touch
+  upper_devicename: Gang Touch
 
 esphome:
   name: "$devicename"
@@ -20,43 +20,26 @@ ota:
   password: !secret ota_password
 
 ##############################################################
-i2c:
-  sda: 21
-  scl: 22
-  scan: True
-  id: bus_a
-
+binary_sensor:
+  - platform: gpio
+    pin: 21
+    name: "Gang Touch"
+    filters:
+      - delayed_on: 40ms
+      - delayed_off: 150ms
 sensor:
 ## WiFi signal strenght sensor ##
   - platform: wifi_signal
     name: "$upper_devicename WiFi Signal"
     update_interval: 60s
 
-
-
-  - platform: ina219
-    current:
-      name: "INA219 Current"
-    power:
-      name: "INA219 Power"
-    bus_voltage:
-      name: "INA219 Bus Voltage"
-    shunt_voltage:
-      name: "INA219 Shunt Voltage"
-    update_interval: 5s
-    max_voltage: 26.0V
-    max_current: 3.2A
-    shunt_resistance: 0.1 ohm
-
-
-
-## Device firmware sensor ##
 text_sensor:
+## Device firmware sensor ##
   - platform: version
     name: "$upper_devicename Version"
 
-## Switch to restart the device ##
 switch:
+## Switch to restart the device ##
   - platform: restart
     name: "$upper_devicename Restart"
 ##############################################################
