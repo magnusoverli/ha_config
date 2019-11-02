@@ -48,11 +48,19 @@ sensor:
       name: "$upper_devicename Spenning"
     power:
       name: "$upper_devicename Effekt"
-      filters:
-        - lambda: if (x < 3.14 ) return 0; else return (x - 1.14);
       unit_of_measurement: W
       id: ${devicename}_power
-    update_interval: 30s
+      filters:
+        - calibrate_linear:
+            - 1 -> 0.21
+            - 6.2 -> 6.64
+            - 12.4 -> 14.2
+            - 131.4 -> 153
+            - 441.7 -> 515
+            - 949.5 -> 1106
+            - 1526.7 -> 1780
+        - lambda: if (x < 3.14 ) return 0; else return (x - 1.14);
+    update_interval: 5s
 
   - platform: total_daily_energy
     name: "$upper_devicename Dagsforbruk"

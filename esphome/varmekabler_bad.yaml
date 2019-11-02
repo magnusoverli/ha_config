@@ -48,12 +48,22 @@ sensor:
     voltage:
       name: "$upper_devicename Spenning"
     power:
-      name: "$upper_devicename Effekt"
-      unit_of_measurement: W
       id: ${devicename}_power
+      name: "$upper_devicename Power"
+      unit_of_measurement: W
+      accuracy_decimals: 1
       filters:
-        - lambda: if (x < 1.5 ) return 0; else return (x - 1);
-    update_interval: 10s
+        - calibrate_linear:
+            - 0.7 -> 1.7
+            - 2.5 -> 3.9
+            - 10 -> 11.9
+            - 148.9 -> 157.4
+            - 288 -> 303
+            - 501 -> 525
+            - 989.3 -> 1040
+            - 1525 -> 1600
+        - lambda: if (x < (1 + 0.8)) return 0; else return (x - 0.8);
+    update_interval: 5s
 
   - platform: total_daily_energy
     name: "$upper_devicename Dagsforbruk"

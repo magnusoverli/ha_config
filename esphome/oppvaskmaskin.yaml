@@ -50,8 +50,16 @@ sensor:
       unit_of_measurement: W
       id: ${devicename}_power
       filters:
-        - lambda: if (x < 3.14 ) return 0; else return (x - 1.14);
-    update_interval: 30s
+        - calibrate_linear:
+            - 1 -> 0.21
+            - 6.2 -> 6.64
+            - 12.4 -> 14.2
+            - 131.4 -> 153
+            - 441.7 -> 515
+            - 949.5 -> 1106
+            - 1526.7 -> 1780
+        - lambda: if (x < (1 + 0.25)) return 0; else return (x - 0.25);
+    update_interval: 5s
 
   - platform: total_daily_energy
     name: "$upper_devicename Dagsforbruk"

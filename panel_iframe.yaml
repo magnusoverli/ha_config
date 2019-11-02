@@ -1,6 +1,6 @@
 forbruk:
   title: 'Forbruk'
-  url: 'https://grafana.magnusoverli.duckdns.org/d/oaeDViIWz/forbruk?orgId=1&theme=light&kiosk&refresh=3s'
+  url: 'https://hassio.magnusoverli.duckdns.org/api/hassio_ingress/CES9egtnCZiXU92Vq0mz8W1v1KXGY8jEAWVu_Ay4RVg/d/oaeDViIWz/forbruk?orgId=1&theme=light&kiosk&refresh=3s'
   icon: mdi:finance
 sonarr:
   title: TV-Shows

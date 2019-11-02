@@ -102,7 +102,7 @@
     rest_effekt:
       friendly_name: Rest Effekt
       unit_of_measurement: 'W'
-      value_template: "{{ (states.sensor.real_time_consumption_furulien_18.state | float ) - (( states.sensor.aeon_labs_zw096_smart_switch_6_power.state | float) + (states.sensor.av_power.state | float) + (states.sensor.fibaro_system_fgwpe_f_wall_plug_gen5_power.state | float) + (states.sensor.fryser_power.state | float) + (states.sensor.it_power.state | float) + (states.sensor.kjoleskap_power.state | float) + (states.sensor.komfyr_effekt.state | float) + (states.sensor.oppvaskmaskin_effekt.state | float) + (states.sensor.torketrommel_effekt.state | float) + (states.sensor.varmekabler_bad_effekt.state | float) + (states.sensor.varmtvannsbereder_effekt.state | float) + (states.sensor.vaskemaskin_effekt.state | float)) | round()}}"
+      value_template: "{{ (states.sensor.real_time_consumption_furulien_18.state | float ) - (( states.sensor.aeon_labs_zw096_smart_switch_6_power.state | float) + (states.sensor.av_power.state | float) + (states.sensor.fibaro_system_fgwpe_f_wall_plug_gen5_power.state | float) + (states.sensor.fryser_power.state | float) + (states.sensor.it_power.state | float) + (states.sensor.kjoleskap_effekt.state | float) + (states.sensor.komfyr_effekt.state | float) + (states.sensor.oppvaskmaskin_effekt.state | float) + (states.sensor.torketrommel_effekt.state | float) + (states.sensor.varmekabler_bad_power.state | float) + (states.sensor.varmtvannsbereder_effekt.state | float) + (states.sensor.vaskemaskin_effekt.state | float)) | round()}}"
     delta_rest:
       friendly_name: Delta Rest Effekt
       unit_of_measurement: 'W'
