@@ -11,7 +11,6 @@ influxdb: !include influxdb.yaml
 input_select: !include input_select.yaml
 light: !include light.yaml
 media_player: !include media_player.yaml
-mqtt: !include mqtt.yaml
 notify: !include notify.yaml
 panel_iframe: !include panel_iframe.yaml
 recorder: !include recorder.yaml
