@@ -106,7 +106,7 @@
 - alias: Gangspot PÅ
   trigger:
     - platform: state
-      entity_id: light.hall_3
+      entity_id: light.hall_1_2
       to: 'on'
   action:
     service: light.turn_on
@@ -115,7 +115,7 @@
 - alias: Gangspot AV
   trigger:
     - platform: state
-      entity_id: light.hall_3
+      entity_id: light.hall_1_2
       to: 'off'
   action:
     service: light.turn_off

@@ -13,7 +13,15 @@
       - light.entrelys
       - light.bodlys
       - light.kjokkenlys
-      - light.hallys
+      - light.hall_1_2
+      - light.hall_2_2
+      - light.hall_4_2
+      - light.hall_5_2
+      - light.hall_6
+      - light.skogang_1_2
+      - light.skogang_2_2
+      - light.skogang_3_2
+      - light.entre_2
 - alias: 'God natt'
   trigger:
   - event_data:
@@ -28,19 +36,21 @@
         - light.kjokkenlys
         - light.badelys
         - light.bodlys
-        - light.hall_2
-        - light.hall_3
-        - light.hall_4
-        - light.hall_5
-        - light.skogang_1
-        - light.skogang_2
+        - light.hall_1_2
+        - light.hall_2_2
+        - light.hall_4_2
+        - light.hall_5_2
+        - light.hall_6
+        - light.skogang_1_2
+        - light.skogang_2_2
+        - light.skogang_3_2
+        - light.entre_2
     - service: light.turn_on
       data:
         brightness_pct: 1
         entity_id:
-          - light.hall_1
-          - light.skogang_3
-          - light.entre
+          - light.hall_2_2
+          - light.entre_2
 - id: '1571509382427'
   alias: Create Snapshot
   description: ''
