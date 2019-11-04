@@ -10,3 +10,26 @@
     service: hassio.snapshot_full
     data_template:
       name: Hassio ({{now().strftime('%d.%m.%y')}})
+- id: '1572903565821'
+  alias: New Automation
+  description: ''
+  trigger:
+  - device_id: 1b01f0993b5a4ba686281fed7fdea33e
+    domain: deconz
+    platform: device
+    subtype: turn_on
+    type: remote_button_short_press
+  condition: []
+  action:
+  - data:
+      entity_id:
+      - light.skogang_1_2
+      - light.skogang_2_2
+      - light.skogang_3_2
+      - light.hall_1_2
+      - light.hall_2_2
+      - light.hall_4_2
+      - light.hall_5_2
+      - light.hall_6
+      - light.entre_2
+    service: light.toggle

@@ -1,4 +1,4 @@
-automation old: !include_dir_merge_list automation/
+automation: !include_dir_merge_list automation/
 climate: !include climate.yaml
 default_config:
 frontend:
