@@ -8,7 +8,11 @@
   action:
     service: light.turn_off
     entity_id:
-      - light.stuelys
+      - light.stue_salong
+      - light.stue_spisebord
+      - light.stue_spot_1
+      - light.stue_spot_2
+      - light.stue_spot_3
       - light.badelys
       - light.entrelys
       - light.bodlys
@@ -32,7 +36,11 @@
   action:
     - service: homeassistant.turn_off
       entity_id:
-        - light.stuelys
+        - light.stue_salong
+        - light.stue_spisebord
+        - light.stue_spot_1
+        - light.stue_spot_2
+        - light.stue_spot_3
         - light.kjokkenlys
         - light.badelys
         - light.bodlys
