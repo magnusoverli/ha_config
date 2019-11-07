@@ -144,7 +144,7 @@
       entity_id: switch.varmtvannsbereder
       to: 'off'
       for:
-        minutes: 120
+        minutes: 150
   action:
     - service: switch.turn_on
       entity_id: switch.varmtvannsbereder
