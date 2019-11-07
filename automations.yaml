@@ -37,15 +37,15 @@
       brightness: '{% set bri = state_attr("light.hall_6", "brightness") | int %}
         {{ [bri+30, 249] | min }}'
       entity_id:
-        - light.skogang_1_2
-        - light.skogang_2_2
-        - light.skogang_3_2
-        - light.hall_1_2
-        - light.hall_2_2
-        - light.hall_4_2
-        - light.hall_5_2
-        - light.hall_6
-        - light.entre_2
+      - light.skogang_1_2
+      - light.skogang_2_2
+      - light.skogang_3_2
+      - light.hall_1_2
+      - light.hall_2_2
+      - light.hall_4_2
+      - light.hall_5_2
+      - light.hall_6
+      - light.entre_2
     service: light.turn_on
 - id: '1572906572164'
   alias: Hall Dim Down
@@ -63,13 +63,115 @@
       brightness: '{% set bri = state_attr("light.hall_6", "brightness") | int %}
         {{ [bri-30, 0] | max }}'
       entity_id:
-        - light.skogang_1_2
-        - light.skogang_2_2
-        - light.skogang_3_2
-        - light.hall_1_2
-        - light.hall_2_2
-        - light.hall_4_2
-        - light.hall_5_2
-        - light.hall_6
-        - light.entre_2
+      - light.skogang_1_2
+      - light.skogang_2_2
+      - light.skogang_3_2
+      - light.hall_1_2
+      - light.hall_2_2
+      - light.hall_4_2
+      - light.hall_5_2
+      - light.hall_6
+      - light.entre_2
     service: light.turn_on
+- id: '1572986640265'
+  alias: Benkelys AV
+  description: ''
+  trigger:
+  - device_id: 87e10d01275141cd90a5bbdb54e4e2ac
+    domain: light
+    entity_id: light.kjokken_1_2
+    platform: device
+    type: turned_off
+  condition: []
+  action:
+  - data:
+      entity_id: light.benkelys
+    service: light.turn_off
+- id: '1572986724462'
+  alias: Benkelys PÅ
+  description: ''
+  trigger:
+  - device_id: 87e10d01275141cd90a5bbdb54e4e2ac
+    domain: light
+    entity_id: light.kjokken_1_2
+    platform: device
+    type: turned_on
+  condition: []
+  action:
+  - data:
+      entity_id: light.benkelys
+    service: light.turn_on
+- id: '1572989735371'
+  alias: Stue Dim Down Lights
+  description: ''
+  trigger:
+  - device_id: 71eefca2c8fc4148b9716a4fc1c0335d
+    domain: deconz
+    platform: device
+    subtype: left
+    type: remote_button_rotated
+  condition: []
+  action:
+    data_template:
+      brightness: '{% set bri = state_attr("light.stue_salong", "brightness") | int
+        %} {{ [bri-45, 0] | max }}'
+      entity_id:
+      - light.stue_salong
+      - light.stue_spisebord
+      - light.stue_spot_1
+      - light.stue_spot_2
+      - light.stue_spot_3
+    service: light.turn_on
+- id: '1572989796854'
+  alias: Stue Dim Up Lights
+  description: ''
+  trigger:
+  - device_id: 71eefca2c8fc4148b9716a4fc1c0335d
+    domain: deconz
+    platform: device
+    subtype: right
+    type: remote_button_rotated
+  condition: []
+  action:
+    data_template:
+      brightness: '{% set bri = state_attr("light.stue_salong", "brightness") | int
+        %} {{ [bri+45, 249] | min }}'
+      entity_id:
+      - light.stue_spot_1
+      - light.stue_spot_2
+      - light.stue_spot_3
+      - light.stue_salong
+      - light.stue_spisebord
+    service: light.turn_on
+- id: '1573065306868'
+  alias: Badelys Auto På
+  description: ''
+  trigger:
+  - device_id: ed3ef7ed848c4ad9935d9c60665221e2
+    domain: binary_sensor
+    entity_id: binary_sensor.aeon_labs_zw100_multisensor_6_sensor
+    platform: device
+    type: turned_on
+  condition: []
+  action:
+  - data:
+      entity_id: light.bad
+    service: light.turn_on
+- id: '1573065341392'
+  alias: Badelys Auto Av
+  description: ''
+  trigger:
+  - device_id: ed3ef7ed848c4ad9935d9c60665221e2
+    domain: binary_sensor
+    entity_id: binary_sensor.aeon_labs_zw100_multisensor_6_sensor
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition: []
+  action:
+  - data:
+      entity_id: light.bad
+    service: light.turn_off

@@ -60,7 +60,7 @@ sensor:
             - 949.5 -> 1106
             - 1526.7 -> 1780
         - lambda: if (x < 3.14 ) return 0; else return (x - 1.14);
-    update_interval: 5s
+    update_interval: 10s
 
   - platform: total_daily_energy
     name: "$upper_devicename Dagsforbruk"

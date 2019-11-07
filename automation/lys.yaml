@@ -70,9 +70,14 @@
       entity_id: binary_sensor.pir_stue_bevegelse
       to: 'on'
   condition:
-  - condition: state
-    entity_id: media_player.q9fn
-    state: 'off'
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: media_player.q9fn
+        state: 'off'
+      - condition: time
+        after: '06:15:00'
+        before: '23:00:00'
   action:
     service: light.turn_on
     entity_id:
@@ -88,7 +93,7 @@
       entity_id: binary_sensor.pir_stue_bevegelse
       to: 'off'
       for:
-        minutes: 25
+        minutes: 20
   condition:
   - condition: state
     entity_id: media_player.q9fn
