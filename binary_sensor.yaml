@@ -5,4 +5,4 @@
       entity_id: sensor.aeon_labs_zw100_multisensor_6_relative_humidity
       device_class: occupancy
       max_samples: 4
-      min_gradient: 0.03
+      min_gradient: 0.018
