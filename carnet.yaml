@@ -1,6 +1,0 @@
-username: !secret gte_username
-password: !secret gte_password
-scan_interval: 
-    minutes: 2
-name:
-    wvwzzz3czle033777: 'Passat GTE'
