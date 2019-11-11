@@ -11,6 +11,10 @@ http: !include http.yaml
 influxdb: !include influxdb.yaml
 input_select: !include input_select.yaml
 light: !include light.yaml
+logger:
+  default: info
+  logs:
+    custom_components.volkswagencarnet: debug
 media_player: !include media_player.yaml
 notify: !include notify.yaml
 panel_iframe: !include panel_iframe.yaml
@@ -33,6 +37,6 @@ volkswagencarnet:
     username: !secret gte_username
     password: !secret gte_password
     scan_interval: 
-        minutes: 2
+        minutes: 1
     name:
-        WVWZZZ3CZLE033777: 'Passat GTE'
+        wvwzzz3czle033777: 'Passat GTE'
