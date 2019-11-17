@@ -12,6 +12,12 @@ influxdb: !include influxdb.yaml
 input_select: !include input_select.yaml
 light: !include light.yaml
 logger:
+<<<<<<< HEAD
+=======
+  default: info
+  logs:
+    custom_components.volkswagencarnet: debug
+>>>>>>> 2c005d749ec65203c8fe8ea823a7614a765151ae
 media_player: !include media_player.yaml
 notify: !include notify.yaml
 panel_iframe: !include panel_iframe.yaml
@@ -23,4 +29,21 @@ telegram_bot: !include telegram_bot.yaml
 tibber: !include tibber.yaml
 unifi: !include unifi.yaml
 utility_meter: !include utility_meter.yaml
+<<<<<<< HEAD
 volkswagencarnet: !include carnet.yaml
+=======
+#volkswagencarnet:
+#  username: !secret gte_username
+#  password: !secret gte_password
+#  scan_interval:
+#    minutes: 2
+#  name:
+#    wvwzzz3czle033777: 'Passat GTE'
+volkswagencarnet:
+    username: !secret gte_username
+    password: !secret gte_password
+    scan_interval: 
+        minutes: 1
+    name:
+        wvwzzz3czle033777: 'Passat GTE'
+>>>>>>> 2c005d749ec65203c8fe8ea823a7614a765151ae
