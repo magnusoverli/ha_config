@@ -1,3 +1,3 @@
 purge_keep_days: 15
 purge_interval: 1
-db_url: !include recorder_db_url
+db_url: !secret recorder_db_url
