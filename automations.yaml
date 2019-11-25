@@ -1,184 +1,279 @@
-- id: '1572905926846'
-  alias: Light Hall Toggle
-  description: ''
+- alias: Tørketrommel kjører
   trigger:
-  - device_id: 1b01f0993b5a4ba686281fed7fdea33e
-    domain: deconz
-    platform: device
-    subtype: turn_on
-    type: remote_button_short_press
-  condition: []
-  action:
-  - data:
-      entity_id:
-      - light.hall_1_2
-      - light.hall_2_2
-      - light.hall_4_2
-      - light.hall_5_2
-      - light.hall_6
-      - light.skogang_1_2
-      - light.skogang_2_2
-      - light.skogang_3_2
-      - light.entre_2
-    service: light.toggle
-- id: '1572906572264'
-  alias: Hall Dim up
-  description: ''
-  trigger:
-  - device_id: 1b01f0993b5a4ba686281fed7fdea33e
-    domain: deconz
-    platform: device
-    subtype: dim_up
-    type: remote_button_long_press
-  condition: []
-  action:
-  - alias: ''
-    data_template:
-      brightness: '{% set bri = state_attr("light.hall_6", "brightness") | int %}
-        {{ [bri+30, 249] | min }}'
-      entity_id:
-      - light.skogang_1_2
-      - light.skogang_2_2
-      - light.skogang_3_2
-      - light.hall_1_2
-      - light.hall_2_2
-      - light.hall_4_2
-      - light.hall_5_2
-      - light.hall_6
-      - light.entre_2
-    service: light.turn_on
-- id: '1572906572164'
-  alias: Hall Dim Down
-  description: ''
-  trigger:
-  - device_id: 1b01f0993b5a4ba686281fed7fdea33e
-    domain: deconz
-    platform: device
-    subtype: dim_down
-    type: remote_button_long_press
-  condition: []
-  action:
-  - alias: ''
-    data_template:
-      brightness: '{% set bri = state_attr("light.hall_6", "brightness") | int %}
-        {{ [bri-30, 0] | max }}'
-      entity_id:
-      - light.skogang_1_2
-      - light.skogang_2_2
-      - light.skogang_3_2
-      - light.hall_1_2
-      - light.hall_2_2
-      - light.hall_4_2
-      - light.hall_5_2
-      - light.hall_6
-      - light.entre_2
-    service: light.turn_on
-- id: '1572986640265'
-  alias: Benkelys AV
-  description: ''
-  trigger:
-  - device_id: 87e10d01275141cd90a5bbdb54e4e2ac
-    domain: light
-    entity_id: light.kjokken_1_2
-    platform: device
-    type: turned_off
-  condition: []
-  action:
-  - data:
-      entity_id: light.benkelys
-    service: light.turn_off
-- id: '1572986724462'
-  alias: Benkelys PÅ
-  description: ''
-  trigger:
-  - device_id: 87e10d01275141cd90a5bbdb54e4e2ac
-    domain: light
-    entity_id: light.kjokken_1_2
-    platform: device
-    type: turned_on
-  condition: []
-  action:
-  - data:
-      entity_id: light.benkelys
-    service: light.turn_on
-- id: '1572989735371'
-  alias: Stue Dim Down Lights
-  description: ''
-  trigger:
-  - device_id: 71eefca2c8fc4148b9716a4fc1c0335d
-    domain: deconz
-    platform: device
-    subtype: left
-    type: remote_button_rotated
-  condition: []
-  action:
-    data_template:
-      brightness: '{% set bri = state_attr("light.stue_salong", "brightness") | int
-        %} {{ [bri-45, 0] | max }}'
-      entity_id:
-      - light.stue_salong
-      - light.stue_spisebord
-      - light.stue_spot_1
-      - light.stue_spot_2
-      - light.stue_spot_3
-    service: light.turn_on
-- id: '1572989796854'
-  alias: Stue Dim Up Lights
-  description: ''
-  trigger:
-  - device_id: 71eefca2c8fc4148b9716a4fc1c0335d
-    domain: deconz
-    platform: device
-    subtype: right
-    type: remote_button_rotated
-  condition: []
-  action:
-    data_template:
-      brightness: '{% set bri = state_attr("light.stue_salong", "brightness") | int
-        %} {{ [bri+45, 249] | min }}'
-      entity_id:
-      - light.stue_spot_1
-      - light.stue_spot_2
-      - light.stue_spot_3
-      - light.stue_salong
-      - light.stue_spisebord
-    service: light.turn_on
-- id: '1573065306868'
-  alias: Badelys Auto På
-  description: ''
-  trigger:
-  - device_id: ed3ef7ed848c4ad9935d9c60665221e2
-    domain: binary_sensor
-    entity_id: binary_sensor.aeon_labs_zw100_multisensor_6_sensor
-    platform: device
-    type: turned_on
-  condition: []
-  action:
-  - data:
-      entity_id: light.bad
-    service: light.turn_on
-- id: '1573065341392'
-  alias: Badelys Auto Av
-  description: ''
-  trigger:
-  - device_id: ed3ef7ed848c4ad9935d9c60665221e2
-    domain: binary_sensor
-    entity_id: binary_sensor.aeon_labs_zw100_multisensor_6_sensor
+  - platform: numeric_state
+    entity_id: sensor.torketrommel_effekt
+    above: '30'
     for:
-      hours: 0
-      minutes: 2
-      seconds: 0
-    platform: device
-    type: turned_off
+      seconds: 30
   condition:
-  - condition: state
-    entity_id: binary_sensor.dusj
-    state: 'off'
+    condition: state
+    entity_id: input_select.torketrommel
+    state: Av
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.torketrommel
+      option: Kjører
+  id: b20d7866556a4298b33990d207089b9a
+- alias: Tørketrommel ferdig
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.torketrommel_effekt
+    below: '7'
     for:
-      hours: 0
-      minutes: 0
-      seconds: 25
+      seconds: 40
+  condition:
+    condition: state
+    entity_id: input_select.torketrommel
+    state: Kjører
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.torketrommel
+      option: Ferdig
+  - service: notify.magnus
+    data:
+      message: Tørketrommel ferdig
+  - service: notify.mona
+    data:
+      message: Tørketrommel ferdig
+  id: 2a0d932475c34ceb89381219aa89190e
+- alias: Tørketrommel av
+  trigger:
+  - platform: state
+    entity_id: input_select.torketrommel
+    to: Ferdig
+    for:
+      seconds: 10
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.torketrommel
+      option: Av
+  id: fa25cc023a0f446485708a1a1368b754
+- alias: Vaskemaskin kjører
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.vaskemaskin_effekt
+    above: '20'
+    for:
+      seconds: 45
+  condition:
+    condition: state
+    entity_id: input_select.vaskemaskin
+    state: Av
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.vaskemaskin
+      option: Kjører
+  id: 912e3b7d42d5421294df2b5d922f6534
+- alias: Vaskemaskin ferdig
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.vaskemaskin_effekt
+    below: '2'
+    for:
+      seconds: 60
+  condition:
+    condition: state
+    entity_id: input_select.vaskemaskin
+    state: Kjører
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.vaskemaskin
+      option: Ferdig
+  - service: notify.magnus
+    data:
+      message: Vaskemaskin ferdig
+  - service: notify.mona
+    data:
+      message: Vaskemaskin ferdig
+  id: 094011b2bab84c4ba826bfe2d291d2e6
+- alias: Vaskemaskin av
+  trigger:
+  - platform: state
+    entity_id: input_select.vaskemaskin
+    to: Ferdig
+    for:
+      seconds: 30
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.vaskemaskin
+      option: Av
+  id: 6b6ae6bb6fcd40518700ef0f572ff60a
+- alias: VVB av
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.electricity_price_furulien_18_percent
+    above: 75
+  condition:
+    condition: state
+    entity_id: switch.varmtvannsbereder
+    state: 'on'
+    for:
+      minutes: 120
+  action:
+  - service: switch.turn_off
+    entity_id: switch.varmtvannsbereder
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.vvb
+      option: Av
+  id: 1e05b3dd642742e0b2c97a1d001f5888
+- alias: VVB auto på
+  trigger:
+  - platform: state
+    entity_id: switch.varmtvannsbereder
+    to: 'off'
+    for:
+      minutes: 150
+  action:
+  - service: switch.turn_on
+    entity_id: switch.varmtvannsbereder
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.vvb
+      option: På
+  id: c05064861dca41e08582201b4c41ba5d
+- alias: Oppvask kjører
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.oppvaskmaskin_effekt
+    above: '5'
+    for:
+      seconds: 30
+  condition:
+    condition: state
+    entity_id: input_select.oppvask
+    state: Av
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.oppvask
+      option: Kjører
+  id: 39d82691339849f18b7be29b990571b4
+- alias: Oppvask ferdig
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.oppvaskmaskin_effekt
+    below: '7'
+    for:
+      minutes: 14
+  condition:
+    condition: state
+    entity_id: input_select.oppvask
+    state: Kjører
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.oppvask
+      option: Ferdig
+  - service: notify.magnus
+    data:
+      message: Oppvaskmaskin ferdig
+  - service: notify.mona
+    data:
+      message: Oppvaskmaskin ferdig
+  id: 3590ff148dae4de0ad263fe4ad79d9a4
+- alias: Oppvaskmaskin av
+  trigger:
+  - platform: state
+    entity_id: input_select.oppvask
+    to: Ferdig
+    for:
+      seconds: 10
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.oppvask
+      option: Av
+  id: 6548660cbefa456da475a4f9f3ce6e13
+- id: '1574430827599'
+  alias: Lys Stue PÅ
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.pir_stue_bevegelse
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
   action:
   - data:
-      entity_id: light.bad
-    service: light.turn_off
+      entity_id:
+      - light.stue_spisebord
+      - light.stue_salongbord
+      - light.stue_spot_1
+      - light.stue_spot_2
+      - light.stue_spot_3
+    service: homeassistant.turn_on
+- id: '1574430957874'
+  alias: Lys Stue Av
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.pir_stue_bevegelse
+    for:
+      minutes: 30
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id:
+      - light.stue_spisebord
+      - light.stue_salongbord
+      - light.stue_spot_1
+      - light.stue_spot_2
+      - light.stue_spot_3
+    service: homeassistant.turn_off
+- id: '1574633872450'
+  alias: Benkelys på
+  description: ''
+  trigger:
+  - entity_id: light.kjokken_spot_1
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.benkelys
+    service: homeassistant.turn_on
+- id: '1574633914308'
+  alias: Benkelys av
+  description: ''
+  trigger:
+  - entity_id: light.kjokken_spot_1
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: light.benkelys
+    service: homeassistant.turn_off
+- id: '1574634015408'
+  alias: Gangspot på
+  description: ''
+  trigger:
+  - entity_id: light.hall_entre
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.gangspot
+    service: homeassistant.turn_on
+- id: '1574634050807'
+  alias: Gangspot av
+  description: ''
+  trigger:
+  - entity_id: light.hall_entre
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: light.gangspot
+    service: homeassistant.turn_off

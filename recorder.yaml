@@ -1,7 +1,2 @@
-purge_keep_days: 2
-include:
-  domains:
-    - light
-    - sensor
-    - binary_sensor
-    - switch
+purge_keep_days: 4
+db_url: !include recorder_db_url

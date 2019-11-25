@@ -1,0 +1,13 @@
+- id: '1574430374824'
+  name: Stue Av
+  entities:
+    light.stue_salongbord:
+      state: 'off'
+    light.stue_spisebord:
+      state: 'off'
+    light.stue_spot_1:
+      state: 'off'
+    light.stue_spot_2:
+      state: 'off'
+    light.stue_spot_3:
+      state: 'off'
