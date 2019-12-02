@@ -22,7 +22,6 @@ ota:
 
 ## Enable the BLE-chip on the device ##
 esp32_ble_tracker:
-  scan_interval: 300s
 
 binary_sensor:
 ## The connected VMA314 PIR sensor ##
@@ -58,7 +57,7 @@ sensor:
     update_interval: 30s
 
 ## Tracking data from MiFlora BLE sensor ##
-  - platform: xiaomi_miflora
+  - platform: xiaomi_hhccjcy01
     mac_address: "C4:7C:8D:67:41:52"
     temperature:
       name: "Sitrontre Temperatur"
@@ -68,11 +67,6 @@ sensor:
       name: "Sitrontre Lys"
     conductivity:
       name: "Sitrontre Næring"
-
-## Device firmware sensor ##
-text_sensor:
-  - platform: version
-    name: "$upper_devicename Version"
 
 ## Switch to restart the device ##
 switch:

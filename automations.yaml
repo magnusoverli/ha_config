@@ -216,10 +216,12 @@
   - entity_id: binary_sensor.pir_stue_bevegelse
     for:
       minutes: 30
-    from: 'on'
     platform: state
     to: 'off'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: media_player.q9fn
+    state: 'off'
   action:
   - data:
       entity_id:
@@ -277,3 +279,46 @@
   - data:
       entity_id: light.gangspot
     service: homeassistant.turn_off
+- id: '1575139255159'
+  alias: Nightly snapshot
+  description: ''
+  trigger:
+  - at: 01:30:00
+    platform: time
+  condition: []
+  action:
+  - service: hassio.snapshot_full
+- id: '1575295351793'
+  alias: Utelys på
+  description: ''
+  trigger:
+  - event: sunset
+    offset: '- 00:30:00'
+    platform: sun
+  condition: []
+  action:
+  - device_id: e213eb952c0842e0b53232c5fd4a29c9
+    domain: light
+    entity_id: light.trapp_1
+    type: turn_on
+  - device_id: b733a2a84a24480c87be546bc5b39faa
+    domain: light
+    entity_id: light.trapp_2
+    type: turn_on
+- id: '1575295359193'
+  alias: Utelys av
+  description: ''
+  trigger:
+  - event: sunset
+    offset: '+ 00:30:00'
+    platform: sun
+  condition: []
+  action:
+  - device_id: e213eb952c0842e0b53232c5fd4a29c9
+    domain: light
+    entity_id: light.trapp_1
+    type: turn_off
+  - device_id: b733a2a84a24480c87be546bc5b39faa
+    domain: light
+    entity_id: light.trapp_2
+    type: turn_off

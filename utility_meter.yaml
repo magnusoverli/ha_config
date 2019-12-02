@@ -4,3 +4,6 @@ panelovn_gjesterom_meter:
 panelovn_stue_meter:
   source: sensor.fibaro_system_fgwpe_f_wall_plug_gen5_energy
   cycle: daily
+gte_daily_odometer:
+  source: sensor.passat_gte_odometer
+  cycle: daily

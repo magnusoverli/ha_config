@@ -2,7 +2,7 @@
   sensors:
     dusj:
       friendly_name: Dusj
-      entity_id: sensor.aeon_labs_zw100_multisensor_6_relative_humidity
+      entity_id: sensor.pir_bad_fuktighet
       device_class: occupancy
       max_samples: 3
-      min_gradient: 0.02
+      min_gradient: 0.1

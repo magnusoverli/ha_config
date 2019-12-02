@@ -30,15 +30,20 @@ binary_sensor:
     device_class: motion
 
 sensor:
-## WiFi signal strenght sensor ##
-  - platform: wifi_signal
-    name: "$upper_devicename WiFi Signal"
-    update_interval: 60s
-
-## Device firmware sensor ##
-text_sensor:
-  - platform: version
-    name: "$upper_devicename Version"
+## The connected AM2302 Temperature/Humidity sensor ##
+  - platform: dht
+    pin: D7
+    model: AM2302
+    temperature:
+      name: "$upper_devicename Temperatur"
+      filters:
+        - lambda: return x - 1.0;
+        - sliding_window_moving_average:
+            window_size: 3
+            send_every: 1
+    humidity:
+      name: "$upper_devicename Fuktighet"
+    update_interval: 10s
 
 ## Switch to restart the device ##
 switch:
