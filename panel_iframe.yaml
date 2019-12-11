@@ -18,3 +18,11 @@ radarr:
   title: Movies
   url: 'https://radarr.magnusoverli.duckdns.org'
   icon: mdi:filmstrip
+emby:
+  title: Emby
+  url: 'https://emby.magnusoverli.duckdns.org'
+  icon: mdi:emby
+z2m:
+  title: Z2M
+  url: 'https://z2m.magnusoverli.duckdns.org'
+  icon: mdi:z-wave

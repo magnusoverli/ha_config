@@ -3,6 +3,3 @@ port: 8086
 database: homeassistant
 ssl: false
 max_retries: 3
-include:
-  domains:
-    - sensor
