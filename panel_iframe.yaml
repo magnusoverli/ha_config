@@ -28,9 +28,9 @@ z2m:
   icon: mdi:z-wave
 ngnix:
   title: Ngnix
-  url: https://ngnix.magnusoverli.duckdns.org/nginx/proxy
+  url: 'https://ngnix.magnusoverli.duckdns.org/nginx/proxy'
   icon: mdi:router
 portainer:
   title: Portainer
-  url: portainer.magnusoverli.duckdns.org
+  url: 'https://portainer.magnusoverli.duckdns.org'
   icon: mdi:docker
