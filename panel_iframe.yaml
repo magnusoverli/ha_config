@@ -26,3 +26,11 @@ z2m:
   title: Z2M
   url: 'https://z2m.magnusoverli.duckdns.org'
   icon: mdi:z-wave
+ngnix:
+  title: Ngnix
+  url: https://ngnix.magnusoverli.duckdns.org/nginx/proxy
+  icon: mdi:router
+portainer:
+  title: Portainer
+  url: portainer.magnusoverli.duckdns.org
+  icon: mdi:docker
