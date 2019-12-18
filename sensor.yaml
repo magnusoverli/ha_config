@@ -109,6 +109,11 @@
       unit_of_measurement: '%'
       value_template: "{{ ((states('sensor.gangspot_dagsforbruk') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
 
+    kaffetrakter_andel:
+      friendly_name: "Kaffetrakter Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.kaffetrakter_daily_energy') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
     restforbruk:
       friendly_name: 'Rest'
       unit_of_measurement: '%'
@@ -128,13 +133,25 @@
     rest_effekt:
       friendly_name: Rest Effekt
       unit_of_measurement: 'W'
-      value_template: "{{ (states.sensor.real_time_consumption_furulien_18.state | float ) - (( states.sensor.aeon_labs_zw096_smart_switch_6_power.state | float) + (states.sensor.av_power.state | float) + (states.sensor.fibaro_system_fgwpe_f_wall_plug_gen5_power.state | float) + (states.sensor.fryser_power.state | float) + (states.sensor.it_power.state | float) + (states.sensor.kjoleskap_effekt.state | float) + (states.sensor.komfyr_effekt.state | float) + (states.sensor.oppvaskmaskin_effekt.state | float) + (states.sensor.torketrommel_effekt.state | float) + (states.sensor.varmekabler_bad_power.state | float) + (states.sensor.varmtvannsbereder_effekt.state | float) + (states.sensor.vaskemaskin_effekt.state | float)) | round()}}"
+      value_template: "{{ (states.sensor.real_time_consumption_furulien_18.state | float ) - (( states.sensor.kaffetrakter_power.state | float) + ( states.sensor.aeon_labs_zw096_smart_switch_6_power.state | float) + (states.sensor.av_power.state | float) + (states.sensor.fibaro_system_fgwpe_f_wall_plug_gen5_power.state | float) + (states.sensor.fryser_power.state | float) + (states.sensor.it_power.state | float) + (states.sensor.kjoleskap_effekt.state | float) + (states.sensor.komfyr_effekt.state | float) + (states.sensor.oppvaskmaskin_effekt.state | float) + (states.sensor.torketrommel_effekt.state | float) + (states.sensor.varmekabler_bad_power.state | float) + (states.sensor.varmtvannsbereder_effekt.state | float) + (states.sensor.vaskemaskin_effekt.state | float)) | round()}}"
     delta_rest:
       friendly_name: Delta Rest Effekt
       unit_of_measurement: 'W'
       value_template: "{{ ((states.sensor.real_time_consumption_furulien_18.state | float) - (states.sensor.rest_effekt.state | float)) }}"
 ## VÆR ##
 - platform: yr
-  name: Yr
+  name: YR
   monitored_conditions:
     - temperature
+    - symbol
+    - precipitation
+    - windSpeed
+    - pressure
+    - windDirection
+    - humidity
+    - fog
+    - cloudiness
+    - lowClouds
+    - mediumClouds
+    - highClouds
+    - dewpointTemperature
