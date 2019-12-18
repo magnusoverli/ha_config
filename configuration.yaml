@@ -3,7 +3,7 @@ binary_sensor: !include binary_sensor.yaml
 climate: !include climate.yaml
 default_config:
 frontend:
-  themes: !include themes.yaml
+#  development_repo: /config/home-assistant-polymer/
 group: !include groups.yaml
 hacs: !include hacs.yaml
 http: !include http.yaml
