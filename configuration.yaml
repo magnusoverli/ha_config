@@ -1,5 +1,6 @@
 automation: !include automations.yaml
 binary_sensor: !include binary_sensor.yaml
+calendar: !include calendar.yaml
 climate: !include climate.yaml
 default_config:
 frontend:

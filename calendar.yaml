@@ -1,0 +1,4 @@
+- platform: caldav
+  username: !secret caldav_username
+  password: !secret caldav_password
+  url: http://webdav.magnusoverli.duckdns.org/webdav
