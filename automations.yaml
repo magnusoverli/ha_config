@@ -259,18 +259,6 @@
       - light.benkelys
       - light.qubino_goap_unknown_type_0001_id_0055_level
     service: homeassistant.turn_off
-- id: '1574634015408'
-  alias: Gangspot på
-  description: ''
-  trigger:
-  - entity_id: light.hall_entre
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - data:
-      entity_id: light.gangspot
-    service: homeassistant.turn_on
 - id: '1574634050807'
   alias: Gangspot av
   description: ''
@@ -352,11 +340,25 @@
   alias: Gangspot low off
   description: Turning off Gangspot when hall lights are low
   trigger:
-  - below: '30'
-    entity_id: light.entrelys
     platform: numeric_state
+    entity_id: light.entrelys
+    value_template: '{{ state.attributes.brightness }}'
+    below: 18
   condition: []
   action:
   - data: {}
     entity_id: light.gangspot
     service: light.turn_off
+- id: '1576008421024'
+  alias: Gangspot on
+  description: Automatically turning on Gangspot
+  trigger:
+    platform: numeric_state
+    entity_id: light.entrelys
+    value_template: '{{ state.attributes.brightness }}'
+    above: 19
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.gangspot
+    service: light.turn_on
