@@ -9,6 +9,6 @@
   sourcelist: '{"STR-DN1080": "KEY_HDMI1"}'
   applist: "YouTube, Plex, Spotify"
   protocol: ws
-- platform: spotify
-  client_id: a935d732cda447f0989d2b2b6f72502e
-  client_secret: 97033bf5cfd24e7a9b0ab477579ef129
+#- platform: spotify
+#  client_id: a935d732cda447f0989d2b2b6f72502e
+#  client_secret: 97033bf5cfd24e7a9b0ab477579ef129
