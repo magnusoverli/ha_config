@@ -1,7 +1,11 @@
 automation: !include automations.yaml
+apple_tv: !include apple_tv.yaml
 binary_sensor: !include binary_sensor.yaml
 climate: !include climate.yaml
-default_config:
+cloud:
+config:
+duckdns: !include duckdns.yaml
+discovery:
 frontend:
 group: !include groups.yaml
 hacs: !include hacs.yaml
@@ -9,16 +13,25 @@ http: !include http.yaml
 influxdb: !include influxdb.yaml
 input_select: !include input_select.yaml
 light: !include light.yaml
+logbook:
 logger:
+map:
 media_player: !include media_player.yaml
+mobile_app:
 notify: !include notify.yaml
 panel_iframe: !include panel_iframe.yaml
+person:
 recorder: !include recorder.yaml
 script: !include scripts.yaml
 sensor: !include sensor.yaml
+ssdp:
 system_health:
+sun:
 telegram_bot: !include telegram_bot.yaml
 tibber: !include tibber.yaml
 unifi: !include unifi.yaml
 utility_meter: !include utility_meter.yaml
+updater:
 volkswagencarnet: !include carnet.yaml
+zeroconf:
+zone:
