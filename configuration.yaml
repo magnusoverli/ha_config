@@ -9,6 +9,7 @@ discovery:
 frontend:
 group: !include groups.yaml
 hacs: !include hacs.yaml
+history:
 http: !include http.yaml
 influxdb: !include influxdb.yaml
 input_select: !include input_select.yaml
