@@ -18,10 +18,6 @@ radarr:
   title: Movies
   url: 'https://radarr.magnusoverli.duckdns.org'
   icon: mdi:filmstrip
-emby:
-  title: Emby
-  url: 'https://emby.magnusoverli.duckdns.org'
-  icon: mdi:emby
 portainer:
   title: Portainer
   url: 'https://portainer.magnusoverli.duckdns.org'
