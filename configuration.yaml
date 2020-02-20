@@ -35,4 +35,4 @@ utility_meter: !include utility_meter.yaml
 updater:
 volkswagencarnet: !include carnet.yaml
 zeroconf:
-zone:
+zone: !include zone.yaml

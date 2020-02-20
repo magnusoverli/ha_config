@@ -1,0 +1,5 @@
+- name: Home
+  latitude: 60.442800
+  longitude: 5.288210
+  radius: 70
+  icon: mdi:account-multiple
