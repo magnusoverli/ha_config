@@ -19,6 +19,6 @@ radarr:
   url: 'https://radarr.magnusoverli.duckdns.org'
   icon: mdi:filmstrip
 portainer:
-  title: Portainer
+  title: Portainer Solveig
   url: 'https://portainer.magnusoverli.duckdns.org'
   icon: mdi:docker
