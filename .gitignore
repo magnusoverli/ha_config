@@ -53,6 +53,7 @@ custom_components/
 # Storage folders
 .cloud/
 .storage
+.HA_VERSION
 
 # MISC
 .Trash-0/
