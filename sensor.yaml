@@ -82,7 +82,7 @@
     panelovn_gjesterom_andel:
       friendly_name: "Gjesterom Andel"
       unit_of_measurement: '%'
-      value_template: "{{ ((states('sensor.panelovn_gjesterom_meter') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+      value_template: "{{ ((states('sensor.panelovn_gjesterom_daily_energy') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
 
     fryser_andel:
       friendly_name: "Fryser Andel"
