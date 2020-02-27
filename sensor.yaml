@@ -84,6 +84,11 @@
       unit_of_measurement: '%'
       value_template: "{{ ((states('sensor.panelovn_gjesterom_daily_energy') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
 
+    vifteovn_andel:
+      friendly_name: "Vifteovn Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.vifteovn_daily_energy') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
     fryser_andel:
       friendly_name: "Fryser Andel"
       unit_of_measurement: "%"
