@@ -6,6 +6,10 @@ esphome:
   name: "$devicename"
   platform: ESP8266
   board: esp8285
+  on_boot:
+    priority: 200
+    then:
+      - light.turn_on: led
 
 wifi:
   reboot_timeout: 10min
