@@ -104,40 +104,6 @@
       entity_id: input_select.vaskemaskin
       option: Av
   id: 6b6ae6bb6fcd40518700ef0f572ff60a
-- alias: VVB av
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.electricity_price_furulien_18_percent
-    above: 75
-  condition:
-    condition: state
-    entity_id: switch.varmtvannsbereder
-    state: 'on'
-    for:
-      minutes: 120
-  action:
-  - service: switch.turn_off
-    entity_id: switch.varmtvannsbereder
-  - service: input_select.select_option
-    data:
-      entity_id: input_select.vvb
-      option: Av
-  id: 1e05b3dd642742e0b2c97a1d001f5888
-- alias: VVB auto på
-  trigger:
-  - platform: state
-    entity_id: switch.varmtvannsbereder
-    to: 'off'
-    for:
-      minutes: 150
-  action:
-  - service: switch.turn_on
-    entity_id: switch.varmtvannsbereder
-  - service: input_select.select_option
-    data:
-      entity_id: input_select.vvb
-      option: På
-  id: c05064861dca41e08582201b4c41ba5d
 - alias: Oppvask kjører
   trigger:
   - platform: numeric_state
@@ -362,3 +328,22 @@
   - data: {}
     entity_id: light.gangspot
     service: light.turn_on
+- id: '1582878880340'
+  alias: VVB på
+  description: Turning on VVB after 2 hours
+  trigger:
+  - device_id: c12d8b46a49f497d8cabbd9b8bf3d304
+    domain: switch
+    entity_id: switch.varmtvannsbereder
+    for:
+      hours: 2
+      minutes: 0
+      seconds: 0
+    platform: device
+    type: turned_off
+  condition: []
+  action:
+  - device_id: c12d8b46a49f497d8cabbd9b8bf3d304
+    domain: switch
+    entity_id: switch.varmtvannsbereder
+    type: turn_on
