@@ -52,7 +52,7 @@
     varmtvannsbereder_andel:
       friendly_name: "Varmtvannsbereder Andel"
       unit_of_measurement: '%'
-      value_template: "{{ ((states('sensor.varmtvannsbereder_dagsforbruk') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+      value_template: "{{ ((states('sensor.varmtvannsbereder_daily_energy_2') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
 
     torketrommel_andel:
       friendly_name: "Varmtvannsbereder Andel"
