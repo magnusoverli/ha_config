@@ -6,7 +6,6 @@ esphome:
   name: "$devicename"
   platform: ESP8266
   board: esp8285
-  board_flash_mode: dout
   on_boot:
     priority: 200
     then:
