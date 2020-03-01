@@ -56,22 +56,22 @@ sensor:
     voltage:
       name: "$upper_devicename Voltage"
       unit_of_measurement: V
-      accuracy_decimals: 1
+      accuracy_decimals: 0
       filters:
         - calibrate_linear:
             - 0.0 -> 0.0
-            - 573 -> 221
-            - 575 -> 222
-            - 578 -> 223
-            - 581 -> 224
-            - 589 -> 228
-            - 594.4 -> 230
+            - 573 -> 223
+            - 575 -> 224
+            - 578 -> 225
+            - 581 -> 227
+            - 589 -> 230
+            - 594.4 -> 231
 
     power:
       id: power
       name: "$upper_devicename Power"
       unit_of_measurement: W
-      accuracy_decimals: 1
+      accuracy_decimals: 0
       filters:
         - calibrate_linear:
             - 3.1 -> 0.75
