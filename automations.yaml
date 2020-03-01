@@ -104,59 +104,6 @@
       entity_id: input_select.vaskemaskin
       option: Av
   id: 6b6ae6bb6fcd40518700ef0f572ff60a
-- alias: Oppvask kjører
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.oppvaskmaskin_effekt
-    above: '5'
-    for:
-      seconds: 30
-  condition:
-    condition: state
-    entity_id: input_select.oppvask
-    state: Av
-  action:
-  - service: input_select.select_option
-    data:
-      entity_id: input_select.oppvask
-      option: Kjører
-  id: 39d82691339849f18b7be29b990571b4
-- alias: Oppvask ferdig
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.oppvaskmaskin_effekt
-    below: '7'
-    for:
-      minutes: 14
-  condition:
-    condition: state
-    entity_id: input_select.oppvask
-    state: Kjører
-  action:
-  - service: input_select.select_option
-    data:
-      entity_id: input_select.oppvask
-      option: Ferdig
-  - service: notify.magnus
-    data:
-      message: Oppvaskmaskin ferdig
-  - service: notify.mona
-    data:
-      message: Oppvaskmaskin ferdig
-  id: 3590ff148dae4de0ad263fe4ad79d9a4
-- alias: Oppvaskmaskin av
-  trigger:
-  - platform: state
-    entity_id: input_select.oppvask
-    to: Ferdig
-    for:
-      seconds: 10
-  action:
-  - service: input_select.select_option
-    data:
-      entity_id: input_select.oppvask
-      option: Av
-  id: 6548660cbefa456da475a4f9f3ce6e13
 - id: '1574430827599'
   alias: Lys Stue PÅ
   description: ''
@@ -306,14 +253,19 @@
   alias: Gangspot low off
   description: Turning off Gangspot when hall lights are low
   trigger:
-    platform: numeric_state
+  - below: '18'
     entity_id: light.entrelys
+    platform: numeric_state
     value_template: '{{ state.attributes.brightness }}'
-    below: 18
   condition: []
   action:
-  - data: {}
-    entity_id: light.gangspot
+  - data:
+      entity_id:
+      - light.entrelys
+      - light.skogang_1
+      - light.skogang_2
+      - light.bodlys
+    entity_id: light.entrelys
     service: light.turn_off
 - id: '1576008421024'
   alias: Gangspot on
@@ -347,3 +299,106 @@
     domain: switch
     entity_id: switch.varmtvannsbereder
     type: turn_on
+- id: '1583088468551'
+  alias: Oppvaskmaskin Kjører
+  description: ''
+  trigger:
+  - above: 4
+    device_id: ed8ea232992a412ebbd524785b3101a1
+    domain: sensor
+    entity_id: sensor.oppvaskmaskin_effekt
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+    platform: device
+    type: value
+  condition:
+  - condition: state
+    entity_id: input_select.oppvask
+    state: Av
+  action:
+  - data:
+      option: Kjører
+    entity_id: input_select.oppvask
+    service: input_select.select_option
+- id: '1583088738491'
+  alias: Oppvaskmaskin Venter
+  description: ''
+  trigger:
+  - above: 19
+    below: 35
+    device_id: ed8ea232992a412ebbd524785b3101a1
+    domain: sensor
+    entity_id: sensor.oppvaskmaskin_effekt
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    platform: device
+    type: value
+  condition:
+  - condition: state
+    entity_id: input_select.oppvask
+    state: Kjører
+  action:
+  - data:
+      option: Venter
+    entity_id: input_select.oppvask
+    service: input_select.select_option
+- id: '1583088810262'
+  alias: Oppvaskmaskin Tørker
+  description: ''
+  trigger:
+  - above: 500
+    device_id: ed8ea232992a412ebbd524785b3101a1
+    domain: sensor
+    entity_id: sensor.oppvaskmaskin_effekt
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 20
+    platform: device
+    type: value
+  condition:
+  - condition: state
+    entity_id: input_select.oppvask
+    state: Venter
+  action:
+  - data:
+      option: Tørker
+    service: input_select.select_option
+- id: '1583088999060'
+  alias: Oppvaskmaskin Ferdig / AV
+  description: ''
+  trigger:
+  - below: 20
+    device_id: ed8ea232992a412ebbd524785b3101a1
+    domain: sensor
+    entity_id: sensor.oppvaskmaskin_effekt
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 20
+    platform: device
+    type: value
+  condition:
+  - condition: state
+    entity_id: input_select.oppvask
+    state: Tørker
+  action:
+  - data:
+      option: Ferdig
+    entity_id: input_select.oppvask
+    service: input_select.select_option
+  - delay: 00:00:10
+  - data:
+      option: Av
+    entity_id: input_select.oppvask
+    service: input_select.select_option
+  - data:
+      message: Oppvaskmaskin ferdig
+    service: notify.magnus
+  - data:
+      message: Oppvaskmaskin ferdig
+    service: notify.mona
