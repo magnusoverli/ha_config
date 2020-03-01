@@ -124,16 +124,6 @@
       unit_of_measurement: '%'
       value_template: "{{ 100 - ( (states('sensor.gangspot_andel') | float) + (states('sensor.it_andel') | float) + (states('sensor.av_andel') | float) + (states('sensor.varmekabler_bad_andel') | float) + (states('sensor.komfyr_andel') | float ) + (states('sensor.oppvaskmaskin_andel') | float ) + (states('sensor.panelovn_stue_andel') | float ) + (states('sensor.torketrommel_andel') | float ) + (states('sensor.varmtvannsbereder_andel') | float ) + (states('sensor.vaskemaskin_andel') | float ) + (states('sensor.panelovn_gjesterom_andel') | float ) + (states('sensor.kjoleskap_andel') | float) + (states('sensor.fryser_andel') | float) + (states('sensor.varmekabler_barnerom_andel') | float) + (states('sensor.vifteovn_andel') | float) | round(2)) }}"
 
-    panelovn_gjest_filtered:
-      friendly_name: Panelovn Gjest Filtered
-      value_template: >-
-        {% set x = states('sensor.aeon_labs_zw096_smart_switch_6_power')|float %} {{ x if x >= 1.5 else 0 }}
-
-    panelovn_stue_filtered:
-      friendly_name: Panelovn Stue Filtered
-      value_template: >-
-        {% set x = states('sensor.fibaro_system_fgwpe_f_wall_plug_gen5_power')|float %} {{ x if x >= 3 else 0 }}
-
 ## REST EFFEKT##
     rest_effekt:
       friendly_name: Rest Effekt
