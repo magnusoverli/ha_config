@@ -27,5 +27,6 @@ oppvask:
   options:
     - Av
     - Kjører
-    - Åpen
+    - Venter
+    - Tørker
     - Ferdig
