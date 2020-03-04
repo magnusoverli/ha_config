@@ -249,24 +249,6 @@
       brightness: "{% set new_level = trigger.to_state.attributes.brightness|int %}\
         \ {% if 0 < new_level < 55 %}\n  65\n{% elif 200 < new_level < 256 %}\n  160\n\
         {% else %}\n  {{ new_level }}\n{% endif %}"
-- id: '1576008426544'
-  alias: Gangspot low off
-  description: Turning off Gangspot when hall lights are low
-  trigger:
-  - below: '18'
-    entity_id: light.entrelys
-    platform: numeric_state
-    value_template: '{{ state.attributes.brightness }}'
-  condition: []
-  action:
-  - data:
-      entity_id:
-      - light.entrelys
-      - light.skogang_1
-      - light.skogang_2
-      - light.bodlys
-    entity_id: light.entrelys
-    service: light.turn_off
 - id: '1576008421024'
   alias: Gangspot on
   description: Automatically turning on Gangspot
@@ -402,3 +384,41 @@
   - data:
       message: Oppvaskmaskin ferdig
     service: notify.mona
+- id: '1583092645625'
+  alias: Gang/hall lys av når entre er lav
+  description: ''
+  trigger:
+  - below: '40'
+    entity_id: light.entrelys
+    platform: numeric_state
+    value_template: '{{ state.attributes.brightness}}'
+  condition: []
+  action:
+  - entity_id:
+    - light.hall_spot_1
+    - light.hall_spot_2
+    - light.bod_1
+    - light.bod_2
+    - light.skogang_1
+    - light.skogang_2
+    - light.gangspot
+    service: light.turn_off
+- id: '1583263452834'
+  alias: Stuelys Av (Cube)
+  description: ''
+  trigger:
+  - device_id: e29ba0ff9041451c8c69c84b48f2b7f4
+    domain: deconz
+    platform: device
+    subtype: side_1
+    type: remote_double_tap
+  condition: []
+  action:
+  - data:
+      entity_id:
+      - light.stue_salongbord_2
+      - light.stue_skinne_1
+      - light.stue_skinne_2
+      - light.stue_skinne_3
+      - light.stue_taklampe
+    service: light.turn_off
