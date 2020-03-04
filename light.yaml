@@ -65,11 +65,11 @@
 - platform: group
   name: Stuelys
   entities:
-    - light.stue_1
-    - light.stue_2
-    - light.stue_3
-    - light.stue_4
-    - light.stue_5
+    - light.stue_salongbord_2
+    - light.stue_skinne_1
+    - light.stue_skinne_2
+    - light.stue_skinne_3
+    - light.stue_taklampe
 
 - platform: group
   name: Kjokkenlys
