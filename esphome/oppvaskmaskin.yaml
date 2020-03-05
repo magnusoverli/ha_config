@@ -29,22 +29,11 @@ time:
 ######################################################################
 
 sensor:
-  - platform: wifi_signal
-    name: "$upper_devicename WiFi Signal"
-    update_interval: 10s
-
-  - platform: uptime
-    name: "$upper_devicename Uptime"
-
   - platform: hlw8012
     sel_pin: 5
     cf_pin: 14
     cf1_pin: 13
     change_mode_every: 2
-    current:
-      name: "$upper_devicename Strom"
-    voltage:
-      name: "$upper_devicename Spenning"
     power:
       name: "$upper_devicename Effekt"
       unit_of_measurement: W
@@ -72,15 +61,14 @@ sensor:
     unit_of_measurement: kWh
 
 text_sensor:
-  - platform: version
-    name: "$upper_devicename version"
-
+  - platform: homeassistant
+    name: "$upper_devicename Status"
+    entity_id: input_select.oppvask
 switch:
-  - platform: restart
-    name: "$upper_devicename Restart"
   - platform: gpio
     name: ${devicename}
     id: ${devicename}_relay
+    internal: true
     pin: GPIO12
     restore_mode: ALWAYS_ON
     on_turn_on:
