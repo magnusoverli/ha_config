@@ -116,11 +116,11 @@
   action:
   - data:
       entity_id:
-      - light.stue_spisebord
-      - light.stue_salongbord
-      - light.stue_spot_1
-      - light.stue_spot_2
-      - light.stue_spot_3
+      - light.stue_salongbord_2
+      - light.stue_skinne_1
+      - light.stue_skinne_2
+      - light.stue_skinne_3
+      - light.stue_taklampe
     service: homeassistant.turn_on
 - id: '1574430957874'
   alias: Lys Stue Av
@@ -138,11 +138,11 @@
   action:
   - data:
       entity_id:
-      - light.stue_spisebord
-      - light.stue_salongbord
-      - light.stue_spot_1
-      - light.stue_spot_2
-      - light.stue_spot_3
+      - light.stue_salongbord_2
+      - light.stue_skinne_1
+      - light.stue_skinne_2
+      - light.stue_skinne_3
+      - light.stue_taklampe
     service: homeassistant.turn_off
 - id: '1574633872450'
   alias: Benkelys på
