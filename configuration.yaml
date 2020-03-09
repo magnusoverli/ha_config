@@ -1,6 +1,6 @@
 automation: !include automations.yaml
 #apple_tv: !include apple_tv.yaml
-apple_tv_mrp:
+#apple_tv_mrp:
 binary_sensor: !include binary_sensor.yaml
 climate: !include climate.yaml
 cloud:
