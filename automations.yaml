@@ -104,46 +104,6 @@
       entity_id: input_select.vaskemaskin
       option: Av
   id: 6b6ae6bb6fcd40518700ef0f572ff60a
-- id: '1574430827599'
-  alias: Lys Stue PÅ
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.pir_stue_bevegelse
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - data:
-      entity_id:
-      - light.stue_salongbord_2
-      - light.stue_skinne_1
-      - light.stue_skinne_2
-      - light.stue_skinne_3
-      - light.stue_taklampe
-    service: homeassistant.turn_on
-- id: '1574430957874'
-  alias: Lys Stue Av
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.pir_stue_bevegelse
-    for:
-      minutes: 30
-    platform: state
-    to: 'off'
-  condition:
-  - condition: state
-    entity_id: media_player.q9fn
-    state: 'off'
-  action:
-  - data:
-      entity_id:
-      - light.stue_salongbord_2
-      - light.stue_skinne_1
-      - light.stue_skinne_2
-      - light.stue_skinne_3
-      - light.stue_taklampe
-    service: homeassistant.turn_off
 - id: '1574633872450'
   alias: Benkelys på
   description: ''
@@ -402,23 +362,4 @@
     - light.skogang_1
     - light.skogang_2
     - light.gangspot
-    service: light.turn_off
-- id: '1583263452834'
-  alias: Stuelys Av (Cube)
-  description: ''
-  trigger:
-  - device_id: e29ba0ff9041451c8c69c84b48f2b7f4
-    domain: deconz
-    platform: device
-    subtype: side_1
-    type: remote_double_tap
-  condition: []
-  action:
-  - data:
-      entity_id:
-      - light.stue_salongbord_2
-      - light.stue_skinne_1
-      - light.stue_skinne_2
-      - light.stue_skinne_3
-      - light.stue_taklampe
     service: light.turn_off
