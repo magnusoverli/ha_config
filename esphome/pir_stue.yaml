@@ -36,10 +36,6 @@ binary_sensor:
       - delayed_off: 40s
 
 sensor:
-## WiFi signal strenght sensor ##
-  - platform: wifi_signal
-    name: "$upper_devicename WiFi Signal"
-    update_interval: 120s
 
 ## The connected AM2302 Temperature/Humidity sensor ##
   - platform: dht
@@ -67,8 +63,5 @@ sensor:
       name: "Sitrontre Lys"
     conductivity:
       name: "Sitrontre Næring"
-
-## Switch to restart the device ##
-switch:
-  - platform: restart
-    name: "$upper_devicename Restart"
+    battery_level:
+      name: "Sitrontre batteri"
