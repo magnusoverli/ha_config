@@ -363,3 +363,16 @@
     - light.skogang_2
     - light.gangspot
     service: light.turn_off
+- id: '1583906335014'
+  alias: Lite lagring Synne
+  description: ''
+  trigger:
+  - above: '95'
+    entity_id: sensor.synology_dsm_volume_used_volume_1
+    for: 00:01:00
+    platform: numeric_state
+  condition: []
+  action:
+  - data:
+      message: Mer enn 95% av lagringskapasiteten på Synne er brukt! Slett noe!
+    service: notify.magnus
