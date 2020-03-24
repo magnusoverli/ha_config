@@ -359,6 +359,7 @@
     - light.hall_spot_2
     - light.bod_1
     - light.bod_2
+    - light.hall_spot_3_2
     - light.skogang_1
     - light.skogang_2
     - light.gangspot
@@ -376,3 +377,43 @@
   - data:
       message: Mer enn 95% av lagringskapasiteten på Synne er brukt! Slett noe!
     service: notify.magnus
+- id: '9271255359204'
+  alias: Hallys dimmer follow entre
+  trigger:
+    platform: state
+    entity_id: light.hall_entre
+  action:
+  - service: light.turn_on
+    data_template:
+      entity_id: light.hall_spot_3_2
+      brightness: "{% set new_level = trigger.to_state.attributes.brightness|int %}\
+        \ {% if 0 < new_level < 10 %}\n  11\n{% elif 250 < new_level < 256 %}\n  256\n\
+        {% else %}\n  {{ new_level }}\n{% endif %}"
+- id: '1584820733981'
+  alias: Hallys follow entre off
+  description: ''
+  trigger:
+  - entity_id: light.hall_entre
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - device_id: 13d43b5cb130408b9d30a1236be8009a
+    domain: light
+    entity_id: light.hall_spot_3_2
+    type: turn_off
+- id: '1584820799053'
+  alias: Hallys follow entre on
+  description: ''
+  trigger:
+  - entity_id: light.entrelys
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - device_id: 13d43b5cb130408b9d30a1236be8009a
+    domain: light
+    entity_id: light.hall_spot_3_2
+    type: turn_on
