@@ -19,6 +19,11 @@ input_select: !include input_select.yaml
 light: !include light.yaml
 logbook:
 logger:
+  default: info
+  logs:
+    homeassistant.components.zha: debug
+    zigpy_deconz: debug
+    zigpy: debug
 map:
 media_player: !include media_player.yaml
 mobile_app:
