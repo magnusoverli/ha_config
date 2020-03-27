@@ -407,3 +407,15 @@
     domain: light
     entity_id: light.hall_spot_3
     type: turn_off
+
+- id: '7367464536738292836'
+  alias: Update Available Notification
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.updater
+      from: 'off'
+      to: 'on'
+  action:
+    - service: notify.magnus
+      data_template:
+        message: "Home Assistant {{ state_attr('binary_sensor.updater', 'newest_version') }} is available."
