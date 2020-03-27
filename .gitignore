@@ -26,6 +26,7 @@ secrets.yaml
 tradfri.conf
 ._*
 ._.*
+zigbee.db
 zwcfg*
 zwcfg_*
 zwscene
