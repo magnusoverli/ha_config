@@ -109,6 +109,6 @@
 - platform: group
   name: Soveromslys
   entities:
-    - light.soverom_1
-    - light.soverom_2
-    - light.soverom_3
+    - light.soverom_spot_1
+    - light.soverom_spot_2
+    - light.soverom_spot_3
