@@ -65,31 +65,30 @@
 - platform: group
   name: Stuelys
   entities:
-    - light.stue_salongbord_2
-    - light.stue_skinne_1
-    - light.stue_skinne_2
-    - light.stue_skinne_3
+    - light.stue_salong
+    - light.stue_spot_1
+    - light.stue_spot_2
+    - light.stue_spot_3
     - light.stue_taklampe
 
 - platform: group
   name: Kjokkenlys
   entities:
-    - light.kjokken_1
-    - light.kjokken_2
-    - light.kjokken_3
-    - light.kjokken_4
-    - light.kjokken_5
+    - light.kjokken_spot1
+    - light.kjokken_spot2
+    - light.kjokken_spot3
+    - light.kjokken_ventilator_1
+    - light.kjokken_ventialtor_2
     - light.kjokkenspot
 
 - platform: group
   name: Badelys
   entities:
-    - light.bad_1
-    - light.bad_2
-    - light.bad_3
-    - light.bad_4
-    - light.bad_5
-    - light.bad_speil
+    - light.bad_spot_1
+    - light.bad_spot_2
+    - light.bad_spot_3
+    - light.bad_spot_4
+    - light.bad_spot_5
 
 - platform: group
   name: Bodlys
@@ -100,11 +99,12 @@
 - platform: group
   name: Hallys
   entities:
-    - light.hall_1
-    - light.hall_2
-    - light.hall_3
-    - light.hall_4
-    - light.hall_5
+    - light.hall_lampett_1
+    - light.hall_lampett_2
+    - light.hall_spot_1
+    - light.hall_spot_2
+    - light.hall_spot_3
+    - light.entre_taklampe
 
 - platform: group
   name: Soveromslys
@@ -112,11 +112,3 @@
     - light.soverom_1
     - light.soverom_2
     - light.soverom_3
-
-- platform: group
-  name: Entrelys
-  entities:
-    - light.skogang_1
-    - light.skogang_2
-    - light.skogang_3
-    - light.entre
