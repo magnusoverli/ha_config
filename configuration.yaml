@@ -44,3 +44,7 @@ updater:
 volkswagencarnet: !include carnet.yaml
 zeroconf:
 zone: !include zone.yaml
+#zha:
+#  usb_path: /dev/ttyACM0
+#  radio_type: deconz
+#  database_path: /config/zigbee.db
