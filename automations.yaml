@@ -164,13 +164,30 @@
     platform: sun
   condition: []
   action:
-  - device_id: e213eb952c0842e0b53232c5fd4a29c9
+  - brightness_pct: 100
+    device_id: 3656363d604841b282956ca4b47f4548
     domain: light
     entity_id: light.trapp_1
     type: turn_on
-  - device_id: b733a2a84a24480c87be546bc5b39faa
+  - brightness_pct: 100
+    device_id: f28dc05efd94407e9ec6b17d332fe29b
     domain: light
     entity_id: light.trapp_2
+    type: turn_on
+  - brightness_pct: 100
+    device_id: b397071e15264940ae3d736547e15896
+    domain: light
+    entity_id: light.ikea_of_sweden_tradfri_bulb_e27_ww_806lm_f0d83cfe_level_on_off
+    type: turn_on
+  - brightness_pct: 100
+    device_id: dccd0bc1a092400794e266fb28c3a8d2
+    domain: light
+    entity_id: light.takterasse_1
+    type: turn_on
+  - brightness_pct: 100
+    device_id: 69f6c1e792734102b374208260fe84d8
+    domain: light
+    entity_id: light.takterasse_2
     type: turn_on
 - id: '1575295359193'
   alias: Utelys av
@@ -181,13 +198,25 @@
     platform: sun
   condition: []
   action:
-  - device_id: e213eb952c0842e0b53232c5fd4a29c9
+  - device_id: 3656363d604841b282956ca4b47f4548
     domain: light
     entity_id: light.trapp_1
     type: turn_off
-  - device_id: b733a2a84a24480c87be546bc5b39faa
+  - device_id: f28dc05efd94407e9ec6b17d332fe29b
     domain: light
     entity_id: light.trapp_2
+    type: turn_off
+  - device_id: b397071e15264940ae3d736547e15896
+    domain: light
+    entity_id: light.ikea_of_sweden_tradfri_bulb_e27_ww_806lm_f0d83cfe_level_on_off
+    type: turn_off
+  - device_id: dccd0bc1a092400794e266fb28c3a8d2
+    domain: light
+    entity_id: light.takterasse_1
+    type: turn_off
+  - device_id: 69f6c1e792734102b374208260fe84d8
+    domain: light
+    entity_id: light.takterasse_2
     type: turn_off
 - id: '1575295359204'
   alias: Completed Torrent
@@ -407,15 +436,15 @@
     domain: light
     entity_id: light.hall_spot_3
     type: turn_off
-
 - id: '7367464536738292836'
   alias: Update Available Notification
   trigger:
-    - platform: state
-      entity_id: binary_sensor.updater
-      from: 'off'
-      to: 'on'
+  - platform: state
+    entity_id: binary_sensor.updater
+    from: 'off'
+    to: 'on'
   action:
-    - service: notify.magnus
-      data_template:
-        message: "Home Assistant {{ state_attr('binary_sensor.updater', 'newest_version') }} is available."
+    service: notify.magnus
+    data:
+      message: Home Assistant {{ state_attr('binary_sensor.updater', 'newest_version')
+        }} is available.
