@@ -1,0 +1,3 @@
+- platform: xiaomi_miio
+  host: 10.0.100.237
+  token: !secret vacuum_token
