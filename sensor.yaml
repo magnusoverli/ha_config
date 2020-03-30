@@ -16,15 +16,6 @@
 
 - platform: template
   sensors:
-
-## GARASJE ##
-    garasjeport:
-      value_template: >-
-        {% if is_state("binary_sensor.fibaro_system_fgk10x_door_opening_sensor_sensor", "off") %}
-          Open
-        {% else %}
-          Closed
-        {% endif %}
 ## TIBBER ##
     electricity_price_furulien_18_percent:
       friendly_name: "Strømpris %"
