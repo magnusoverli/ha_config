@@ -20,10 +20,6 @@ light: !include light.yaml
 logbook:
 logger:
   default: info
-  logs:
-    homeassistant.components.zha: debug
-    zigpy_deconz: debug
-    zigpy: debug
 map:
 media_player: !include media_player.yaml
 mobile_app:
@@ -41,6 +37,7 @@ tibber: !include tibber.yaml
 unifi: !include unifi.yaml
 utility_meter: !include utility_meter.yaml
 updater:
+vacuum: !include vacuum.yaml
 volkswagencarnet: !include carnet.yaml
 zeroconf:
 zone: !include zone.yaml
