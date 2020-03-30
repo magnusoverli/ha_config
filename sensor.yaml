@@ -18,10 +18,7 @@
   sensors:
 
 ## KLIMA ##
-#    loft_temp_diff:
-#      friendly_name: "Loft Temperatur Differanse"
-#      unit_of_measurement: '%'
-#      value_template: "{{ ((states('sensor.lumi_lumi_weather_0bfb4a04_temperature') | float - states(' sensor.lumi_lumi_weather_99ee2904_temperature') | float) }}"
+
 ## TIBBER ##
     electricity_price_furulien_18_percent:
       friendly_name: "Strømpris %"
@@ -35,12 +32,6 @@
       friendly_name: Dagforbruk
       unit_of_measurement: kWh
       value_template: "{{ state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') }}"
-
-# ## PANELOVN ##
-#     panelovn_gjesterom_kwh:
-#       friendly_name: 'Panelovn Gjesterom Forbruk kWh'
-#       unit_of_measurement: 'kWh'
-#       value_template: "{{ (states.sensor.panelovn_gjesterom.state) | float * 0.001}}"
 
 ## ANDEL ##
     av_andel:
