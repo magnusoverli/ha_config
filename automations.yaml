@@ -1,109 +1,91 @@
-- alias: Tørketrommel kjører
+- id: b20d7866556a4298b33990d207089b9a
+  alias: Tørketrommel kjører
   trigger:
-  - platform: numeric_state
+  - above: '20'
     entity_id: sensor.torketrommel_effekt
-    above: '30'
-    for:
-      seconds: 30
-  condition:
-    condition: state
-    entity_id: input_select.torketrommel
-    state: Av
+    for: 00:00:20
+    platform: numeric_state
+  condition: []
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.torketrommel
       option: Kjører
-  id: b20d7866556a4298b33990d207089b9a
-- alias: Tørketrommel ferdig
+    service: input_select.select_option
+- id: 2a0d932475c34ceb89381219aa89190e
+  alias: Tørketrommel ferdig
   trigger:
-  - platform: numeric_state
+  - below: '40'
     entity_id: sensor.torketrommel_effekt
-    below: '7'
-    for:
-      seconds: 40
-  condition:
-    condition: state
-    entity_id: input_select.torketrommel
-    state: Kjører
+    for: 00:00:20
+    platform: numeric_state
+  condition: []
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.torketrommel
       option: Ferdig
-  - service: notify.magnus
-    data:
+    service: input_select.select_option
+  - data:
       message: Tørketrommel ferdig
-  - service: notify.mona
-    data:
+    service: notify.magnus
+  - data:
       message: Tørketrommel ferdig
-  id: 2a0d932475c34ceb89381219aa89190e
-- alias: Tørketrommel av
+    service: notify.mona
+- id: fa25cc023a0f446485708a1a1368b754
+  alias: Tørketrommel av
   trigger:
-  - platform: state
-    entity_id: input_select.torketrommel
+  - entity_id: input_select.torketrommel
+    for: 00:00:10
+    platform: state
     to: Ferdig
-    for:
-      seconds: 10
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.torketrommel
       option: Av
-  id: fa25cc023a0f446485708a1a1368b754
-- alias: Vaskemaskin kjører
+    service: input_select.select_option
+- id: 912e3b7d42d5421294df2b5d922f6534
+  alias: Vaskemaskin kjører
   trigger:
-  - platform: numeric_state
+  - above: '5'
     entity_id: sensor.vaskemaskin_effekt
-    above: '20'
-    for:
-      seconds: 45
-  condition:
-    condition: state
-    entity_id: input_select.vaskemaskin
-    state: Av
+    for: 00:00:30
+    platform: numeric_state
+  condition: []
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.vaskemaskin
       option: Kjører
-  id: 912e3b7d42d5421294df2b5d922f6534
-- alias: Vaskemaskin ferdig
+    service: input_select.select_option
+- id: 094011b2bab84c4ba826bfe2d291d2e6
+  alias: Vaskemaskin ferdig
   trigger:
-  - platform: numeric_state
+  - below: '10'
     entity_id: sensor.vaskemaskin_effekt
-    below: '2'
-    for:
-      seconds: 60
-  condition:
-    condition: state
-    entity_id: input_select.vaskemaskin
-    state: Kjører
+    for: 00:00:20
+    platform: numeric_state
+  condition: []
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.vaskemaskin
       option: Ferdig
-  - service: notify.magnus
-    data:
+    service: input_select.select_option
+  - data:
       message: Vaskemaskin ferdig
-  - service: notify.mona
-    data:
+    service: notify.magnus
+  - data:
       message: Vaskemaskin ferdig
-  id: 094011b2bab84c4ba826bfe2d291d2e6
-- alias: Vaskemaskin av
+    service: notify.mona
+- id: 6b6ae6bb6fcd40518700ef0f572ff60a
+  alias: Vaskemaskin av
   trigger:
-  - platform: state
-    entity_id: input_select.vaskemaskin
+  - entity_id: input_select.vaskemaskin
+    for: 00:00:10
+    platform: state
     to: Ferdig
-    for:
-      seconds: 30
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.vaskemaskin
       option: Av
-  id: 6b6ae6bb6fcd40518700ef0f572ff60a
+    service: input_select.select_option
 - id: '1574633872450'
   alias: Benkelys på
   description: ''
@@ -276,20 +258,11 @@
   alias: Oppvaskmaskin Kjører
   description: ''
   trigger:
-  - above: 4
-    device_id: ed8ea232992a412ebbd524785b3101a1
-    domain: sensor
+  - above: '5'
     entity_id: sensor.oppvaskmaskin_effekt
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 30
-    platform: device
-    type: value
-  condition:
-  - condition: state
-    entity_id: input_select.oppvask
-    state: Av
+    for: 00:00:20
+    platform: numeric_state
+  condition: []
   action:
   - data:
       option: Kjører
@@ -299,17 +272,10 @@
   alias: Oppvaskmaskin Venter
   description: ''
   trigger:
-  - above: 19
-    below: 35
-    device_id: ed8ea232992a412ebbd524785b3101a1
-    domain: sensor
+  - below: '15'
     entity_id: sensor.oppvaskmaskin_effekt
-    for:
-      hours: 0
-      minutes: 1
-      seconds: 0
-    platform: device
-    type: value
+    for: 00:00:15
+    platform: numeric_state
   condition:
   - condition: state
     entity_id: input_select.oppvask
@@ -323,16 +289,10 @@
   alias: Oppvaskmaskin Tørker
   description: ''
   trigger:
-  - above: 500
-    device_id: ed8ea232992a412ebbd524785b3101a1
-    domain: sensor
+  - above: '100'
     entity_id: sensor.oppvaskmaskin_effekt
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 20
-    platform: device
-    type: value
+    for: 00:00:10
+    platform: numeric_state
   condition:
   - condition: state
     entity_id: input_select.oppvask
@@ -345,16 +305,10 @@
   alias: Oppvaskmaskin Ferdig / AV
   description: ''
   trigger:
-  - below: 20
-    device_id: ed8ea232992a412ebbd524785b3101a1
-    domain: sensor
+  - below: '10'
     entity_id: sensor.oppvaskmaskin_effekt
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 20
-    platform: device
-    type: value
+    for: 00:00:10
+    platform: numeric_state
   condition:
   - condition: state
     entity_id: input_select.oppvask
@@ -448,3 +402,20 @@
     data:
       message: Home Assistant {{ state_attr('binary_sensor.updater', 'newest_version')
         }} is available.
+- id: '1585596139753'
+  alias: Alert garage door open
+  description: ''
+  trigger:
+  - at: '21:45:00'
+    platform: time
+  condition:
+  - condition: state
+    entity_id: cover.garage_door
+    state: open
+  action:
+  - data:
+      message: '{{"\U000026a0"}}Garasjeporten er åpen{{"\U000026a0"}}'
+    service: notify.magnus
+  - data:
+      message: '{{"\U000026a0"}}Garasjeporten er åpen{{"\U000026a0"}}'
+    service: notify.mona
