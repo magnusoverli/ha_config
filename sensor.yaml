@@ -120,6 +120,15 @@
       friendly_name: 'Loft Diff Temperature'
       unit_of_measurement: 'C'
       value_template: "{{ (states('sensor.loft_isolert_temperature') | float - states('sensor.loft_uisolert_temperature') | float) | round(1) }}"
+## XIAOMI VACUUM ##
+    pinky_pie_battery:
+      friendly_name: 'Pinky Pie Battery'
+      unit_of_measurement: '%'
+      value_template: "{{ state_attr('vacuum.xiaomi_vacuum_cleaner', 'battery_level') }}"
+
+    pinky_pie_status:
+      friendly_name: 'Pinky Pie Status'
+      value_template: "{{ state_attr('vacuum.xiaomi_vacuum_cleaner', 'status') }}"
 
 ## VÆR ##
 - platform: yr
