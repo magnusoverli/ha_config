@@ -419,3 +419,36 @@
   - data:
       message: '{{"\U000026a0"}}Garasjeporten er åpen{{"\U000026a0"}}'
     service: notify.mona
+- id: '1585671607161'
+  alias: Pinky Pie Turn on when undock
+  description: The vacuum cleaner is unable to find the dock if the dock is not powered
+    on. This ensures the dock is always on when the vacuum is not docked.
+  trigger:
+  - entity_id: sensor.pinky_pie_status
+    platform: state
+    to: cleaning
+  - entity_id: sensor.pinky_pie_status
+    platform: state
+    to: returning
+  - below: '80'
+    entity_id: sensor.pinky_pie_battery
+    platform: numeric_state
+  condition: []
+  action:
+  - entity_id: switch.pinky_pie_plug_switch
+    service: switch.turn_on
+- id: '1585621607161'
+  alias: Pinky Pie Turn off when dock
+  description: The vacuum cleaner is unable to find the dock if the dock is not powered
+    on. This ensures the dock is always on when the vacuum is not docked.
+  trigger:
+  - entity_id: sensor.pinky_pie_status
+    platform: state
+    to: docked
+  condition:
+  - above: '80'
+    condition: numeric_state
+    entity_id: sensor.pinky_pie_battery
+  action:
+  - entity_id: switch.pinky_pie_plug_switch
+    service: switch.turn_off
