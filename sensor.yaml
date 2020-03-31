@@ -111,6 +111,11 @@
       unit_of_measurement: '%'
       value_template: "{{ ((states('sensor.kaffetrakter_daily_energy') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
 
+    pinkypie_andel:
+      friendly_name: "Pinky Pie Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.pinky_pie_plug_daily_energy) | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(1) }}"
+
     restforbruk:
       friendly_name: 'Rest'
       unit_of_measurement: '%'
