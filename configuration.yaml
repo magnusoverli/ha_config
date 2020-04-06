@@ -35,7 +35,6 @@ system_health:
 sun:
 telegram_bot: !include telegram_bot.yaml
 tibber: !include tibber.yaml
-unifi: !include unifi.yaml
 utility_meter: !include utility_meter.yaml
 updater:
 vacuum: !include vacuum.yaml
