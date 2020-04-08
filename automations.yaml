@@ -411,14 +411,31 @@
   condition:
   - condition: state
     entity_id: cover.garage_door
-    state: open
+    state: 'Open'
   action:
-  - data:
-      message: '{{"\U000026a0"}}Garasjeporten er åpen{{"\U000026a0"}}'
-    service: notify.magnus
-  - data:
-      message: '{{"\U000026a0"}}Garasjeporten er åpen{{"\U000026a0"}}'
-    service: notify.mona
+  - service: telegram_bot.send_message
+    data:
+      target: 590774665
+      message: '{{"\U000026a0"}}   Garasjeporten er åpen!   {{"\U000026a0"}}'
+      inline_keyboard:
+      - "Lukk Garasjeporten!:/lukk_garasje"
+      - "Ikke tenk på det!:/ikke_lukk_garasje"
+
+- id: '1585596139717'
+  alias: Auto Close Garage
+  description: 'Auto close garage door if triggered by notification'
+  trigger:
+    platform: event
+    event_type: telegram_callback
+    event_data:
+      data: '/lukk_garasje'
+  action:
+    - service: cover.close_cover
+      entity_id: cover.garage_door
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        message: 'OK! Lukker porten'
+
 - id: '1585671607161'
   alias: Pinky Pie Turn on charging
   description: The vacuum cleaner is unable to find the dock if the dock is not powered
@@ -466,3 +483,23 @@
   action:
   - service: switch.turn_off
     entity_id: switch.pinky_pie_plug_switch
+- id: '1586149134708'
+  alias: Garasjeport test
+  description: ''
+  trigger:
+  - at: '22:30'
+    platform: time
+  condition:
+  - condition: state
+    entity_id: cover.garage_door
+    state: open
+  action:
+  - data:
+      data_template:
+        inline_keyboard:
+        - Lukk dør!:/close_garage_door
+        - Det går fint!:/dont_close
+        message: You look like you are home alone. Should I order you a pizza?
+        target: '!secret magnus_chat_id'
+        title: Want pizza?
+    service: telegram_bot.send_message
