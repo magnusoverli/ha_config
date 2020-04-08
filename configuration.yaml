@@ -25,7 +25,7 @@ map:
 media_player: !include media_player.yaml
 mobile_app:
 notify: !include notify.yaml
-octorpint: !include octoprint.yaml
+octoprint: !include octoprint.yaml
 panel_iframe: !include panel_iframe.yaml
 person:
 recorder: !include recorder.yaml

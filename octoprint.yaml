@@ -1,3 +1,2 @@
-octoprint:
-  host: 10.0.2.192
-  api_key: !secret octoprint_api
+host: 10.0.2.192
+api_key: !secret octoprint_api
