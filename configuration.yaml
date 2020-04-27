@@ -1,6 +1,4 @@
 automation: !include automations.yaml
-#apple_tv: !include apple_tv.yaml
-#apple_tv_mrp:
 binary_sensor: !include binary_sensor.yaml
 climate: !include climate.yaml
 cloud:
@@ -10,6 +8,7 @@ duckdns: !include duckdns.yaml
 discovery:
   ignore:
     - igd
+    - upnp
 frontend:
 group: !include groups.yaml
 hacs: !include hacs.yaml
