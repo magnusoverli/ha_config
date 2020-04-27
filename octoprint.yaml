@@ -1,2 +1,4 @@
 host: 10.0.2.192
 api_key: !secret octoprint_api
+bed: true
+number_of_tools: 1
