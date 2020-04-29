@@ -8,7 +8,6 @@ duckdns: !include duckdns.yaml
 discovery:
   ignore:
     - igd
-    - upnp
 frontend:
 group: !include groups.yaml
 hacs: !include hacs.yaml
