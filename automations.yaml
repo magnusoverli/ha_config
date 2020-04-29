@@ -14,7 +14,7 @@
 - id: 2a0d932475c34ceb89381219aa89190e
   alias: Tørketrommel ferdig
   trigger:
-  - below: '40'
+  - below: '15'
     entity_id: sensor.torketrommel_effekt
     for: 00:00:20
     platform: numeric_state
@@ -45,11 +45,14 @@
 - id: 912e3b7d42d5421294df2b5d922f6534
   alias: Vaskemaskin kjører
   trigger:
-  - above: '5'
+  - above: '10'
     entity_id: sensor.vaskemaskin_effekt
-    for: 00:00:30
+    for: 00:00:15
     platform: numeric_state
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_select.vaskemaskin
+    state: Av
   action:
   - data:
       entity_id: input_select.vaskemaskin
@@ -58,11 +61,14 @@
 - id: 094011b2bab84c4ba826bfe2d291d2e6
   alias: Vaskemaskin ferdig
   trigger:
-  - below: '10'
+  - below: '30'
     entity_id: sensor.vaskemaskin_effekt
-    for: 00:00:20
+    for: 00:03:00
     platform: numeric_state
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_select.vaskemaskin
+    state: Kjører
   action:
   - data:
       entity_id: input_select.vaskemaskin
@@ -258,9 +264,9 @@
   alias: Oppvaskmaskin Kjører
   description: ''
   trigger:
-  - above: '5'
+  - above: '10'
     entity_id: sensor.oppvaskmaskin_effekt
-    for: 00:00:20
+    for: 00:00:11
     platform: numeric_state
   condition: []
   action:
@@ -272,9 +278,9 @@
   alias: Oppvaskmaskin Venter
   description: ''
   trigger:
-  - below: '15'
+  - below: '20'
     entity_id: sensor.oppvaskmaskin_effekt
-    for: 00:00:15
+    for: 00:00:10
     platform: numeric_state
   condition:
   - condition: state
@@ -411,31 +417,29 @@
   condition:
   - condition: state
     entity_id: cover.garage_door
-    state: 'Open'
+    state: Open
   action:
   - service: telegram_bot.send_message
     data:
       target: 590774665
       message: '{{"\U000026a0"}}   Garasjeporten er åpen!   {{"\U000026a0"}}'
       inline_keyboard:
-      - "Lukk Garasjeporten!:/lukk_garasje"
-      - "Ikke tenk på det!:/ikke_lukk_garasje"
-
+      - Lukk Garasjeporten!:/lukk_garasje
+      - Ikke tenk på det!:/ikke_lukk_garasje
 - id: '1585596139717'
   alias: Auto Close Garage
-  description: 'Auto close garage door if triggered by notification'
+  description: Auto close garage door if triggered by notification
   trigger:
     platform: event
     event_type: telegram_callback
     event_data:
-      data: '/lukk_garasje'
+      data: /lukk_garasje
   action:
-    - service: cover.close_cover
-      entity_id: cover.garage_door
-    - service: telegram_bot.answer_callback_query
-      data_template:
-        message: 'OK! Lukker porten'
-
+  - service: cover.close_cover
+    entity_id: cover.garage_door
+  - service: telegram_bot.answer_callback_query
+    data_template:
+      message: OK! Lukker porten
 - id: '1585671607161'
   alias: Pinky Pie Turn on charging
   description: The vacuum cleaner is unable to find the dock if the dock is not powered
