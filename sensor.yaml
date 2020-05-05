@@ -1,18 +1,18 @@
-- platform: synologydsm
-  host: 192.168.1.172
-  ssl: false
-  port: 5000
-  username: !secret synology_username
-  password: !secret synology_password
-  monitored_conditions:
-    - cpu_total_load
-    - memory_real_usage
-    - network_up
-    - network_down
-    - disk_name
-    - disk_below_remain_life_thr
-    - volume_status
-    - volume_percentage_used
+# - platform: synologydsm
+#   host: 192.168.1.172
+#   ssl: false
+#   port: 5000
+#   username: !secret synology_username
+#   password: !secret synology_password
+#   monitored_conditions:
+#     - cpu_total_load
+#     - memory_real_usage
+#     - network_up
+#     - network_down
+#     - disk_name
+#     - disk_below_remain_life_thr
+#     - volume_status
+#     - volume_percentage_used
 
 - platform: template
   sensors:
