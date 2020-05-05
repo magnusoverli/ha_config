@@ -278,7 +278,7 @@
   alias: Oppvaskmaskin Venter
   description: ''
   trigger:
-  - below: '20'
+  - below: '13'
     entity_id: sensor.oppvaskmaskin_effekt
     for: 00:00:10
     platform: numeric_state
@@ -507,3 +507,18 @@
         target: '!secret magnus_chat_id'
         title: Want pizza?
     service: telegram_bot.send_message
+- id: '1588265422219'
+  alias: Stuelys PÅ
+  description: ''
+  trigger:
+  - device_id: bba6fa6d0e83421097fc136949624ab4
+    domain: binary_sensor
+    entity_id: binary_sensor.meonode_stue_bevegelse
+    platform: device
+    type: motion
+  condition: []
+  action:
+  - data:
+      brightness_pct: 90
+      entity_id: light.stuelys
+    service: light.turn_on
