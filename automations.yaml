@@ -361,9 +361,9 @@
   alias: Lite lagring Synne
   description: ''
   trigger:
-  - above: '95'
-    entity_id: sensor.synology_dsm_volume_used_volume_1
-    for: 00:01:00
+  - above: '90'
+    entity_id: sensor.synology_volume_used_volume_1
+    for: 00:00:30
     platform: numeric_state
   condition: []
   action:
@@ -522,3 +522,16 @@
       brightness_pct: 90
       entity_id: light.stuelys
     service: light.turn_on
+- id: '1588679054521'
+  alias: RFID sensor data
+  description: ''
+  trigger:
+  - event_data: {}
+    event_type: esphome.rfid_read
+    platform: event
+  condition: []
+  action:
+  - data:
+      trigger.event.data: message
+    entity_id: input_text.rfid
+    service: input_text.set_value
