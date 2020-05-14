@@ -1,0 +1,47 @@
+substitutions:
+  devicename: meonode_rfid
+  upper_devicename: MEONode RFID
+
+esphome:
+  name: "$devicename"
+  platform: ESP8266
+  board: nodemcuv2
+
+wifi:
+  output_power: 19dB
+  power_save_mode: none
+  reboot_timeout: 10min
+  networks:
+  - ssid: 'IoT2'
+    password: !secret wifi_password
+    bssid: "b4:fb:e4:8b:b2:fe"
+
+logger:
+api:
+  password: !secret api_password
+ota:
+  password: !secret ota_password
+
+##############################################################
+spi:
+  clk_pin: D0
+  miso_pin: D1
+  mosi_pin: D2
+
+pn532:
+  cs_pin: D3
+  update_interval: 1s
+  on_tag:
+    then:
+    - text_sensor.template.publish:
+        id: rfid_tag
+        state: !lambda 'return x;'
+    - homeassistant.event:
+        event: esphome.rfid_read
+        data_template: 
+          message: !lambda 'return x;'
+
+text_sensor:
+  - platform: template
+    name: "RFID Tag"
+    id: rfid_tag
