@@ -6,8 +6,6 @@ config:
 cover: !include cover.yaml
 duckdns: !include duckdns.yaml
 discovery:
-  ignore:
-    - igd
 frontend:
 group: !include groups.yaml
 hacs: !include hacs.yaml
@@ -15,6 +13,7 @@ history:
 http: !include http.yaml
 influxdb: !include influxdb.yaml
 input_select: !include input_select.yaml
+input_text: !include input_text.yaml
 light: !include light.yaml
 logbook:
 logger:
