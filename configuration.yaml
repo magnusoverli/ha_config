@@ -7,6 +7,9 @@ cover: !include cover.yaml
 duckdns: !include duckdns.yaml
 discovery:
 frontend:
+google:
+  client_id: !secret google_id
+  client_secret: !secret google_secret
 group: !include groups.yaml
 hacs: !include hacs.yaml
 history:

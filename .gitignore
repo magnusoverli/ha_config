@@ -24,6 +24,7 @@ plex.conf
 pyozw.sqlite
 secrets.yaml
 tradfri.conf
+google_calendars.*
 ._*
 ._.*
 zigbee.db
