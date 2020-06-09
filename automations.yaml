@@ -546,3 +546,20 @@
   - data:
       entity_id: light.gangspot
     service: light.turn_off
+- id: '1590345427429'
+  alias: Restavfall
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{{ is_state_attr(''calendar.soppelhenting_furulien'', ''offset_reached'',true)
+      }}'
+  condition: []
+  action:
+  - data:
+      message: '{{ state_attr(''calendar.soppelhenting_furulien'', ''message'')}}
+        i morgen tidlig!'
+    service: notify.magnus
+  - data:
+      message: '{{ state_attr(''calendar.soppelhenting_furulien'', ''message'')}}
+        i morgen tidlig!'
+    service: notify.mona
