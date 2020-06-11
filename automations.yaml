@@ -563,13 +563,3 @@
       message: '{{ state_attr(''calendar.soppelhenting_furulien'', ''message'')}}
         i morgen tidlig!'
     service: notify.mona
-- id: '1591806376902'
-  alias: Bliss docker action
-  description: An automation to notify of a new build of Bliss docker image
-  trigger:
-  - platform: webhook
-    webhook_id: bliss-updated
-  condition: []
-  action:
-  - service: notify.magnus
-    data_template: "{{ trigger.json }}"
