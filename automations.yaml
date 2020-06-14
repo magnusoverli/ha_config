@@ -109,7 +109,7 @@
     type: turn_on
   - device_id: 37dd3df261fc433e94f3e000da3bef4a
     domain: switch
-    entity_id: switch.qubino_goap_unknown_type_0001_id_0055_switch
+    entity_id: switch.multilevel_power_switch_switch
     type: turn_on
 - id: '1574633914308'
   alias: Benkelys av
@@ -128,7 +128,7 @@
     type: turn_off
   - device_id: 37dd3df261fc433e94f3e000da3bef4a
     domain: switch
-    entity_id: switch.qubino_goap_unknown_type_0001_id_0055_switch
+    entity_id: switch.multilevel_power_switch_switch
     type: turn_off
 - id: '1575139255159'
   alias: Nightly snapshot
@@ -220,7 +220,7 @@
   action:
   - service: light.turn_on
     data_template:
-      entity_id: light.qubino_goap_unknown_type_0001_id_0055_level
+      entity_id: light.multilevel_power_switch_level
       brightness: "{% set new_level = trigger.to_state.attributes.brightness|int %}\
         \ {% if 0 < new_level < 55 %}\n  65\n{% elif 200 < new_level < 256 %}\n  160\n\
         {% else %}\n  {{ new_level }}\n{% endif %}"
@@ -323,7 +323,7 @@
   description: ''
   trigger:
   - below: '10'
-    entity_id: light.entrelys
+    entity_id: light.gang_taklampe
     platform: numeric_state
     value_template: '{{ state.attributes.brightness}}'
   condition: []
