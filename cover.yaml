@@ -12,13 +12,13 @@
         data:
           entity_id: switch.binary_power_switch_switch
       value_template: >-
-        {% if is_state("binary_sensor.fgk10x_door_opening_sensor_access_control_door_window_open", "Closed") %}
+        {% if is_state('binary_sensor.fgk10x_door_opening_sensor_sensor', 'On') %}
           Closed
         {% else %}
           Open
         {% endif %}
       icon_template: >-
-        {% if is_state("binary_sensor.fgk10x_door_opening_sensor_access_control_door_window_open", "Closed") %}
+        {% if is_state('binary_sensor.fgk10x_door_opening_sensor_access_control_door_window_open', 'Closed') %}
           mdi:garage
         {% else %}
           mdi:garage-open
