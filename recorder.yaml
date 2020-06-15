@@ -1,1 +1,1 @@
-  db_url: mysql://homeassistant:Eplekake64@core-mariadb/homeassistant?charset=utf8
+db_url: mysql://homeassistant:Eplekake64@core-mariadb/homeassistant?charset=utf8
