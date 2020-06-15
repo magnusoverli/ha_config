@@ -1,6 +1,5 @@
 automation: !include automations.yaml
 binary_sensor: !include binary_sensor.yaml
-climate: !include climate.yaml
 cloud:
 config:
 cover: !include cover.yaml
