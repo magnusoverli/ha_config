@@ -126,6 +126,7 @@
     daily_odometer_template:
       friendly_name: 'Daily odometer'
       unit_of_measurement: km
+      icon_template: mdi:gauge-full
       value_template: "{{ states('sensor.gte_daily_odometer') }}"
 
 ## VÆR ##
