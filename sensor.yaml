@@ -123,6 +123,11 @@
       friendly_name: 'Pinky Pie Status'
       value_template: "{{ states('vacuum.xiaomi_vacuum_cleaner') }}"
 
+    daily_odometer_template:
+      friendly_name: 'Daily odometer'
+      unit_of_measurement: km
+      value_template: "{{ states('sensor.gte_daily_odometer') }}"
+
 ## VÆR ##
 - platform: yr
   name: YR
