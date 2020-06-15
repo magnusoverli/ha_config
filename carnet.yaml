@@ -5,12 +5,3 @@
     minutes: 2
   name:
     wvwzzz3czle033777: 'Passat GTE'
-  resources:
-    - combustion_engine_heating
-    - position
-    - distance
-    - service_inspection
-    - oil_inspection
-    - door_locked
-    - trunk_locked
-    - request_in_progress
