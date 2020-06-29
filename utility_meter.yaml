@@ -8,5 +8,5 @@ total_timesforbruk:
   source: sensor.electricity_price_furulien_18_daily_usage
   cycle: hourly
 gte_daily_odometer:
-  source: sensor.passat_gte_odometer
+  source: sensor.passat_gte_odometer_2
   cycle: daily
