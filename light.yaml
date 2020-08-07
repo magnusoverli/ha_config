@@ -1,114 +1,29 @@
-## TEMPLATE LIGHTS ##
-- platform: template
-  lights:
-    benkelys:
-      friendly_name: "Benkelys"
-      value_template: >-
-        {% if is_state('switch.benkelys', 'on') %}
-          on
-        {% else %}
-          off
-        {% endif %}
-      turn_on:
-        service: homeassistant.turn_on
-        data:
-          entity_id: switch.benkelys
-      turn_off:
-        service: homeassistant.turn_off
-        data:
-          entity_id: switch.benkelys
-
-    kjokkenspot:
-      friendly_name: "Kjøkkenspot"
-      value_template: >-
-        {% if is_state('switch.kjokkenspot', 'on') %}
-          on
-        {% else %}
-          off
-        {% endif %}
-      turn_on:
-        service: homeassistant.turn_on
-        data:
-          entity_id: switch.kjokkenspot
-      turn_off:
-        service: homeassistant.turn_off
-        data:
-          entity_id: switch.kjokkenspot
-
-    gangspot:
-      friendly_name: "Gangspot"
-      value_template: >-
-        {% if is_state('switch.gangspot', 'on') %}
-          on
-        {% else %}
-          off
-        {% endif %}
-      turn_on:
-        service: homeassistant.turn_on
-        data:
-          entity_id: switch.gangspot
-      turn_off:
-        service: homeassistant.turn_off
-        data:
-          entity_id: switch.gangspot
-
-## LIGHT GROUPS ##
 - platform: group
-  name: Utelys
+  name: Kjøkkenlys
   entities:
-    - light.trapp_1
-    - light.trapp_2
-    - light.taktaresse_1
-    - light.taktaresse_2
-    - light.domitech_smart_led_retrofit_kit_ze27eu_level
-
+    - light.kjokken_spot_1
+    - light.kjokken_spot_2
+    - light.kjokken_spot_3
+    - light.benkelys
+    - light.zmnhhdx_mini_dimmer_level
+- platform: group
+  name: Hallys
+  entities:
+    - light.hall_lampett
+    - light.hall_spot_1
+    - light.hall_spot_2
+    - light.hall_spot_3
+    - light.gangspot_1
+    - light.gangspot_2
+    - light.gangspot_3
+    - light.gangspot_4
+    - light.gang_lampett
+    - light.gang_taklampe
 - platform: group
   name: Stuelys
   entities:
-    - light.stue_salong
+    - light.stue_sofabord
     - light.stue_spot_1
     - light.stue_spot_2
     - light.stue_spot_3
     - light.stue_taklampe
-
-- platform: group
-  name: Kjokkenlys
-  entities:
-    - light.kjokken_spot1
-    - light.kjokken_spot2
-    - light.kjokken_spot3
-    - light.kjokken_ventilator_1
-    - light.kjokken_ventialtor_2
-    - light.kjokkenspot
-
-- platform: group
-  name: Badelys
-  entities:
-    - light.bad_spot_1
-    - light.bad_spot_2
-    - light.bad_spot_3
-    - light.bad_spot_4
-    - light.bad_spot_5
-
-- platform: group
-  name: Bodlys
-  entities:
-    - light.bod_1
-    - light.bod_2
-
-- platform: group
-  name: Hallys
-  entities:
-    - light.hall_lampett_1
-    - light.hall_lampett_2
-    - light.hall_spot_1
-    - light.hall_spot_2
-    - light.hall_spot_3
-    - light.entre_taklampe
-
-- platform: group
-  name: Soveromslys
-  entities:
-    - light.soverom_spot_1
-    - light.soverom_spot_2
-    - light.soverom_spot_3
