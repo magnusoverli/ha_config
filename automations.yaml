@@ -1,9 +1,9 @@
 - id: b20d7866556a4298b33990d207089b9a
   alias: Tørketrommel kjører
   trigger:
-  - above: '20'
-    entity_id: sensor.torketrommel_effekt
-    for: 00:00:20
+  - above: '5'
+    entity_id: sensor.torketrommel_plug_power
+    for: 00:00:10
     platform: numeric_state
   condition: []
   action:
@@ -11,14 +11,18 @@
       entity_id: input_select.torketrommel
       option: Kjører
     service: input_select.select_option
+  mode: single
 - id: 2a0d932475c34ceb89381219aa89190e
   alias: Tørketrommel ferdig
   trigger:
-  - below: '15'
+  - below: '40'
     entity_id: sensor.torketrommel_effekt
-    for: 00:00:20
+    for: 00:00:40
     platform: numeric_state
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_select.torketrommel
+    state: Kjører
   action:
   - data:
       entity_id: input_select.torketrommel
@@ -30,6 +34,7 @@
   - data:
       message: Tørketrommel ferdig
     service: notify.mona
+  mode: single
 - id: fa25cc023a0f446485708a1a1368b754
   alias: Tørketrommel av
   trigger:
@@ -109,7 +114,7 @@
     type: turn_on
   - device_id: 37dd3df261fc433e94f3e000da3bef4a
     domain: switch
-    entity_id: switch.multilevel_power_switch_switch
+    entity_id: switch.zmnhhdx_mini_dimmer_switch
     type: turn_on
 - id: '1574633914308'
   alias: Benkelys av
@@ -128,17 +133,8 @@
     type: turn_off
   - device_id: 37dd3df261fc433e94f3e000da3bef4a
     domain: switch
-    entity_id: switch.multilevel_power_switch_switch
+    entity_id: switch.zmnhhdx_mini_dimmer_switch
     type: turn_off
-- id: '1575139255159'
-  alias: Nightly snapshot
-  description: ''
-  trigger:
-  - at: 01:30:00
-    platform: time
-  condition: []
-  action:
-  - service: hassio.snapshot_full
 - id: '1575295351793'
   alias: Utelys på
   description: ''
@@ -202,16 +198,6 @@
     domain: light
     entity_id: light.takterasse_2
     type: turn_off
-- id: '1575295359204'
-  alias: Completed Torrent
-  trigger:
-    platform: event
-    event_type: transmission_downloaded_torrent
-  action:
-    service: notify.magnus
-    data_template:
-      title: Torrent completed!
-      message: '{{trigger.event.data.name}}'
 - id: '9271295359204'
   alias: Kjøkkenspot dimmer follow
   trigger:
@@ -220,7 +206,7 @@
   action:
   - service: light.turn_on
     data_template:
-      entity_id: light.multilevel_power_switch_level
+      entity_id: light.zmnhhdx_mini_dimmer_level
       brightness: "{% set new_level = trigger.to_state.attributes.brightness|int %}\
         \ {% if 0 < new_level < 55 %}\n  65\n{% elif 200 < new_level < 256 %}\n  160\n\
         {% else %}\n  {{ new_level }}\n{% endif %}"
@@ -322,24 +308,16 @@
   alias: Gang/hall lys av når entre er lav
   description: ''
   trigger:
-  - below: '10'
+  - below: '12'
     entity_id: light.gang_taklampe
     platform: numeric_state
     value_template: '{{ state.attributes.brightness}}'
   condition: []
   action:
-  - delay: 00:00:02
-  - entity_id:
-    - light.hall_spot_1
-    - light.hall_spot_2
-    - light.lampett_2
-    - light.bod_1
-    - light.bod_2
-    - light.hall_spot_3
-    - light.skogang_1
-    - light.skogang_2
-    - light.gangspot
+  - delay: 00:00:01
+  - entity_id: light.hall_spot_1,light.hall_spot_2,light.hall_lampett,light.bod_1,light.bod_2,light.hall_spot_3,light.gangspot_1,light.gangspot_2,light.gangspot_3,light.gangspot_4
     service: light.turn_off
+  mode: single
 - id: '1583906335014'
   alias: Lite lagring Synne
   description: ''
@@ -522,30 +500,33 @@
   alias: Gangspot PÅ
   description: ''
   trigger:
-  - device_id: 03c51a9627af42dbbffa3049b3cb5a40
+  - device_id: 391e75dcf20e40b881fb9a0a7f7b9a2d
     domain: light
-    entity_id: light.gang_taklampe
+    entity_id: light.gangspot_1
     platform: device
     type: turned_on
   condition: []
   action:
-  - data:
-      entity_id: light.gangspot
-    service: light.turn_on
+  - device_id: 4a81fe2588a44c5fb6d548cf11471cc7
+    domain: light
+    entity_id: light.gangspot_4
+    type: turn_on
+  mode: single
 - id: '1589619816992'
   alias: Gangspot AV
   description: ''
   trigger:
-  - device_id: 03c51a9627af42dbbffa3049b3cb5a40
+  - device_id: 391e75dcf20e40b881fb9a0a7f7b9a2d
     domain: light
-    entity_id: light.gang_taklampe
+    entity_id: light.gangspot_1
     platform: device
     type: turned_off
   condition: []
   action:
   - data:
-      entity_id: light.gangspot
+      entity_id: light.gangspot_4
     service: light.turn_off
+  mode: single
 - id: '1590345427429'
   alias: Restavfall
   description: ''
