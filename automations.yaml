@@ -1,140 +1,47 @@
-- id: b20d7866556a4298b33990d207089b9a
-  alias: Tørketrommel kjører
-  trigger:
-  - above: '5'
-    entity_id: sensor.torketrommel_plug_power
-    for: 00:00:10
-    platform: numeric_state
-  condition: []
-  action:
-  - data:
-      entity_id: input_select.torketrommel
-      option: Kjører
-    service: input_select.select_option
-  mode: single
-- id: 2a0d932475c34ceb89381219aa89190e
-  alias: Tørketrommel ferdig
-  trigger:
-  - below: '40'
-    entity_id: sensor.torketrommel_effekt
-    for: 00:00:40
-    platform: numeric_state
-  condition:
-  - condition: state
-    entity_id: input_select.torketrommel
-    state: Kjører
-  action:
-  - data:
-      entity_id: input_select.torketrommel
-      option: Ferdig
-    service: input_select.select_option
-  - data:
-      message: Tørketrommel ferdig
-    service: notify.magnus
-  - data:
-      message: Tørketrommel ferdig
-    service: notify.mona
-  mode: single
-- id: fa25cc023a0f446485708a1a1368b754
-  alias: Tørketrommel av
-  trigger:
-  - entity_id: input_select.torketrommel
-    for: 00:00:10
-    platform: state
-    to: Ferdig
-  action:
-  - data:
-      entity_id: input_select.torketrommel
-      option: Av
-    service: input_select.select_option
-- id: 912e3b7d42d5421294df2b5d922f6534
-  alias: Vaskemaskin kjører
-  trigger:
-  - above: '10'
-    entity_id: sensor.vaskemaskin_effekt
-    for: 00:00:15
-    platform: numeric_state
-  condition:
-  - condition: state
-    entity_id: input_select.vaskemaskin
-    state: Av
-  action:
-  - data:
-      entity_id: input_select.vaskemaskin
-      option: Kjører
-    service: input_select.select_option
-- id: 094011b2bab84c4ba826bfe2d291d2e6
-  alias: Vaskemaskin ferdig
-  trigger:
-  - below: '30'
-    entity_id: sensor.vaskemaskin_effekt
-    for: 00:03:00
-    platform: numeric_state
-  condition:
-  - condition: state
-    entity_id: input_select.vaskemaskin
-    state: Kjører
-  action:
-  - data:
-      entity_id: input_select.vaskemaskin
-      option: Ferdig
-    service: input_select.select_option
-  - data:
-      message: Vaskemaskin ferdig
-    service: notify.magnus
-  - data:
-      message: Vaskemaskin ferdig
-    service: notify.mona
-- id: 6b6ae6bb6fcd40518700ef0f572ff60a
-  alias: Vaskemaskin av
-  trigger:
-  - entity_id: input_select.vaskemaskin
-    for: 00:00:10
-    platform: state
-    to: Ferdig
-  action:
-  - data:
-      entity_id: input_select.vaskemaskin
-      option: Av
-    service: input_select.select_option
 - id: '1574633872450'
-  alias: Benkelys på
+  alias: Kjøkkenlys på
   description: ''
   trigger:
-  - device_id: c9c4553778c44c758bbe2ade4357d47d
+  - device_id: 0195134ee8c64a448e7de244abfdd687
     domain: light
     entity_id: light.kjokken_spot_1
     platform: device
     type: turned_on
   condition: []
   action:
-  - device_id: bc3b55478a6c45b3a766eb3eb0c87706
-    domain: switch
-    entity_id: switch.benkelys
+  - device_id: 67675efd53a74c9795e1c5f667db2c68
+    domain: light
+    entity_id: light.benkelys
     type: turn_on
-  - device_id: 37dd3df261fc433e94f3e000da3bef4a
-    domain: switch
-    entity_id: switch.zmnhhdx_mini_dimmer_switch
-    type: turn_on
+  - data_template:
+      brightness: "{% set new_level = trigger.to_state.attributes.brightness|int %}\
+        \ {% if 0 < new_level < 55 %}\n  65\n{% elif 200 < new_level < 256 %}\n  160\n\
+        {% else %}\n  {{ new_level }}\n{% endif %}"
+    entity_id: light.zmnhhdx_mini_dimmer_level
+    service: light.turn_on
+  mode: parallel
+  max: 10
 - id: '1574633914308'
-  alias: Benkelys av
+  alias: Kjøkkenlys av
   description: ''
   trigger:
-  - device_id: c9c4553778c44c758bbe2ade4357d47d
+  - device_id: 0195134ee8c64a448e7de244abfdd687
     domain: light
     entity_id: light.kjokken_spot_1
     platform: device
     type: turned_off
   condition: []
   action:
-  - device_id: bc3b55478a6c45b3a766eb3eb0c87706
-    domain: switch
-    entity_id: switch.benkelys
+  - device_id: 67675efd53a74c9795e1c5f667db2c68
+    domain: light
+    entity_id: light.benkelys
     type: turn_off
-  - device_id: 37dd3df261fc433e94f3e000da3bef4a
-    domain: switch
-    entity_id: switch.zmnhhdx_mini_dimmer_switch
+  - device_id: 30d08d4c4a154e94852fa7d6d643bd35
+    domain: light
+    entity_id: light.zmnhhdx_mini_dimmer_level
     type: turn_off
+  mode: parallel
+  max: 10
 - id: '1575295351793'
   alias: Utelys på
   description: ''
@@ -201,15 +108,17 @@
 - id: '9271295359204'
   alias: Kjøkkenspot dimmer follow
   trigger:
+  - entity_id: light.kjokken_spot_1
     platform: state
-    entity_id: light.kjokken_spot_1
   action:
-  - service: light.turn_on
-    data_template:
-      entity_id: light.zmnhhdx_mini_dimmer_level
+  - data_template:
       brightness: "{% set new_level = trigger.to_state.attributes.brightness|int %}\
         \ {% if 0 < new_level < 55 %}\n  65\n{% elif 200 < new_level < 256 %}\n  160\n\
         {% else %}\n  {{ new_level }}\n{% endif %}"
+      entity_id: light.zmnhhdx_mini_dimmer_level
+    service: light.turn_on
+  mode: parallel
+  max: 10
 - id: '1582878880340'
   alias: VVB på
   description: Turning on VVB after 2 hours
@@ -229,81 +138,6 @@
     domain: switch
     entity_id: switch.varmtvannsbereder
     type: turn_on
-- id: '1583088468551'
-  alias: Oppvaskmaskin Kjører
-  description: ''
-  trigger:
-  - above: '10'
-    entity_id: sensor.oppvaskmaskin_effekt
-    for: 00:00:11
-    platform: numeric_state
-  condition: []
-  action:
-  - data:
-      option: Kjører
-    entity_id: input_select.oppvask
-    service: input_select.select_option
-- id: '1583088738491'
-  alias: Oppvaskmaskin Venter
-  description: ''
-  trigger:
-  - below: '13'
-    entity_id: sensor.oppvaskmaskin_effekt
-    for: 00:00:10
-    platform: numeric_state
-  condition:
-  - condition: state
-    entity_id: input_select.oppvask
-    state: Kjører
-  action:
-  - data:
-      option: Venter
-    entity_id: input_select.oppvask
-    service: input_select.select_option
-- id: '1583088810262'
-  alias: Oppvaskmaskin Tørker
-  description: ''
-  trigger:
-  - above: '100'
-    entity_id: sensor.oppvaskmaskin_effekt
-    for: 00:00:10
-    platform: numeric_state
-  condition:
-  - condition: state
-    entity_id: input_select.oppvask
-    state: Venter
-  action:
-  - data:
-      option: Tørker
-    service: input_select.select_option
-- id: '1583088999060'
-  alias: Oppvaskmaskin Ferdig / AV
-  description: ''
-  trigger:
-  - below: '10'
-    entity_id: sensor.oppvaskmaskin_effekt
-    for: 00:00:10
-    platform: numeric_state
-  condition:
-  - condition: state
-    entity_id: input_select.oppvask
-    state: Tørker
-  action:
-  - data:
-      option: Ferdig
-    entity_id: input_select.oppvask
-    service: input_select.select_option
-  - delay: 00:00:10
-  - data:
-      option: Av
-    entity_id: input_select.oppvask
-    service: input_select.select_option
-  - data:
-      message: Oppvaskmaskin ferdig
-    service: notify.magnus
-  - data:
-      message: Oppvaskmaskin ferdig
-    service: notify.mona
 - id: '1583092645625'
   alias: Gang/hall lys av når entre er lav
   description: ''
@@ -318,19 +152,6 @@
   - entity_id: light.hall_spot_1,light.hall_spot_2,light.hall_lampett,light.bod_1,light.bod_2,light.hall_spot_3,light.gangspot_1,light.gangspot_2,light.gangspot_3,light.gangspot_4
     service: light.turn_off
   mode: single
-- id: '1583906335014'
-  alias: Lite lagring Synne
-  description: ''
-  trigger:
-  - above: '90'
-    entity_id: sensor.synology_volume_used_volume_1
-    for: 00:00:30
-    platform: numeric_state
-  condition: []
-  action:
-  - data:
-      message: Mer enn 95% av lagringskapasiteten på Synne er brukt! Slett noe!
-    service: notify.magnus
 - id: '9271255359204'
   alias: Hallys dimmer follow entre
   trigger:
@@ -357,50 +178,6 @@
     domain: light
     entity_id: light.hall_spot_3
     type: turn_off
-- id: '7367464536738292836'
-  alias: Update Available Notification
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.updater
-    from: 'off'
-    to: 'on'
-  action:
-    service: notify.magnus
-    data:
-      message: Home Assistant {{ state_attr('binary_sensor.updater', 'newest_version')
-        }} is available.
-- id: '1585596139753'
-  alias: Alert garage door open
-  description: ''
-  trigger:
-  - at: '21:45:00'
-    platform: time
-  condition:
-  - condition: state
-    entity_id: cover.garage_door
-    state: Open
-  action:
-  - service: telegram_bot.send_message
-    data:
-      target: 590774665
-      message: '{{"\U000026a0"}}   Garasjeporten er åpen!   {{"\U000026a0"}}'
-      inline_keyboard:
-      - Lukk Garasjeporten!:/lukk_garasje
-      - Ikke tenk på det!:/ikke_lukk_garasje
-- id: '1585596139717'
-  alias: Auto Close Garage
-  description: Auto close garage door if triggered by notification
-  trigger:
-    platform: event
-    event_type: telegram_callback
-    event_data:
-      data: /lukk_garasje
-  action:
-  - service: cover.close_cover
-    entity_id: cover.garage_door
-  - service: telegram_bot.answer_callback_query
-    data_template:
-      message: OK! Lukker porten
 - id: '1585671607161'
   alias: Pinky Pie Turn on charging
   description: The vacuum cleaner is unable to find the dock if the dock is not powered
@@ -448,54 +225,6 @@
   action:
   - service: switch.turn_off
     entity_id: switch.pinky_pie_plug_switch
-- id: '1586149134708'
-  alias: Garasjeport test
-  description: ''
-  trigger:
-  - at: '22:30'
-    platform: time
-  condition:
-  - condition: state
-    entity_id: cover.garage_door
-    state: open
-  action:
-  - data:
-      data_template:
-        inline_keyboard:
-        - Lukk dør!:/close_garage_door
-        - Det går fint!:/dont_close
-        message: You look like you are home alone. Should I order you a pizza?
-        target: '!secret magnus_chat_id'
-        title: Want pizza?
-    service: telegram_bot.send_message
-- id: '1588265422219'
-  alias: Stuelys PÅ
-  description: ''
-  trigger:
-  - device_id: bba6fa6d0e83421097fc136949624ab4
-    domain: binary_sensor
-    entity_id: binary_sensor.meonode_stue_bevegelse
-    platform: device
-    type: motion
-  condition: []
-  action:
-  - data:
-      brightness_pct: 90
-      entity_id: light.stuelys
-    service: light.turn_on
-- id: '1588679054521'
-  alias: RFID sensor data
-  description: ''
-  trigger:
-  - event_data: {}
-    event_type: esphome.rfid_read
-    platform: event
-  condition: []
-  action:
-  - data:
-      trigger.event.data: message
-    entity_id: input_text.rfid
-    service: input_text.set_value
 - id: '1589619790602'
   alias: Gangspot PÅ
   description: ''

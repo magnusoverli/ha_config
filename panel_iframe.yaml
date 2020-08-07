@@ -3,7 +3,7 @@ forbruk:
   url: 'https://hassio.magnusoverli.duckdns.org/api/hassio_ingress/CES9egtnCZiXU92Vq0mz8W1v1KXGY8jEAWVu_Ay4RVg/d/oaeDViIWz/forbruk?orgId=1&theme=light&kiosk&refresh=3s'
   icon: mdi:finance
 sonarr:
-  title: TV-Shows
+  title: Sonarr
   url: 'https://sonarr.magnusoverli.duckdns.org'
   icon: mdi:youtube-tv
 transmission:
