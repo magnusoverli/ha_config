@@ -4,6 +4,8 @@
     - light.kjokken_spot_1
     - light.kjokken_spot_2
     - light.kjokken_spot_3
+    - light.ventilator_1
+    - light.ventilator_2
     - light.benkelys
     - light.zmnhhdx_mini_dimmer_level
 - platform: group
@@ -27,3 +29,12 @@
     - light.stue_spot_2
     - light.stue_spot_3
     - light.stue_taklampe
+- platform: group
+  name: Badelys
+  entities:
+    - light.bad_speil
+    - light.bad_spot_1
+    - light.bad_spot_2
+    - light.bad_spot_3
+    - light.bad_spot_4
+    - light.bad_spot_5
