@@ -163,10 +163,6 @@
     - type: disk_use
       arg: /config
     - type: disk_use_percent
-      arg: /addons
-    - type: disk_use
-      arg: /addons
-    - type: disk_use_percent
       arg: /backup
     - type: disk_use
       arg: /backup
