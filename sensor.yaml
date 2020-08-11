@@ -170,12 +170,12 @@
       arg: /backup
     - type: disk_use
       arg: /backup
-    - memory_use_percent
-    - memory_use
-    - memory_free
-    - swap_use
-    - swap_free
-    - load_1m
-    - load_5m
-    - load_15m
-    - last_boot
+    - type: memory_use_percent
+    - type: memory_use
+    - type: memory_free
+    - type: swap_use
+    - type: swap_free
+    - type: load_1m
+    - type: load_5m
+    - type: load_15m
+    - type: last_boot
