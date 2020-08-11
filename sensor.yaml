@@ -146,3 +146,28 @@
     - mediumClouds
     - highClouds
     - dewpointTemperature
+
+## SYSTEM MONITOR ##
+- platform: systemmonitor
+  resources:
+    - type: disk_use_percent
+      arg: /home
+    - type: disk_use_
+      arg: /home
+    - type: disk_use_percent
+      arg: /
+    - type: disk_use
+      arg: /
+    - type: disk_use_percent
+      arg: /config
+    - type: disk_use
+      arg: /config
+    - type: disk_use_percent
+      arg: /addons
+    - type: disk_use
+      arg: /addons
+    - type: disk_use_percent
+      arg: /backup
+    - type: disk_use
+      arg: /backup
+    - type: memory_free
