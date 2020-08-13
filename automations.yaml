@@ -273,3 +273,40 @@
       message: '{{ state_attr(''calendar.soppelhenting_furulien'', ''message'')}}
         i morgen tidlig!'
     service: notify.mona
+- id: '1597271290239'
+  alias: Badelys på - Natt
+  description: ''
+  trigger:
+  - device_id: ed82ab487127432da58fe62e30e45d03
+    domain: light
+    entity_id: light.bad_spot_1
+    platform: device
+    type: turned_on
+  condition:
+  - after: '23:15:00'
+    before: 06:00:00
+    condition: time
+  action:
+  - delay: 00:00:00
+  - data:
+      brightness_pct: 5
+      color_temp: 350
+    entity_id: light.badelys
+    service: light.turn_on
+  mode: single
+- id: '1597333868890'
+  alias: Papp/plast-varsling
+  description: ''
+  trigger:
+  - entity_id: calendar.soppelhenting_furulien
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+    - data:
+        message: '{{ state_attr(''calendar.soppelhenting_furulien'', ''friendly_name'')}}: Papp/plast i morgen!'
+      service: notify.magnus
+    - data:
+        message: '{{ state_attr(''calendar.soppelhenting_furulien'', ''friendly_name'')}}: Papp/plast i morgen!'
+      service: notify.mona
+  mode: single
