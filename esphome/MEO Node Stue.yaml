@@ -38,7 +38,7 @@ sensor:
     temperature:
       name: "$upper_devicename Temperatur"
       filters:
-        - offset: -3.0
+        - offset: -4.1
         - sliding_window_moving_average:
             window_size: 3
             send_every: 1
