@@ -185,21 +185,21 @@
     charging when battery level is below 60% to maximise battery lifespan.
   trigger:
   - entity_id: sensor.pinky_pie_status
+    from: docked
     platform: state
-    to: cleaning
-  - entity_id: sensor.pinky_pie_status
-    platform: state
-    to: returning
   - below: '65'
     entity_id: sensor.pinky_pie_battery
     platform: numeric_state
   condition: []
   action:
-  - entity_id: switch.pinky_pie_plug_switch
-    service: switch.turn_on
+  - device_id: 596c9d618738444cb6a7cf4a8cdc4fab
+    domain: switch
+    entity_id: switch.pinky_pie_plug_switch
+    type: turn_on
+  mode: single
 - id: '1585621607161'
   alias: Pinky Pie Turn off when dock
-  description: Don't charge the battery if it is above 80
+  description: ''
   trigger:
   - entity_id: sensor.pinky_pie_status
     platform: state
@@ -209,8 +209,11 @@
     condition: numeric_state
     entity_id: sensor.pinky_pie_battery
   action:
-  - entity_id: switch.pinky_pie_plug_switch
-    service: switch.turn_off
+  - device_id: 596c9d618738444cb6a7cf4a8cdc4fab
+    domain: switch
+    entity_id: switch.pinky_pie_plug_switch
+    type: turn_off
+  mode: single
 - id: '1585676347188'
   alias: Pinky Pie Turn off when 85%
   description: ''
@@ -223,8 +226,11 @@
     entity_id: sensor.pinky_pie_status
     state: docked
   action:
-  - service: switch.turn_off
+  - device_id: 596c9d618738444cb6a7cf4a8cdc4fab
+    domain: switch
     entity_id: switch.pinky_pie_plug_switch
+    type: turn_off
+  mode: single
 - id: '1589619790602'
   alias: Gangspot PÅ
   description: ''
@@ -294,19 +300,59 @@
     entity_id: light.badelys
     service: light.turn_on
   mode: single
-- id: '1597333868890'
-  alias: Papp/plast-varsling
-  description: ''
+- id: '1597665827372'
+  alias: Gå for dagen
+  description: Turns of the house
   trigger:
-  - entity_id: calendar.soppelhenting_furulien
-    platform: state
-    to: 'on'
+  - event_data:
+      node_id: 16
+      scene_id: 2
+    event_type: ozw.scene_activated
+    platform: event
   condition: []
   action:
-    - data:
-        message: '{{ state_attr(''calendar.soppelhenting_furulien'', ''friendly_name'')}}: Papp/plast i morgen!'
-      service: notify.magnus
-    - data:
-        message: '{{ state_attr(''calendar.soppelhenting_furulien'', ''friendly_name'')}}: Papp/plast i morgen!'
-      service: notify.mona
+  - data: {}
+    entity_id:
+    - light.badelys
+    - light.kjokkenlys
+    - light.stuelys
+    - light.hallys
+    - light.bod_1
+    - light.bod_2
+    service: light.turn_off
+  mode: single
+- id: '15976657372'
+  alias: God natt
+  description: Activates night mode for the entire house
+  trigger:
+  - event_data:
+      node_id: 16
+      scene_id: 1
+    event_type: ozw.scene_activated
+    platform: event
+  condition: []
+  action:
+  - entity_id:
+    - light.badelys
+    - light.kjokkenlys
+    - light.stuelys
+    - light.hall_lampett
+    - light.hall_spot_1
+    - light.hall_spot_2
+    - light.hall_spot_3
+    - light.gang_lampett
+    - light.gangspot_1
+    - light.gangspot_2
+    - light.gangspot_3
+    - light.gangspot_4
+    - light.bod_1
+    - light.bod_2
+    service: light.turn_off
+  - delay: 00:00:01
+  - data:
+      transition: 2
+      brightness_pct: 5
+      color_temp: 350
+    entity_id: light.gang_taklampe
+    service: light.turn_on
   mode: single
