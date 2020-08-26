@@ -26,3 +26,7 @@ bliss:
   title: Bliss
   url: 'https://bliss.magnusoverli.duckdns.org'
   icon: mdi:folder-music-outline
+hassos_stats:
+  title: HassOS stats
+  url: https://hassio.magnusoverli.duckdns.org/api/hassio_ingress/CES9egtnCZiXU92Vq0mz8W1v1KXGY8jEAWVu_Ay4RVg/d/Nszi--SGk/systemstats?orgId=1&refresh=5s&kiosk
+  icon: mdi:chart-histogram
