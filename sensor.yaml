@@ -113,15 +113,15 @@
     pinky_pie_battery:
       friendly_name: 'Pinky Pie Battery'
       unit_of_measurement: '%'
-      value_template: "{{ state_attr('vacuum.xiaomi_vacuum_cleaner', 'battery_level') }}"
+      value_template: "{{ state_attr('vacuum.pinky_pie', 'battery_level') }}"
 
     pinky_pie_activity:
       friendly_name: 'Pinky Pie Status'
-      value_template: "{{ state_attr('vacuum.xiaomi_vacuum_cleaner', 'status') }}"
+      value_template: "{{ state_attr('vacuum.pinky_pie', 'status') }}"
 
     pinky_pie_status:
       friendly_name: 'Pinky Pie Status'
-      value_template: "{{ states('vacuum.xiaomi_vacuum_cleaner') }}"
+      value_template: "{{ states('vacuum.pinky_pie') }}"
 
     daily_odometer_template:
       friendly_name: 'Daily odometer'
@@ -146,3 +146,201 @@
     - mediumClouds
     - highClouds
     - dewpointTemperature
+
+##################
+#  REST-sensors ##
+##################
+
+#MARIADB
+- platform: rest
+  resource: http://192.168.1.35:8123/api/hassio/addons/core_mariadb/info
+  name: MariaDB status
+  method: GET
+  value_template: '{{ value_json.data.state }}'
+  scan_interval: 10
+  headers:
+    Authorization: !secret llt
+    Content-Type: application/json
+  json_attributes_path: "$.data"
+  json_attributes:
+    - state
+    - name
+
+#ADGUARD
+- platform: rest
+  resource: http://192.168.1.35:8123/api/hassio/addons/a0d7b954_adguard/info
+  name: AdGuard status
+  method: GET
+  value_template: '{{ value_json.data.state }}'
+  scan_interval: 10
+  headers:
+    Authorization: !secret llt
+    Content-Type: application/json
+  json_attributes_path: "$.data"
+  json_attributes:
+    - state
+    - name
+
+#ESPhome
+- platform: rest
+  resource: http://192.168.1.35:8123/api/hassio/addons/a0d7b954_esphome/info
+  name: ESPhome status
+  method: GET
+  value_template: '{{ value_json.data.state }}'
+  scan_interval: 10
+  headers:
+    Authorization: !secret llt
+    Content-Type: application/json
+  json_attributes_path: "$.data"
+  json_attributes:
+    - state
+
+#Glances
+- platform: rest
+  resource: http://192.168.1.35:8123/api/hassio/addons/a0d7b954_glances/info
+  name: Galnces status
+  method: GET
+  value_template: '{{ value_json.data.state }}'
+  scan_interval: 10
+  headers:
+    Authorization: !secret llt
+    Content-Type: application/json
+  json_attributes_path: "$.data"
+  json_attributes:
+    - state
+    - name
+
+#Grafana
+- platform: rest
+  resource: http://192.168.1.35:8123/api/hassio/addons/a0d7b954_grafana/info
+  name: Grafana status
+  method: GET
+  value_template: '{{ value_json.data.state }}'
+  scan_interval: 10
+  headers:
+    Authorization: !secret llt
+    Content-Type: application/json
+  json_attributes_path: "$.data"
+  json_attributes:
+    - state
+    - name
+
+#Google Drive Backup
+- platform: rest
+  resource: http://192.168.1.35:8123/api/hassio/addons/cebe7a76_hassio_google_drive_backup/info
+  name: GoogleDrive status
+  method: GET
+  value_template: '{{ value_json.data.state }}'
+  scan_interval: 10
+  headers:
+    Authorization: !secret llt
+    Content-Type: application/json
+  json_attributes_path: "$.data"
+  json_attributes:
+    - state
+    - name
+
+#InfluxDB
+- platform: rest
+  resource: http://192.168.1.35:8123/api/hassio/addons/a0d7b954_influxdb/info
+  name: InfluxDB status
+  method: GET
+  value_template: '{{ value_json.data.state }}'
+  scan_interval: 10
+  headers:
+    Authorization: !secret llt
+    Content-Type: application/json
+  json_attributes_path: "$.data"
+  json_attributes:
+    - state
+    - name
+
+#MQTT Broker
+- platform: rest
+  resource: http://192.168.1.35:8123/api/hassio/addons/core_mosquitto/info
+  name: MQTTbroker status
+  method: GET
+  value_template: '{{ value_json.data.state }}'
+  scan_interval: 10
+  headers:
+    Authorization: !secret llt
+    Content-Type: application/json
+  json_attributes_path: "$.data"
+  json_attributes:
+    - state
+    - name
+
+#NGINX
+- platform: rest
+  resource: http://192.168.1.35:8123/api/hassio/addons/a0d7b954_nginxproxymanager/info
+  name: Nginx status
+  method: GET
+  value_template: '{{ value_json.data.state }}'
+  scan_interval: 10
+  headers:
+    Authorization: !secret llt
+    Content-Type: application/json
+  json_attributes_path: "$.data"
+  json_attributes:
+    - state
+    - name
+
+#Node-RED
+- platform: rest
+  resource: http://192.168.1.35:8123/api/hassio/addons/a0d7b954_nodered/info
+  name: Node-RED status
+  method: GET
+  value_template: '{{ value_json.data.state }}'
+  scan_interval: 10
+  headers:
+    Authorization: !secret llt
+    Content-Type: application/json
+  json_attributes_path: "$.data"
+  json_attributes:
+    - state
+    - name
+
+#OZW
+- platform: rest
+  resource: http://192.168.1.35:8123/api/hassio/addons/core_zwave/info
+  name: OpenZwave status
+  method: GET
+  value_template: '{{ value_json.data.state }}'
+  scan_interval: 20
+  headers:
+    Authorization: !secret llt
+    Content-Type: application/json
+  json_attributes_path: "$.data"
+  json_attributes:
+    - state
+    - name
+
+#SAMBA
+- platform: rest
+  resource: http://192.168.1.35:8123/api/hassio/addons/core_samba/info
+  name: Samba status
+  method: GET
+  value_template: '{{ value_json.data.state }}'
+  scan_interval: 20
+  headers:
+    Authorization: !secret llt
+    Content-Type: application/json
+  json_attributes_path: "$.data"
+  json_attributes:
+    - state
+    - name
+
+#SVSCode
+- platform: rest
+  resource: http://192.168.1.35:8123/api/hassio/addons/a0d7b954_vscode/info
+  name: VSCode status
+  method: GET
+  value_template: '{{ value_json.data.state }}'
+  scan_interval: 20
+  headers:
+    Authorization: !secret llt
+    Content-Type: application/json
+  json_attributes_path: "$.data"
+  json_attributes:
+    - state
+    - name
