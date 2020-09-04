@@ -184,13 +184,16 @@
     on. This ensures the dock is always on when the vacuum is not docked. Also enables
     charging when battery level is below 60% to maximise battery lifespan.
   trigger:
-  - entity_id: sensor.pinky_pie_status
+  - entity_id: sensor.pinky_pie_activity
     from: docked
     platform: state
   - below: '65'
     entity_id: sensor.pinky_pie_battery
     platform: numeric_state
-  condition: []
+  condition:
+  - below: '85'
+    condition: numeric_state
+    entity_id: sensor.pinky_pie_battery
   action:
   - device_id: 596c9d618738444cb6a7cf4a8cdc4fab
     domain: switch
@@ -218,7 +221,7 @@
   alias: Pinky Pie Turn off when 85%
   description: ''
   trigger:
-  - above: '84'
+  - above: '85'
     entity_id: sensor.pinky_pie_battery
     platform: numeric_state
   condition:
