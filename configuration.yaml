@@ -11,7 +11,7 @@ google:
   client_id: !secret google_id
   client_secret: !secret google_secret
 group: !include groups.yaml
-hacs: !include hacs.yaml
+#hacs: !include hacs.yaml
 history:
 http: !include http.yaml
 influxdb: !include influxdb.yaml
