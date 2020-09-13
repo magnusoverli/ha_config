@@ -82,13 +82,12 @@ pn532:
   update_interval: 1s
   on_tag:
     then:
-    - text_sensor.template.publish:
-        id: rfid_tag
-        state: !lambda 'return x;'
     - homeassistant.event:
         event: esphome.rfid_read
-        data_template: 
-          message: !lambda 'return x;'
+        data:
+          device_id: tagreader  # this is the ESPHome device name in your ESPHome conf
+        data_template:
+          tag_id: !lambda "return x;"
     - if:      
         condition:
           lambda: "return id(led_enable);"
