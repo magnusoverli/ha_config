@@ -1,6 +1,7 @@
   username: !secret gte_username
   password: !secret gte_password
   spin: !secret gte_spin
+  scandinavian_miles: true
   scan_interval:
     minutes: 2
   name:
