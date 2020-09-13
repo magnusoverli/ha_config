@@ -27,10 +27,3 @@ sensor:
     name: "Garasjeport"
     update_interval: 10s
     timeout: 3m
-    
-output:
-  - platform: esp8266_pwm
-    id: state_led
-    pin:
-      number: D4
-      inverted: true
