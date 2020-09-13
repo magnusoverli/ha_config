@@ -6,6 +6,7 @@ config:
 cover: !include cover.yaml
 duckdns: !include duckdns.yaml
 discovery:
+esphome_tag:
 frontend:
 google:
   client_id: !secret google_id
@@ -21,7 +22,10 @@ ios: !include ios.yaml
 light: !include light.yaml
 logbook:
 logger:
-  default: debug
+  logs:
+    homeassistant.components.songpal: error
+    homeassistant.components.mqtt: error
+    homeassistant.loader: error
 map:
 media_player: !include media_player.yaml
 mobile_app:
