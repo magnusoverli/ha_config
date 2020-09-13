@@ -185,15 +185,12 @@
     charging when battery level is below 60% to maximise battery lifespan.
   trigger:
   - entity_id: sensor.pinky_pie_activity
-    from: docked
     platform: state
+    to: cleaning
   - below: '65'
     entity_id: sensor.pinky_pie_battery
     platform: numeric_state
-  condition:
-  - below: '85'
-    condition: numeric_state
-    entity_id: sensor.pinky_pie_battery
+  condition: []
   action:
   - device_id: 596c9d618738444cb6a7cf4a8cdc4fab
     domain: switch
