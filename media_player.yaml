@@ -1,7 +1,5 @@
-- platform: samsungtv_custom
+- platform: samsungtv_tizen
   host: 192.168.1.229
   port: 8002
   mac: fc:03:9f:7c:a4:26
-  sourcelist: '{"AppleTV": "KEY_HDMI3"}'
-#  applist: "YouTube, Apple TV, Plex, Prime Video, Spotify"
-  protocol: ctl_qled
+  update_method: websockets
