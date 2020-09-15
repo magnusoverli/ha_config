@@ -36,6 +36,7 @@ person:
 recorder: !include recorder.yaml
 script: !include scripts.yaml
 sensor: !include sensor.yaml
+spotify: !include spotify.yaml
 ssdp:
 system_health:
 sun:
