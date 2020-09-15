@@ -142,7 +142,7 @@
   alias: Gang/hall lys av når entre er lav
   description: ''
   trigger:
-  - below: '12'
+  - below: 12
     entity_id: light.gang_taklampe
     platform: numeric_state
     value_template: '{{ state.attributes.brightness}}'
@@ -187,7 +187,7 @@
   - entity_id: sensor.pinky_pie_activity
     platform: state
     to: cleaning
-  - below: '65'
+  - below: 65
     entity_id: sensor.pinky_pie_battery
     platform: numeric_state
   condition: []
@@ -218,7 +218,7 @@
   alias: Pinky Pie Turn off when 85%
   description: ''
   trigger:
-  - above: '85'
+  - above: 85
     entity_id: sensor.pinky_pie_battery
     platform: numeric_state
   condition:
@@ -355,4 +355,40 @@
       color_temp: 350
     entity_id: light.gang_taklampe
     service: light.turn_on
+  mode: single
+- id: '1600102402259'
+  alias: Tag - Toggle living room light
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: A0-FE-DE-A4
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    entity_id: light.stuelys
+  mode: single
+- id: '1600117484045'
+  alias: Tag ToggleTag is scanned
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: A0-FE-DE-A4
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    entity_id: light.stuelys
+  mode: single
+- id: '1600117703126'
+  alias: ESPhome Tagreader - Toggle living room lights
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: A0-FE-DE-A4
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    entity_id: light.stuelys
   mode: single
