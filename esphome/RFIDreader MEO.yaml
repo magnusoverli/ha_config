@@ -150,3 +150,7 @@ text_sensor:
   - platform: homeassistant
     name: ha_state
     entity_id: sensor.rfid_tag
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
