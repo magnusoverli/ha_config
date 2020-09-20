@@ -2,10 +2,6 @@ forbruk:
   title: 'Forbruk'
   url: 'https://hassio.magnusoverli.duckdns.org/api/hassio_ingress/CES9egtnCZiXU92Vq0mz8W1v1KXGY8jEAWVu_Ay4RVg/d/oaeDViIWz/forbruk?orgId=1&theme=light&kiosk&refresh=3s'
   icon: mdi:finance
-sonarr:
-  title: Sonarr
-  url: 'https://sonarr.magnusoverli.duckdns.org'
-  icon: mdi:youtube-tv
 transmission:
   title: Transmission
   url: 'https://transmission.magnusoverli.duckdns.org'
@@ -14,19 +10,7 @@ synne:
   title: Synne
   url: 'https://synne.magnusoverli.duckdns.org'
   icon: mdi:nas
-radarr:
-  title: Movies
-  url: 'https://radarr.magnusoverli.duckdns.org'
-  icon: mdi:filmstrip
 portainer:
   title: Portainer
   url: 'https://portainer.magnusoverli.duckdns.org'
   icon: mdi:docker
-bliss:
-  title: Bliss
-  url: 'https://bliss.magnusoverli.duckdns.org'
-  icon: mdi:folder-music-outline
-hassos_stats:
-  title: HassOS stats
-  url: https://hassio.magnusoverli.duckdns.org/api/hassio_ingress/CES9egtnCZiXU92Vq0mz8W1v1KXGY8jEAWVu_Ay4RVg/d/Nszi--SGk/systemstats?orgId=1&refresh=5s&kiosk
-  icon: mdi:chart-histogram
