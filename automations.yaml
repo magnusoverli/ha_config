@@ -51,31 +51,27 @@
     platform: sun
   condition: []
   action:
-  - brightness_pct: 100
-    device_id: 3656363d604841b282956ca4b47f4548
-    domain: light
+  - type: turn_on
+    device_id: 4014de3158de47e0b81d1d382d3e4e89
     entity_id: light.trapp_1
-    type: turn_on
-  - brightness_pct: 100
-    device_id: f28dc05efd94407e9ec6b17d332fe29b
     domain: light
+    brightness_pct: 90
+  - type: turn_on
+    device_id: 1ad92334644e4834a17d8aa0adff913b
     entity_id: light.trapp_2
-    type: turn_on
-  - brightness_pct: 100
-    device_id: b397071e15264940ae3d736547e15896
     domain: light
-    entity_id: light.ikea_of_sweden_tradfri_bulb_e27_ww_806lm_f0d83cfe_level_on_off
-    type: turn_on
-  - brightness_pct: 100
-    device_id: dccd0bc1a092400794e266fb28c3a8d2
+    brightness_pct: 90
+  - type: turn_on
+    device_id: 737439b3fb3e11eab9f9775f85fbdfe0
+    entity_id: light.garasje_forran
     domain: light
-    entity_id: light.takterasse_1
-    type: turn_on
-  - brightness_pct: 100
-    device_id: 69f6c1e792734102b374208260fe84d8
+    brightness_pct: 90
+  - type: turn_on
+    device_id: 73745538fb3e11eaa421395a6c6c39d6
+    entity_id: light.garasje_side
     domain: light
-    entity_id: light.takterasse_2
-    type: turn_on
+    brightness_pct: 90
+  mode: single
 - id: '1575295359193'
   alias: Utelys av
   description: ''
@@ -85,26 +81,23 @@
     platform: sun
   condition: []
   action:
-  - device_id: 3656363d604841b282956ca4b47f4548
-    domain: light
+  - type: turn_off
+    device_id: 4014de3158de47e0b81d1d382d3e4e89
     entity_id: light.trapp_1
-    type: turn_off
-  - device_id: f28dc05efd94407e9ec6b17d332fe29b
     domain: light
+  - type: turn_off
+    device_id: 1ad92334644e4834a17d8aa0adff913b
     entity_id: light.trapp_2
-    type: turn_off
-  - device_id: b397071e15264940ae3d736547e15896
     domain: light
-    entity_id: light.ikea_of_sweden_tradfri_bulb_e27_ww_806lm_f0d83cfe_level_on_off
-    type: turn_off
-  - device_id: dccd0bc1a092400794e266fb28c3a8d2
+  - type: turn_off
+    device_id: 737439b3fb3e11eab9f9775f85fbdfe0
+    entity_id: light.garasje_forran
     domain: light
-    entity_id: light.takterasse_1
-    type: turn_off
-  - device_id: 69f6c1e792734102b374208260fe84d8
+  - type: turn_off
+    device_id: 73745538fb3e11eaa421395a6c6c39d6
+    entity_id: light.garasje_side
     domain: light
-    entity_id: light.takterasse_2
-    type: turn_off
+  mode: single
 - id: '9271295359204'
   alias: Kjøkkenspot dimmer follow
   trigger:
