@@ -385,3 +385,43 @@
     data: {}
     entity_id: light.stuelys
   mode: single
+- id: '1600627996392'
+  alias: Plantelampe AV
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: light.stue_spot_1
+    attribute: brightness
+    below: '10'
+  - platform: device
+    type: turned_off
+    device_id: e93a7ce237ba41108d619cdaaabc4812
+    entity_id: light.stue_spot_1
+    domain: light
+  condition: []
+  action:
+  - type: turn_off
+    device_id: f114c75ffb7111ea80dfd56621ee68ae
+    entity_id: switch.stue_taklampe_switch_2
+    domain: switch
+  mode: single
+- id: '1600628030454'
+  alias: Plantelampe på
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: light.stue_spot_1
+    attribute: brightness
+    above: '15'
+  - platform: device
+    type: turned_on
+    device_id: e93a7ce237ba41108d619cdaaabc4812
+    entity_id: light.stue_spot_1
+    domain: light
+  condition: []
+  action:
+  - type: turn_on
+    device_id: f114c75ffb7111ea80dfd56621ee68ae
+    entity_id: switch.stue_taklampe_switch_2
+    domain: switch
+  mode: single
