@@ -1,30 +1,30 @@
 substitutions:
   devicename: av
   upper_devicename: AV
+  comment: AV
 
 esphome:
   name: "$devicename"
+  comment: "$upper_devicename"
   platform: ESP8266
   board: esp8285
+  on_boot:
+    priority: 200
+    then:
+      - light.turn_on: led
 
 wifi:
   reboot_timeout: 10min
   networks:
   - ssid: 'IoT2'
     password: !secret wifi_password
+ota:
+  password: !secret ota_password
 
 logger:
 
 api:
-  password: !secret api_password
   reboot_timeout: 0s
-
-ota:
-  password: !secret ota_password
-
-time:
-  - platform: homeassistant
-    id: homeassistant_time
 
 sensor:
   - platform: hlw8012
@@ -34,22 +34,7 @@ sensor:
     cf_pin: GPIO04
     cf1_pin: GPIO05
     change_mode_every: 2
-    update_interval: 5s
-
-    voltage:
-      name: "$upper_devicename Voltage"
-      unit_of_measurement: V
-      accuracy_decimals: 1
-      filters:
-        - calibrate_linear:
-            - 573 -> 221
-            - 575 -> 222
-            - 578 -> 223
-            - 581 -> 224
-            - 589 -> 228
-            - 594.4 -> 230
-            - 602.4 -> 231.7
-
+    update_interval: 4s
     power:
       id: power
       name: "$upper_devicename Power"
@@ -57,17 +42,17 @@ sensor:
       accuracy_decimals: 1
       filters:
         - calibrate_linear:
-            - 4.1 -> 0.75
-            - 9.3 -> 1.65
-            - 16.5 -> 2.85
-            - 87 -> 14.5
-            - 938 -> 157
-            - 1799 -> 303
-            - 1816 -> 304.8
-            - 6228 -> 1045
-            - 9414 -> 1580
-            - 10800 -> 1815
-        - lambda: if (x < (0 + 1.14)) return 0; else return (x - 0.1);
+            - 0 -> 2
+            - 7.8 -> 3.4
+            - 37.5 -> 10
+            - 401 -> 66
+            - 1021 -> 173
+            - 1977 -> 333
+            - 3440 -> 572.5
+            - 6768 -> 1135
+            - 7385 -> 1240
+            - 10242 -> 1717
+        - lambda: if (x < 1) return 0; else return (x);
 
   - platform: total_daily_energy
     name: "$upper_devicename Daily Energy"
@@ -75,17 +60,6 @@ sensor:
     filters:
       - multiply: 0.001
     unit_of_measurement: kWh
-
-  - platform: wifi_signal
-    name: "$upper_devicename WiFi Signal"
-    update_interval: 10s
-
-  - platform: uptime
-    name: "$upper_devicename Uptime"
-
-text_sensor:
-  - platform: version
-    name: "$upper_devicename version"
 
 binary_sensor:
   - platform: gpio
@@ -108,9 +82,6 @@ switch:
     on_turn_off:
       - light.turn_off: led
 
-  - platform: restart
-    name: "$upper_devicename Restart"
-
 output:
   - platform: esp8266_pwm
     id: state_led
@@ -128,3 +99,7 @@ status_led:
   pin:
     number: GPIO13
     inverted: true
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
