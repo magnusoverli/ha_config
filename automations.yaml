@@ -179,10 +179,16 @@
   trigger:
   - entity_id: sensor.pinky_pie_activity
     platform: state
-    to: cleaning
-  - below: 65
+    to: Segment cleaning
+  - below: '65'
     entity_id: sensor.pinky_pie_battery
     platform: numeric_state
+  - entity_id: sensor.pinky_pie_activity
+    platform: state
+    to: Zoned cleaning
+  - entity_id: sensor.pinky_pie_activity
+    platform: state
+    to: Returning home
   condition: []
   action:
   - device_id: 596c9d618738444cb6a7cf4a8cdc4fab
