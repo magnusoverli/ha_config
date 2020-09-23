@@ -1,10 +1,11 @@
 substitutions:
   devicename: vaskemaskin
   upper_devicename: Vaskemaskin
+  hardware: Gosund SP1
 
 esphome:
   name: "$devicename"
-  comment: "$upper_devicename"
+  comment: "$upper_devicename - $hardware"
   platform: ESP8266
   board: esp8285
   on_boot:
