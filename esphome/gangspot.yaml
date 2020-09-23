@@ -32,8 +32,6 @@ time:
   - platform: homeassistant
     id: homeassistant_time
 
-######################################################################
-
 sensor:
   - platform: uptime
     name: "$upper_devicename Uptime"

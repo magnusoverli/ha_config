@@ -3,6 +3,7 @@ substitutions:
   upper_devicename: Komfyr
 
 esphome:
+  comment: "Sonoff POW R1"
   name: "$devicename"
   platform: ESP8266
   board: esp01_1m
@@ -15,6 +16,11 @@ wifi:
     password: !secret wifi_password
 
 logger:
+  baud_rate: 0
+
+uart:
+  rx_pin: RX
+  baud_rate: 4800
 
 api:
   password: !secret api_password
@@ -28,72 +34,49 @@ time:
     id: homeassistant_time
 
 ######################################################################
+switch:
+  - platform: gpio
+    internal: true
+    id: relay
+    name: "$upper_devicename Switch"
+    pin: GPIO12
+    restore_mode: ALWAYS_ON
 
 sensor:
-  - platform: wifi_signal
-    name: "$upper_devicename WiFi Signal"
-    update_interval: 10s
-
-  - platform: uptime
-    name: "$upper_devicename Uptime"
-
   - platform: hlw8012
     sel_pin: 5
     cf_pin: 14
     cf1_pin: 13
+    update_interval: 5s
     change_mode_every: 2
-    current:
-      name: "$upper_devicename Strom"
-    voltage:
-      name: "$upper_devicename Spenning"
     power:
-      name: "$upper_devicename Effekt"
+      name: "$upper_devicename Power"
       unit_of_measurement: W
       id: ${devicename}_power
       filters:
         - calibrate_linear:
-            - 1 -> 0.21
-            - 6.2 -> 6.64
-            - 12.4 -> 14.2
-            - 131.4 -> 153
-            - 441.7 -> 515
-            - 949.5 -> 1106
-            - 1526.7 -> 1780
-        - lambda: if (x < 3.14 ) return 0; else return (x - 1.14);
-    update_interval: 10s
+            - 0 -> 0.9
+            - 6.2 -> 7.5
+            - 12.4 -> 14.96
+            - 124.1 -> 145.5
+            - 415 -> 487
+            - 693 -> 810
+            - 819 -> 960
+            - 900 -> 1050
+            - 1235 -> 1446
+            - 1439 -> 1680
+        - lambda: if (x < (1 + 0.915)) return 0; else return (x - 0.915);
 
   - platform: total_daily_energy
-    name: "$upper_devicename Dagsforbruk"
+    name: "$upper_devicename Daily Energy"
     power_id: ${devicename}_power
     filters:
       - multiply: 0.001
     unit_of_measurement: kWh
 
-text_sensor:
-  - platform: version
-    name: "$upper_devicename version"
-
-switch:
-  - platform: restart
-    name: "$upper_devicename Restart"
-  - platform: gpio
-    name: ${devicename}
-    id: ${devicename}_relay
-    pin: GPIO12
-    restore_mode: ALWAYS_ON
-    on_turn_on:
-      - light.turn_on: ${devicename}_led
-    on_turn_off:
-      - light.turn_off: ${devicename}_led
-
 output:
   - platform: esp8266_pwm
-    id: ${devicename}_blue_led
+    id: green_led
     pin:
       number: GPIO13
       inverted: true
-
-light:
-  - platform: monochromatic
-    output: ${devicename}_blue_led
-    id: ${devicename}_led
