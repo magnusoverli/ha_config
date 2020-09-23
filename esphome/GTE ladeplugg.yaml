@@ -1,0 +1,105 @@
+substitutions:
+  devicename: gte_ladeplugg
+  upper_devicename: GTE Ladeplugg
+  hardware: Gosund SP1
+
+esphome:
+  name: "$devicename"
+  comment: "$upper_devicename - $hardware"
+  platform: ESP8266
+  board: esp8285
+  on_boot:
+    priority: 200
+    then:
+      - light.turn_on: led
+
+wifi:
+  reboot_timeout: 10min
+  networks:
+  - ssid: 'IoT2'
+    password: !secret wifi_password
+ota:
+  password: !secret ota_password
+
+logger:
+
+api:
+  reboot_timeout: 0s
+
+sensor:
+  - platform: hlw8012
+    sel_pin:
+      number: GPIO12
+      inverted: true
+    cf_pin: GPIO04
+    cf1_pin: GPIO05
+    change_mode_every: 2
+    update_interval: 4s
+    power:
+      id: power
+      name: "$upper_devicename Power"
+      unit_of_measurement: W
+      accuracy_decimals: 1
+      filters:
+        - calibrate_linear:
+            - 0 -> 2
+            - 7.8 -> 3.4
+            - 37.5 -> 10
+            - 401 -> 66
+            - 1021 -> 173
+            - 1977 -> 333
+            - 3440 -> 572.5
+            - 6768 -> 1135
+            - 7385 -> 1240
+            - 10242 -> 1717
+        - lambda: if (x < 1) return 0; else return (x);
+
+  - platform: total_daily_energy
+    name: "$upper_devicename Daily Energy"
+    power_id: power
+    filters:
+      - multiply: 0.001
+    unit_of_measurement: kWh
+
+binary_sensor:
+  - platform: gpio
+    name: "$upper_devicename Button"
+    pin:
+      number: GPIO3
+      inverted: true
+    on_press:
+      - switch.toggle: relay
+
+switch:
+  - platform: gpio
+    id: relay
+    name: "$upper_devicename Switch"
+    internal: true
+    pin: GPIO14
+    restore_mode: ALWAYS_ON
+    on_turn_on:
+      - light.turn_on: led
+    on_turn_off:
+      - light.turn_off: led
+
+output:
+  - platform: esp8266_pwm
+    id: state_led
+    pin:
+      number: GPIO1
+      inverted: true
+
+light:
+  - platform: monochromatic
+    output: state_led
+    internal: true
+    id: led
+
+status_led:
+  pin:
+    number: GPIO13
+    inverted: true
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
