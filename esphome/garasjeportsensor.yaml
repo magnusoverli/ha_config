@@ -25,5 +25,5 @@ sensor:
     trigger_pin: D1
     echo_pin: D2
     name: "Garasjeport"
-    update_interval: 10s
+    update_interval: 2s
     timeout: 3m
