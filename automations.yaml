@@ -406,10 +406,9 @@
     domain: light
   condition: []
   action:
-  - type: turn_off
-    device_id: f114c75ffb7111ea80dfd56621ee68ae
-    entity_id: switch.stue_taklampe_switch_2
-    domain: switch
+  - service: light.turn_off
+    data: {}
+    entity_id: light.plantelys
   mode: single
 - id: '1600628030454'
   alias: Plantelampe på
@@ -426,8 +425,7 @@
     domain: light
   condition: []
   action:
-  - type: turn_on
-    device_id: f114c75ffb7111ea80dfd56621ee68ae
-    entity_id: switch.stue_taklampe_switch_2
-    domain: switch
+  - service: light.turn_on
+    data: {}
+    entity_id: light.plantelys
   mode: single
