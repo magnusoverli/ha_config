@@ -83,7 +83,7 @@
     varmekabler_barnerom_andel:
       friendly_name: "Varmekabler Barnerom Andel"
       unit_of_measurement: '%'
-      value_template: "{{ ((states('sensor.varmekabler_barnerom') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(2) }}"
+      value_template: "{{ ((states('sensor.varmekabler_barnerom_daily') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(2) }}"
 
     gangspot_andel:
       friendly_name: "Gangspot Andel"
@@ -100,10 +100,15 @@
       unit_of_measurement: '%'
       value_template: "{{ ((states('sensor.pinky_pie_plug_daily_energy') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(2) }}"
 
+    gte_andel:
+      friendly_name: "Gangspot Andel"
+      unit_of_measurement: '%'
+      value_template: "{{ ((states('sensor.gte_ladeplugg_daily_energy') | float / state_attr('sensor.real_time_consumption_furulien_18', 'accumulatedConsumption') | float) * 100) | round(2) }}"
+
     restforbruk:
       friendly_name: 'Rest'
       unit_of_measurement: '%'
-      value_template: "{{ 100 - ( (states('sensor.gangspot_andel') | float) + (states('sensor.it_andel') | float) + (states('sensor.av_andel') | float) + (states('sensor.varmekabler_bad_andel') | float) + (states('sensor.komfyr_andel') | float ) + (states('sensor.oppvaskmaskin_andel') | float ) + (states('sensor.panelovn_stue_andel') | float ) + (states('sensor.torketrommel_andel') | float ) + (states('sensor.varmtvannsbereder_andel') | float ) + (states('sensor.vaskemaskin_andel') | float ) + (states('sensor.panelovn_gjesterom_andel') | float ) + (states('sensor.kjoleskap_andel') | float) + (states('sensor.fryser_andel') | float) + (states('sensor.varmekabler_barnerom_andel') | float) + (states('sensor.vifteovn_andel') | float) | round(2)) }}"
+      value_template: "{{ 100 - ( (states('sensor.gangspot_andel') | float) + (states('sensor.it_andel') | float) + (states('sensor.av_andel') | float) + (states('sensor.varmekabler_bad_andel') | float) + (states('sensor.komfyr_andel') | float ) + (states('sensor.oppvaskmaskin_andel') | float ) + (states('sensor.panelovn_stue_andel') | float ) + (states('sensor.torketrommel_andel') | float ) + (states('sensor.varmtvannsbereder_andel') | float ) + (states('sensor.vaskemaskin_andel') | float ) + (states('sensor.panelovn_gjesterom_andel') | float ) + (states('sensor.kjoleskap_andel') | float) + (states('sensor.fryser_andel') | float) + (states('sensor.varmekabler_barnerom_andel') | float) + (states('sensor.vifteovn_andel') | float) | round(2) + (states('sensor.gte_andel') | float) | round(2)) }}"
 
 ## XIAOMI VACUUM ##
     pinky_pie_battery:
