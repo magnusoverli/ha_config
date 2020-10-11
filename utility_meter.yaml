@@ -10,6 +10,6 @@ total_timesforbruk:
 gte_daily_odometer:
   source: sensor.passat_gte_odometer_2
   cycle: daily
-varmekabler_barnerom:
-  source: sensor.general_thermostat_v2_electric_kwh
+varmekabler_barnerom_daily:
+  source: sensor.heatit_thermostat_tf_058_electric_kwh
   cycle: daily
