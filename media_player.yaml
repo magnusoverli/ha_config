@@ -1,5 +1,7 @@
-- platform: samsungtv_tizen
-  host: 192.168.1.229
-  port: 8002
+- platform: samsungtv_custom
+  host: 192.168.1.230
+  port: 8001
   mac: fc:03:9f:7c:a4:26
-  update_method: websockets
+  sourcelist: '{"HDMI1": "KEY_HDMI1", "HDMI2": "KEY_HDMI2", "Receiver": "KEY_HDMI3"}'
+  applist: "Spotify"
+  protocol: ctl_qled
