@@ -12,13 +12,13 @@
         data:
           entity_id: switch.zmnhnd1_flush_1d_relay_switch
       value_template: >-
-        {% if is_state('binary_sensor.notification_sensor_access_control_door_window_open', 'on') %}
+        {% if is_state('binary_sensor.fgk10x_door_opening_sensor_access_control_door_window_open', 'on') %}
           Open
         {% else %}
           Closed
         {% endif %}
       icon_template: >-
-        {% if is_state('binary_sensor.notification_sensor_access_control_door_window_open', 'on') %}
+        {% if is_state('binary_sensor.fgk10x_door_opening_sensor_access_control_door_window_open', 'on') %}
           mdi:garage-open
         {% else %}
           mdi:garage
