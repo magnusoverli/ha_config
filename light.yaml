@@ -44,6 +44,18 @@
     - light.soverom_spot_1
     - light.soverom_spot_2
     - light.soverom_spot_3
+- platform: group
+  name: Bodlys
+  entities:
+    - light.bod_1
+    - light.bod_2
+- platform: group
+  name: Utelys
+  entities:
+    - light.trapp_1
+    - light.trapp_2
+    - light.garasje_forran
+    - light.garasje_side
 - platform: template
   lights:
     plantelys:
