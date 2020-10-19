@@ -32,7 +32,7 @@ sensor:
     cf_pin: GPIO04
     cf1_pin: GPIO05
     change_mode_every: 2
-    update_interval: 4s
+    update_interval: 5s
     power:
       id: power
       name: "$upper_devicename Power"
@@ -47,9 +47,9 @@ sensor:
             - 1021 -> 173
             - 1977 -> 333
             - 3440 -> 580
-            - 6768 -> 1210
-            - 7385 -> 1290
-            - 10242 -> 1760
+            - 6768 -> 1250
+            - 7385 -> 1400
+            - 10242 -> 1850
         - lambda: if (x < 1) return (x + 2) ; else return x;
 
   - platform: total_daily_energy
