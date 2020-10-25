@@ -2,11 +2,9 @@
   alias: Kjøkkenlys på
   description: ''
   trigger:
-  - device_id: 0195134ee8c64a448e7de244abfdd687
-    domain: light
-    entity_id: light.kjokken_spot_1
-    platform: device
-    type: turned_on
+  - platform: state
+    entity_id: light.deconz_kjokken_1
+    to: 'on'
   condition: []
   action:
   - device_id: 67675efd53a74c9795e1c5f667db2c68
@@ -25,11 +23,9 @@
   alias: Kjøkkenlys av
   description: ''
   trigger:
-  - device_id: 0195134ee8c64a448e7de244abfdd687
-    domain: light
-    entity_id: light.kjokken_spot_1
-    platform: device
-    type: turned_off
+  - platform: state
+    entity_id: light.deconz_kjokken_1
+    to: 'off'
   condition: []
   action:
   - device_id: 67675efd53a74c9795e1c5f667db2c68
@@ -101,7 +97,7 @@
 - id: '9271295359204'
   alias: Kjøkkenspot dimmer follow
   trigger:
-  - entity_id: light.kjokken_spot_1
+  - entity_id: light.deconz_kjokken_1
     platform: state
   action:
   - data_template:
@@ -110,7 +106,7 @@
         {% else %}\n  {{ new_level }}\n{% endif %}"
       entity_id: light.zmnhhdx_mini_dimmer_level
     service: light.turn_on
-  mode: parallel
+  mode: restart
   max: 10
 - id: '1582878880340'
   alias: VVB på
@@ -316,8 +312,8 @@
     - light.kjokkenlys
     - light.stuelys
     - light.hallys
-    - light.bod_1
-    - light.bod_2
+    - light.deconz_bod_1
+    - light.deconz_bod_2
     service: light.turn_off
   mode: single
 - id: '15976657372'
@@ -344,8 +340,8 @@
     - light.gangspot_2
     - light.gangspot_3
     - light.gangspot_4
-    - light.bod_1
-    - light.bod_2
+    - light.deconz_bod_1
+    - light.deconz_bod_2
     service: light.turn_off
   - delay: 00:00:01
   - data:
@@ -465,7 +461,7 @@
   - platform: numeric_state
     entity_id: sensor.vaskemaskin_power
     below: 5
-    for: 00:00:01
+    for: 00:00:20
   condition:
   - condition: state
     entity_id: input_select.washing_machine
@@ -593,7 +589,6 @@
       option: 'Off'
     entity_id: input_select.dish_washer
   mode: single
-######################################
 - id: '7803139396910'
   alias: Notify when washing machine finishes
   trigger:
@@ -609,7 +604,6 @@
     data:
       message: Vaskemaskinen er ferdig!
   mode: single
-##
 - id: '7803102396910'
   alias: Notify when tumble dryer machine finishes
   trigger:
