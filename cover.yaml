@@ -4,11 +4,11 @@
       friendly_name: Garasjeport
       device_class: garage
       close_cover:
-        service: switch.toggle
+        service: switch.turn_on
         data:
           entity_id: switch.zmnhnd1_flush_1d_relay_switch
       open_cover:
-        service: switch.toggle
+        service: switch.turn_on
         data:
           entity_id: switch.zmnhnd1_flush_1d_relay_switch
       value_template: >-
