@@ -1,8 +1,6 @@
 api:
 automation: !include automations.yaml
 binary_sensor: !include binary_sensor.yaml
-browser_mod:
-  prefix: 'browser_mod'
 cloud:
 config:
 cover: !include cover.yaml
@@ -27,10 +25,7 @@ ios: !include ios.yaml
 light: !include light.yaml
 logbook:
 logger:
-  logs:
-    homeassistant.components.songpal: error
-    homeassistant.components.mqtt: error
-    homeassistant.loader: error
+  default: info
 map:
 media_player: !include media_player.yaml
 mobile_app:
