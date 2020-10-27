@@ -442,8 +442,8 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.vaskemaskin_power
-    above: 4
-    for: 00:00:02
+    above: '7'
+    for: 00:00:15
   condition:
   - condition: state
     entity_id: input_select.washing_machine
@@ -460,8 +460,8 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.vaskemaskin_power
-    below: 5
     for: 00:00:20
+    below: '8'
   condition:
   - condition: state
     entity_id: input_select.washing_machine
@@ -493,8 +493,8 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.torketrommel_power
-    above: 40
-    for: 00:00:05
+    above: '100'
+    for: 00:00:20
   condition:
   - condition: state
     entity_id: input_select.dryer
@@ -511,8 +511,8 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.torketrommel_power
-    below: 3
-    for: 00:01:00
+    below: '5'
+    for: 00:00:30
   condition:
   - condition: state
     entity_id: input_select.dryer
@@ -537,57 +537,6 @@
     data:
       option: 'Off'
     entity_id: input_select.dryer
-  mode: single
-- id: '1603114854374'
-  alias: Dishwasher - Running
-  description: Sets the state of the dishwasher to "Running"
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.oppvaskmaskin_effekt
-    above: 4
-    for: 00:00:10
-  condition:
-  - condition: state
-    entity_id: input_select.dish_washer
-    state: 'Off'
-  action:
-  - service: input_select.select_option
-    data:
-      option: Running
-    entity_id: input_select.dish_washer
-  mode: single
-- id: '1653135307133'
-  alias: Dishwasher - Finished
-  description: Setting the state of the dishwasher to Finished
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.oppvaskmaskin_effekt
-    below: 4
-    for: 00:10:00
-  condition:
-  - condition: state
-    entity_id: input_select.dish_washer
-    state: Running
-  action:
-  - service: input_select.select_option
-    data:
-      option: Finished
-    entity_id: input_select.dish_washer
-  mode: single
-- id: '1603135420152'
-  alias: Dishwasher - Off
-  description: Setting the state of the dishwasher to Off
-  trigger:
-  - platform: state
-    entity_id: input_select.dish_washer
-    to: Finished
-    for: 00:00:10
-  condition: []
-  action:
-  - service: input_select.select_option
-    data:
-      option: 'Off'
-    entity_id: input_select.dish_washer
   mode: single
 - id: '7803139396910'
   alias: Notify when washing machine finishes
@@ -618,4 +567,55 @@
   - service: notify.mona
     data:
       message: Tørketrommelen er ferdig!
+  mode: single
+- id: '1603787677901'
+  alias: Dish Washer - Finished
+  description: Setting the state of the dish washer to Finished
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.oppvaskmaskin_effekt
+    for: 00:01:00
+    below: '5'
+  condition:
+  - condition: state
+    entity_id: input_select.dish_washer
+    state: Running
+  action:
+  - service: input_select.select_option
+    data:
+      option: Finished
+    entity_id: input_select.dish_washer
+  mode: single
+- id: '1603787715889'
+  alias: Dish Washer - Off
+  description: Setting the state of the dish washer to Off
+  trigger:
+  - platform: state
+    entity_id: input_select.dish_washer
+    to: Finished
+    for: 00:00:10
+  condition: []
+  action:
+  - service: input_select.select_option
+    data:
+      option: 'Off'
+    entity_id: input_select.dish_washer
+  mode: single
+- id: '1603787767278'
+  alias: Dish Washer - Running
+  description: Sets the state of the dish washer to "Running"
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.oppvaskmaskin_effekt
+    above: '7'
+    for: 00:00:15
+  condition:
+  - condition: state
+    entity_id: input_select.dish_washer
+    state: 'Off'
+  action:
+  - service: input_select.select_option
+    data:
+      option: Running
+    entity_id: input_select.dish_washer
   mode: single
