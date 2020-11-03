@@ -1,0 +1,30 @@
+substitutions:
+  devicename: garage_opener
+  upper_devicename: Garage Opener
+  hardware: Shelly 1
+
+esphome:
+  name: "$devicename"
+  comment: "$upper_devicename - $hardware"
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  reboot_timeout: 10min
+  networks:
+  - ssid: 'IoT2'
+    password: !secret wifi_password
+ota:
+  password: !secret ota_password
+
+logger:
+
+api:
+
+# The relay in the Shelly 1 that will deliver the pulse to
+# the garage door opener (not exposed to HA)
+switch:
+  - platform: gpio
+    pin: GPIO4
+    name: "Garage Door Relay"
+    id: relay

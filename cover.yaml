@@ -1,25 +1,16 @@
 - platform: template
   covers:
     garage_door:
-      friendly_name: Garasjeport
       device_class: garage
-      close_cover:
-        service: switch.turn_on
-        data:
-          entity_id: switch.zmnhnd1_flush_1d_relay_switch
+      friendly_name: "Garage Door"
       open_cover:
-        service: switch.turn_on
-        data:
-          entity_id: switch.zmnhnd1_flush_1d_relay_switch
-      value_template: >-
-        {% if is_state('binary_sensor.fgk10x_door_opening_sensor_access_control_door_window_open', 'on') %}
-          Open
-        {% else %}
-          Closed
-        {% endif %}
+        service: script.garage_door_trigger
+      close_cover:
+        service: script.garage_door_trigger
       icon_template: >-
-        {% if is_state('binary_sensor.fgk10x_door_opening_sensor_access_control_door_window_open', 'on') %}
-          mdi:garage-open
+        {% if is_state('binary_sensor.fgk10x_door_opening_sensor_sensor', 'off')%}
+        mdi:garage-open
         {% else %}
-          mdi:garage
+        mdi:garage
         {% endif %}
+      value_template: "{{ is_state('binary_sensor.fgk10x_door_opening_sensor_sensor', 'on') }}"

@@ -1,1 +1,17 @@
-{}
+garage_door_trigger:
+  alias: Garage Door Trigger
+  icon: "mdi:party-popper"
+  description: 'Turns on the switch that starts/stops the garage door motor. Turns it off again after 1 second'
+  # If called again while still running (probably in delay step), start over.
+  mode: single
+  sequence:
+    # This is Home Assistant Script Syntax
+    - service: switch.turn_on
+      data:
+        entity_id: switch.garage_door_relay
+    - delay:
+        # supports seconds, milliseconds, minutes, hours
+        seconds: 1
+    - service: switch.turn_off
+      data:
+        entity_id: switch.garage_door_relay
