@@ -11,5 +11,5 @@ gte_daily_odometer:
   source: sensor.passat_gte_odometer_2
   cycle: daily
 varmekabler_barnerom_daily:
-  source: sensor.heatit_thermostat_tf_058_electric_kwh
+  source: sensor.varmekabler_barnerom_til_kw
   cycle: daily
