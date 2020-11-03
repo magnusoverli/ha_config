@@ -1,54 +1,54 @@
 - platform: group
   name: Kjøkkenlys
   entities:
-    - light.deconz_kjokken_1
-    - light.deconz_kjokken_2
-    - light.deconz_kjokken_3
-    - light.deconz_ventilator_1
-    - light.deconz_ventilator_2
+    - light.kjokken_spot_1
+    - light.kjokken_spot_2
+    - light.kjokken_spot_3
+    - light.ventilator_1
+    - light.ventilator_2
     - light.benkelys
     - light.zmnhhdx_mini_dimmer_level
 - platform: group
   name: Hallys
   entities:
-    - light.hall_lampett
+    - light.lampett_1
+    - light.lampett_2
     - light.hall_spot_1
     - light.hall_spot_2
     - light.hall_spot_3
-    - light.gangspot_1
-    - light.gangspot_2
-    - light.gangspot_3
-    - light.gangspot_4
-    - light.gang_lampett
-    - light.gang_taklampe
+    - light.skogang_1
+    - light.skogang_2
+    - light.skogang_3
+    - light.gangspot
+    - light.entre
 - platform: group
   name: Stuelys
   entities:
-    - light.stue_sofabord
-    - light.deconz_stue_1
-    - light.deconz_stue_2
-    - light.deconz_stue_3
-    - light.deconz_stue_4
+    - light.stue_1
+    - light.stue_2
+    - light.stue_3
+    - light.stue_4
+
 - platform: group
   name: Badelys
   entities:
     - light.bad_speil
-    - light.bad_spot_1
-    - light.bad_spot_2
-    - light.bad_spot_3
-    - light.bad_spot_4
-    - light.bad_spot_5
+    - light.bad_1
+    - light.bad_2
+    - light.bad_3
+    - light.bad_4
+    - light.bad_5
 - platform: group
   name: Soveromlys
   entities:
-    - light.soverom_spot_1
-    - light.soverom_spot_2
-    - light.soverom_spot_3
+    - light.soverom_1
+    - light.soverom_2
+    - light.soverom_3
 - platform: group
   name: Bodlys
   entities:
-    - light.deconz_bod_1
-    - light.deconz_bod_2
+    - light.bod_1
+    - light.bod_2
 - platform: group
   name: Utelys
   entities:

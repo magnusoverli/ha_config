@@ -3,7 +3,7 @@
   description: ''
   trigger:
   - platform: state
-    entity_id: light.deconz_kjokken_1
+    entity_id: light.kjokken_spot_1
     to: 'on'
   condition: []
   action:
@@ -24,7 +24,7 @@
   description: ''
   trigger:
   - platform: state
-    entity_id: light.deconz_kjokken_1
+    entity_id: light.kjokken_spot_1
     to: 'off'
   condition: []
   action:
@@ -97,7 +97,7 @@
 - id: '9271295359204'
   alias: Kjøkkenspot dimmer follow
   trigger:
-  - entity_id: light.deconz_kjokken_1
+  - entity_id: light.kjokken_spot_1
     platform: state
   action:
   - data_template:
@@ -149,7 +149,7 @@
   action:
   - service: light.turn_on
     data_template:
-      entity_id: light.hall_spot_3
+      entity_id: light.hall_spot_1
       brightness: "{% set new_level = trigger.to_state.attributes.brightness|int %}\
         \ {% if 0 < new_level < 10 %}\n  11\n{% elif 250 < new_level < 256 %}\n  256\n\
         {% else %}\n  {{ new_level }}\n{% endif %}"
@@ -157,7 +157,7 @@
   alias: Hallys follow entre off
   description: ''
   trigger:
-  - entity_id: light.entrelys
+  - entity_id: light.entre
     from: 'on'
     platform: state
     to: 'off'
@@ -165,7 +165,7 @@
   action:
   - device_id: 13d43b5cb130408b9d30a1236be8009a
     domain: light
-    entity_id: light.hall_spot_3
+    entity_id: light.hall_spot_1
     type: turn_off
 - id: '1585671607161'
   alias: Pinky Pie Turn on charging
@@ -232,14 +232,14 @@
   trigger:
   - device_id: 391e75dcf20e40b881fb9a0a7f7b9a2d
     domain: light
-    entity_id: light.gangspot_1
+    entity_id: light.entre
     platform: device
     type: turned_on
   condition: []
   action:
   - device_id: 4a81fe2588a44c5fb6d548cf11471cc7
     domain: light
-    entity_id: light.gangspot_4
+    entity_id: light.gangspot
     type: turn_on
   mode: single
 - id: '1589619816992'
@@ -248,13 +248,13 @@
   trigger:
   - device_id: 391e75dcf20e40b881fb9a0a7f7b9a2d
     domain: light
-    entity_id: light.gangspot_1
+    entity_id: light.entre
     platform: device
     type: turned_off
   condition: []
   action:
   - data:
-      entity_id: light.gangspot_4
+      entity_id: light.gangspot
     service: light.turn_off
   mode: single
 - id: '1590345427429'
@@ -280,7 +280,7 @@
   trigger:
   - device_id: ed82ab487127432da58fe62e30e45d03
     domain: light
-    entity_id: light.bad_spot_1
+    entity_id: light.bad_1
     platform: device
     type: turned_on
   condition:
@@ -312,8 +312,7 @@
     - light.kjokkenlys
     - light.stuelys
     - light.hallys
-    - light.deconz_bod_1
-    - light.deconz_bod_2
+    - light.bodlys
     service: light.turn_off
   mode: single
 - id: '15976657372'
@@ -331,24 +330,23 @@
     - light.badelys
     - light.kjokkenlys
     - light.stuelys
-    - light.hall_lampett
+    - light.lampett_1
     - light.hall_spot_1
     - light.hall_spot_2
     - light.hall_spot_3
-    - light.gang_lampett
-    - light.gangspot_1
-    - light.gangspot_2
-    - light.gangspot_3
-    - light.gangspot_4
-    - light.deconz_bod_1
-    - light.deconz_bod_2
+    - light.lampett_2
+    - light.skogang_1
+    - light.skogang_2
+    - light.skogang_3
+    - light.bodlys
+    - light.gangspot
     service: light.turn_off
   - delay: 00:00:01
   - data:
       transition: 2
       brightness_pct: 5
       color_temp: 350
-    entity_id: light.gang_taklampe
+    entity_id: light.entre
     service: light.turn_on
   mode: single
 - id: '1600627996392'
@@ -356,13 +354,13 @@
   description: ''
   trigger:
   - platform: numeric_state
-    entity_id: light.stue_spot_1
+    entity_id: light.stue_1
     attribute: brightness
     below: 10
   - platform: device
     type: turned_off
     device_id: e93a7ce237ba41108d619cdaaabc4812
-    entity_id: light.stue_spot_1
+    entity_id: light.stue_1
     domain: light
   condition: []
   action:
@@ -375,13 +373,13 @@
   description: ''
   trigger:
   - platform: numeric_state
-    entity_id: light.stue_spot_1
+    entity_id: light.stue_1
     attribute: brightness
     above: 15
   - platform: device
     type: turned_on
     device_id: e93a7ce237ba41108d619cdaaabc4812
-    entity_id: light.stue_spot_1
+    entity_id: light.stue_1
     domain: light
   condition: []
   action:
@@ -392,7 +390,7 @@
 - id: '1771295359204'
   alias: Soveromspot dimmer follow
   trigger:
-  - entity_id: light.soverom_spot_1
+  - entity_id: light.soverom_1
     platform: state
   action:
   - data_template:
@@ -410,7 +408,7 @@
   - platform: device
     type: turned_off
     device_id: f15480ef0be511ebb84479f1ca5ada15
-    entity_id: light.soverom_spot_1
+    entity_id: light.soverom_1
     domain: light
   condition: []
   action:
@@ -426,7 +424,7 @@
   - platform: device
     type: turned_on
     device_id: f15480ef0be511ebb84479f1ca5ada15
-    entity_id: light.soverom_spot_1
+    entity_id: light.soverom_1
     domain: light
   condition: []
   action:
