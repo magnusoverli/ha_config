@@ -52,10 +52,10 @@
 - platform: group
   name: Utelys
   entities:
-    - light.trapp_1
-    - light.trapp_2
-    - light.garasje_forran
-    - light.garasje_side
+    - light.ute_1
+    - light.ute_2
+    - light.garage_1
+    - light.garage_2
 - platform: template
   lights:
     plantelys:
@@ -69,8 +69,14 @@
       value_template: >-
         {% if is_state('switch.zw139_nano_switch_switch', 'on') %}
           on
-        {% elif is_state('switch.zw139_nano_switch_switch', 'off') %}
-          off
         {% else %}
-          unknown
+          off
         {% endif %}
+    julestjerne:
+      friendly_name: "Julestjerne"
+      turn_on:
+        service: switch.turn_on
+        entity_id: "switch.zw096_smart_switch_6_switch"
+      turn_off:
+        service: switch.turn_off
+        entity_id: "switch.zw096_smart_switch_6_switch"
