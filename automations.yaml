@@ -7,6 +7,8 @@
     to: 'on'
   condition: []
   action:
+  - service: light.turn_on
+    entity_id: light.julestjerne
   - device_id: 67675efd53a74c9795e1c5f667db2c68
     domain: light
     entity_id: light.benkelys
@@ -15,7 +17,7 @@
       brightness: "{% set new_level = trigger.to_state.attributes.brightness|int %}\
         \ {% if 0 < new_level < 55 %}\n  65\n{% elif 200 < new_level < 256 %}\n  160\n\
         {% else %}\n  {{ new_level }}\n{% endif %}"
-    entity_id: light.zmnhhdx_mini_dimmer_level
+    entity_id: light.multilevel_power_switch_level
     service: light.turn_on
   mode: parallel
   max: 10
@@ -28,13 +30,15 @@
     to: 'off'
   condition: []
   action:
+  - service: light.turn_off
+    entity_id: light.julestjerne
   - device_id: 67675efd53a74c9795e1c5f667db2c68
     domain: light
     entity_id: light.benkelys
     type: turn_off
   - device_id: 30d08d4c4a154e94852fa7d6d643bd35
     domain: light
-    entity_id: light.zmnhhdx_mini_dimmer_level
+    entity_id: light.multilevel_power_switch_level
     type: turn_off
   mode: parallel
   max: 10
@@ -47,26 +51,10 @@
     platform: sun
   condition: []
   action:
-  - type: turn_on
-    device_id: 4014de3158de47e0b81d1d382d3e4e89
-    entity_id: light.trapp_1
-    domain: light
-    brightness_pct: 90
-  - type: turn_on
-    device_id: 1ad92334644e4834a17d8aa0adff913b
-    entity_id: light.trapp_2
-    domain: light
-    brightness_pct: 90
-  - type: turn_on
-    device_id: 737439b3fb3e11eab9f9775f85fbdfe0
-    entity_id: light.garasje_forran
-    domain: light
-    brightness_pct: 90
-  - type: turn_on
-    device_id: 73745538fb3e11eaa421395a6c6c39d6
-    entity_id: light.garasje_side
-    domain: light
-    brightness_pct: 90
+  - service: light.turn_on
+    data:
+      brightness: 220
+    entity_id: light.ute
   mode: single
 - id: '1575295359193'
   alias: Utelys av
@@ -77,22 +65,9 @@
     platform: sun
   condition: []
   action:
-  - type: turn_off
-    device_id: 4014de3158de47e0b81d1d382d3e4e89
-    entity_id: light.trapp_1
-    domain: light
-  - type: turn_off
-    device_id: 1ad92334644e4834a17d8aa0adff913b
-    entity_id: light.trapp_2
-    domain: light
-  - type: turn_off
-    device_id: 737439b3fb3e11eab9f9775f85fbdfe0
-    entity_id: light.garasje_forran
-    domain: light
-  - type: turn_off
-    device_id: 73745538fb3e11eaa421395a6c6c39d6
-    entity_id: light.garasje_side
-    domain: light
+  - service: light.turn_off
+    data: {}
+    entity_id: light.ute
   mode: single
 - id: '9271295359204'
   alias: Kjøkkenspot dimmer follow
@@ -104,7 +79,7 @@
       brightness: "{% set new_level = trigger.to_state.attributes.brightness|int %}\
         \ {% if 0 < new_level < 55 %}\n  65\n{% elif 200 < new_level < 256 %}\n  160\n\
         {% else %}\n  {{ new_level }}\n{% endif %}"
-      entity_id: light.zmnhhdx_mini_dimmer_level
+      entity_id: light.multilevel_power_switch_level
     service: light.turn_on
   mode: restart
   max: 10
@@ -300,7 +275,7 @@
   description: Turns of the house
   trigger:
   - event_data:
-      node_id: 14
+      node_id: 15
       scene_id: 2
     event_type: ozw.scene_activated
     platform: event
@@ -313,6 +288,7 @@
     - light.stuelys
     - light.hallys
     - light.bodlys
+    - light.julestjerne
     service: light.turn_off
   mode: single
 - id: '15976657372'
@@ -320,7 +296,7 @@
   description: Activates night mode for the entire house
   trigger:
   - event_data:
-      node_id: 14
+      node_id: 15
       scene_id: 1
     event_type: ozw.scene_activated
     platform: event
@@ -340,6 +316,7 @@
     - light.skogang_3
     - light.bodlys
     - light.gangspot
+    - light.julestjerne
     service: light.turn_off
   - delay: 00:00:01
   - data:
@@ -440,7 +417,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.vaskemaskin_power
-    above: '7'
+    above: 7
     for: 00:00:15
   condition:
   - condition: state
@@ -459,7 +436,7 @@
   - platform: numeric_state
     entity_id: sensor.vaskemaskin_power
     for: 00:00:20
-    below: '8'
+    below: 8
   condition:
   - condition: state
     entity_id: input_select.washing_machine
@@ -491,7 +468,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.torketrommel_power
-    above: '100'
+    above: 100
     for: 00:00:20
   condition:
   - condition: state
@@ -509,7 +486,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.torketrommel_power
-    below: '5'
+    below: 5
     for: 00:00:30
   condition:
   - condition: state
@@ -544,10 +521,10 @@
     to: Finished
   condition: []
   action:
-  - service: notify.magnus
+  - service: notify.mobile_app_magnuss_iphone
     data:
       message: Vaskemaskinen er ferdig!
-  - service: notify.mona
+  - service: notify.mobile_app_monas_iphone
     data:
       message: Vaskemaskinen er ferdig!
   mode: single
@@ -559,10 +536,10 @@
     to: Finished
   condition: []
   action:
-  - service: notify.magnus
+  - service: notify.mobile_app_magnuss_iphone
     data:
       message: Tørketrommelen er ferdig!
-  - service: notify.mona
+  - service: notify.mobile_app_monas_iphone
     data:
       message: Tørketrommelen er ferdig!
   mode: single
@@ -573,7 +550,7 @@
   - platform: numeric_state
     entity_id: sensor.oppvaskmaskin_effekt
     for: 00:01:00
-    below: '5'
+    below: 5
   condition:
   - condition: state
     entity_id: input_select.dish_washer
@@ -605,7 +582,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.oppvaskmaskin_effekt
-    above: '7'
+    above: 7
     for: 00:00:15
   condition:
   - condition: state
@@ -616,4 +593,59 @@
     data:
       option: Running
     entity_id: input_select.dish_washer
+  mode: single
+- id: '2497665127372'
+  alias: Komme hjem
+  description: Turns on hallys, kjøkken and stue
+  trigger:
+  - event_data:
+      node_id: 15
+      scene_id: 3
+    event_type: ozw.scene_activated
+    platform: event
+  condition: []
+  action:
+  - data: {}
+    entity_id:
+    - light.kjokkenlys
+    - light.stuelys
+    - light.hallys
+    - light.bodlys
+    - light.julestjerne
+    service: light.turn_on
+  mode: single
+- id: '2497665937372'
+  alias: Toggle utelys
+  description: Turns on/off utelys
+  trigger:
+  - event_data:
+      node_id: 15
+      scene_id: 4
+    event_type: ozw.scene_activated
+    platform: event
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    entity_id: light.utelys
+  - delay:
+      seconds: 2
+  mode: single
+- id: '1606207303612'
+  alias: Notify if garage door is open at night
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition:
+  - condition: state
+    entity_id: cover.garage_door
+    state: open
+  action:
+  - service: notify.mobile_app_magnuss_iphone
+    data:
+      message: Garasjedøren er åpen
+  - service: notify.mobile_app_monas_iphone
+    data:
+      message: Garasjedøren er åpen
   mode: single
