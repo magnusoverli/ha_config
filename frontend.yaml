@@ -1,0 +1,3 @@
+themes:
+  default:
+    --banner-card-heading-size: 3

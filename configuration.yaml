@@ -8,7 +8,7 @@ default_config:
 discovery:
 duckdns: !include duckdns.yaml
 esphome_tag:
-frontend:
+frontend: !include frontend.yaml
 google:
   client_id: !secret google_id
   client_secret: !secret google_secret
