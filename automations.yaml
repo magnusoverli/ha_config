@@ -389,8 +389,9 @@
     domain: light
   condition: []
   action:
-  - type: turn_off
-    device_id: 3d9b445f0d7311eb9565438a9471256d
+  - type: turn_on
+    brightness_pct: 0
+    device_id: c71d74dcb3f2c39b479554fc9e834d2f
     entity_id: light.led_dimmer_z_wave_200w_level
     domain: light
   mode: single
@@ -529,7 +530,7 @@
       message: Vaskemaskinen er ferdig!
   mode: single
 - id: '7803102396910'
-  alias: Notify when tumble dryer machine finishes
+  alias: Notify when tumble dryer finishes
   trigger:
   - platform: state
     entity_id: input_select.dryer
