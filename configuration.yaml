@@ -1,5 +1,10 @@
 api:
 automation: !include automations.yaml
+homeassistant:
+  auth_providers:
+    - type: homeassistant
+    - type: legacy_api_password
+      api_password: !secret http_password
 binary_sensor: !include binary_sensor.yaml
 cloud:
 config:
