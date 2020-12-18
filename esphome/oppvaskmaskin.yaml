@@ -17,7 +17,7 @@ wifi:
 logger:
 
 api:
-  password: !secret api_password
+  password: !secret api-password
   reboot_timeout: 0s
 ota:
   password: !secret ota_password
