@@ -7,18 +7,13 @@
     to: 'on'
   condition: []
   action:
-  - service: light.turn_on
-    entity_id: light.julestjerne
   - device_id: 67675efd53a74c9795e1c5f667db2c68
     domain: light
     entity_id: light.benkelys
     type: turn_on
-  - data_template:
-      brightness: "{% set new_level = trigger.to_state.attributes.brightness|int %}\
-        \ {% if 0 < new_level < 55 %}\n  65\n{% elif 200 < new_level < 256 %}\n  160\n\
-        {% else %}\n  {{ new_level }}\n{% endif %}"
-    entity_id: light.multilevel_power_switch_level
-    service: light.turn_on
+  - service: light.turn_on
+    data: {}
+    entity_id: light.nodeid_5_dimmer
   mode: parallel
   max: 10
 - id: '1574633914308'
@@ -30,16 +25,13 @@
     to: 'off'
   condition: []
   action:
-  - service: light.turn_off
-    entity_id: light.julestjerne
   - device_id: 67675efd53a74c9795e1c5f667db2c68
     domain: light
     entity_id: light.benkelys
     type: turn_off
-  - device_id: 30d08d4c4a154e94852fa7d6d643bd35
-    domain: light
-    entity_id: light.multilevel_power_switch_level
-    type: turn_off
+  - service: light.turn_off
+    data: {}
+    entity_id: light.nodeid_5_dimmer
   mode: parallel
   max: 10
 - id: '1575295351793'
@@ -79,7 +71,7 @@
       brightness: "{% set new_level = trigger.to_state.attributes.brightness|int %}\
         \ {% if 0 < new_level < 55 %}\n  65\n{% elif 200 < new_level < 256 %}\n  160\n\
         {% else %}\n  {{ new_level }}\n{% endif %}"
-      entity_id: light.multilevel_power_switch_level
+      entity_id: light.nodeid_5_dimmer
     service: light.turn_on
   mode: restart
   max: 10
@@ -274,11 +266,9 @@
   alias: Gå for dagen
   description: Turns of the house
   trigger:
-  - event_data:
-      node_id: 15
-      scene_id: 2
-    event_type: ozw.scene_activated
-    platform: event
+  - platform: state
+    entity_id: sensor.nodeid_19_scene_state_scene_002
+    to: '0'
   condition: []
   action:
   - data: {}
@@ -295,11 +285,9 @@
   alias: God natt
   description: Activates night mode for the entire house
   trigger:
-  - event_data:
-      node_id: 15
-      scene_id: 1
-    event_type: ozw.scene_activated
-    platform: event
+  - platform: state
+    entity_id: sensor.nodeid_19_scene_state_scene_001
+    to: '0'
   condition: []
   action:
   - entity_id:
@@ -333,17 +321,17 @@
   - platform: numeric_state
     entity_id: light.stue_1
     attribute: brightness
-    below: 10
+    below: '10'
   - platform: device
     type: turned_off
-    device_id: e93a7ce237ba41108d619cdaaabc4812
+    device_id: 155eaf625345e48eb6ba55741fdea6e0
     entity_id: light.stue_1
     domain: light
   condition: []
   action:
-  - service: light.turn_off
+  - service: switch.turn_off
     data: {}
-    entity_id: light.plantelys
+    entity_id: switch.nodeid_16_switch
   mode: single
 - id: '1600628030454'
   alias: Plantelampe på
@@ -352,66 +340,33 @@
   - platform: numeric_state
     entity_id: light.stue_1
     attribute: brightness
-    above: 15
-  - platform: device
-    type: turned_on
-    device_id: e93a7ce237ba41108d619cdaaabc4812
+    above: '15'
+  - platform: state
     entity_id: light.stue_1
-    domain: light
+    to: 'on'
   condition: []
   action:
-  - service: light.turn_on
+  - service: switch.turn_on
     data: {}
-    entity_id: light.plantelys
+    entity_id: switch.nodeid_16_switch
   mode: single
 - id: '1771295359204'
   alias: Soveromspot dimmer follow
   trigger:
-  - entity_id: light.soverom_1
+  - entity_id: light.nodeid_13_dimmer
     platform: state
   action:
   - data_template:
       brightness: "{% set new_level = trigger.to_state.attributes.brightness|int %}\
-        \ {% if 0 < new_level < 15 %}\n  65\n{% elif 200 < new_level < 256 %}\n  250\n\
+        \ {% if 0 < new_level < 15 %}\n  15\n{% elif 230 < new_level < 256 %}\n  255\n\
         {% else %}\n  {{ new_level }}\n{% endif %}"
-      entity_id: light.led_dimmer_z_wave_200w_level
+      entity_id:
+      - light.soverom_1
+      - light.soverom_2
+      - light.soverom_3
     service: light.turn_on
   mode: parallel
   max: 10
-- id: '1602608287033'
-  alias: Soveromspot AV
-  description: ''
-  trigger:
-  - platform: device
-    type: turned_off
-    device_id: f15480ef0be511ebb84479f1ca5ada15
-    entity_id: light.soverom_1
-    domain: light
-  condition: []
-  action:
-  - type: turn_on
-    brightness_pct: 0
-    device_id: c71d74dcb3f2c39b479554fc9e834d2f
-    entity_id: light.led_dimmer_z_wave_200w_level
-    domain: light
-  mode: single
-- id: '1602608326926'
-  alias: Soveromspot PÅ
-  description: ''
-  trigger:
-  - platform: device
-    type: turned_on
-    device_id: f15480ef0be511ebb84479f1ca5ada15
-    entity_id: light.soverom_1
-    domain: light
-  condition: []
-  action:
-  - type: turn_on
-    device_id: 3d9b445f0d7311eb9565438a9471256d
-    entity_id: light.led_dimmer_z_wave_200w_level
-    domain: light
-    brightness_pct: 10
-  mode: single
 - id: '1603134854373'
   alias: Washing Machine - Running
   description: Sets the state of the washing machine to "Running"
@@ -599,11 +554,9 @@
   alias: Komme hjem
   description: Turns on hallys, kjøkken and stue
   trigger:
-  - event_data:
-      node_id: 15
-      scene_id: 3
-    event_type: ozw.scene_activated
-    platform: event
+  - platform: state
+    entity_id: sensor.nodeid_19_scene_state_scene_003
+    to: '0'
   condition: []
   action:
   - data: {}
@@ -619,18 +572,19 @@
   alias: Toggle utelys
   description: Turns on/off utelys
   trigger:
-  - event_data:
-      node_id: 15
-      scene_id: 4
-    event_type: ozw.scene_activated
-    platform: event
+  - platform: state
+    entity_id: sensor.nodeid_19_scene_state_scene_004
+    to: '0'
   condition: []
   action:
   - service: light.toggle
     data: {}
     entity_id: light.utelys
   - delay:
-      seconds: 2
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
   mode: single
 - id: '1606207303612'
   alias: Notify if garage door is open at night
@@ -650,3 +604,113 @@
     data:
       message: Garasjedøren er åpen
   mode: single
+- id: '1608663057415'
+  alias: WLED Barnerom Nattlys
+  description: ''
+  trigger:
+  - platform: time
+    at: '20:30:00'
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 50
+      rgb_color:
+      - 255
+      - 0
+      - 0
+    entity_id: light.wled
+  mode: single
+- id: '1608663105878'
+  alias: WLED Barnerom Daglys
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:45:00
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 50
+      rgb_color:
+      - 0
+      - 255
+      - 0
+    entity_id: light.wled
+  mode: single
+- id: '1610651257787'
+  alias: Qr-trigger
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: qrtrigger
+  condition: []
+  action:
+  - type: toggle
+    device_id: 155eaf625345e48eb6ba55741fdea6e0
+    entity_id: light.stue_1
+    domain: light
+  mode: parallel
+  max: 3
+- id: '1611923078479'
+  alias: Soverom Spot På
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: b091a0544958087832f265abbdc8e86b
+    entity_id: light.nodeid_13_dimmer
+    domain: light
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 5a5669862b41ec5d4d9ed951cd414795
+    entity_id: light.soverom
+    domain: light
+    flash: short
+  mode: single
+- id: '1611923108944'
+  alias: Soveromspot AV
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_off
+    device_id: b091a0544958087832f265abbdc8e86b
+    entity_id: light.nodeid_13_dimmer
+    domain: light
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 5a5669862b41ec5d4d9ed951cd414795
+    entity_id: light.soverom
+    domain: light
+  mode: single
+- id: '1612172591918'
+  alias: Mi Magic Cube
+  description: ''
+  use_blueprint:
+    path: bergstrom/mi-magic-cube-deconz-45-actions.yaml
+    input:
+      remote: a0708f12d6ad5f98951a9e96f24ffaee
+      rotate_clockwise:
+      - type: brightness_increase
+        device_id: 5879cc0c662159459d31a8016eefaf48
+        entity_id: light.stue
+        domain: light
+      rotate_counter_clockwise:
+      - type: brightness_decrease
+        device_id: 5879cc0c662159459d31a8016eefaf48
+        entity_id: light.stue
+        domain: light
+      one_to_one: []
+      two_to_two: []
+      double_tap_any_side: true
+      cube_double_tap_any:
+      - type: toggle
+        device_id: 5879cc0c662159459d31a8016eefaf48
+        entity_id: light.stue
+        domain: light
+      cube_shake:
+      - service: automation.trigger
+        data: {}
+        entity_id: automation.god_natt
